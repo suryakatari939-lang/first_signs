@@ -147,3 +147,8 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Obsidian per-user state (vault/ is shared; keep these local)
+vault/.obsidian/workspace*.json
+vault/.obsidian/cache
+vault/.trash/
