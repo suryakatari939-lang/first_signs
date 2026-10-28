@@ -1,0 +1,51 @@
+---
+type: reference
+tags: [files, reference]
+---
+# File Map
+
+Repo root (`~32 MB`, almost all of it `vendor/`):
+
+| Path | Lines/size | What it is |
+|---|---|---|
+| `README.md` | — | Intro, run instructions, how the coach works, file list |
+| `index.html` | 29 | Shell: `<main id="app">`, bottom tab nav (Today / Routines / Practice / Progress) with inline SVG icons, script tags |
+| `styles.css` | 203 | [[Design System]] — tokens, components, camera styles |
+| `js/signs.js` | 138 | Content + `CHECKS` ([[Routines and Signs Overview]], [[CHECKS Format]]) |
+| `js/app.js` | 354 | State, views, router |
+| `js/camera.js` | 307 | `Coach` module ([[Camera Coach Overview]]) |
+| `start-mac.command` | 4 | `cd` to folder, open browser after 1s, `python3 -m http.server 8000` |
+| `start-windows.bat` | 7 | Opens browser, uses `py`, else `python`, else `npx --yes serve -l 8000 .` |
+| `vendor/holistic/` | ~32 MB | [[MediaPipe Holistic Vendor Bundle]] |
+| `.gitignore` | — | Generic Node template (no relevant rules) |
+
+## `js/app.js` function index
+| Lines | Symbol | Purpose |
+|---|---|---|
+| 1–25 | `KEY`, `DAY`, `INTERVALS`, `load`, `save`, `dayKey`, `sampleState`, `S` | storage + sample data ([[Data Model and Storage]]) |
+| 27–45 | `$`, `esc`, `byId`, `card`, `isKnown`, `isDue`, `videoUrl`, `shuffle`, `streak`, `markDay`, `toast` | helpers |
+| 48–61 | `todaysSet`, `rate`, `learn` | [[Spaced Repetition]] |
+| 64–73 | `brand`, `sampleBanner` | shared header + example-progress banner |
+| 75 | `viewToday` | [[Today Screen]] |
+| 112 | `routineGrid` | shared by Today and Routines |
+| 122 / 128 | `viewRoutines` / `viewRoutine` | [[Routines Screen]] / [[Routine Detail Screen]] |
+| 139 | `signCard` | one sign article |
+| 155–203 | `P`, `startPractice`, `viewPractice` | [[Practice Screen]] |
+| 206–278 | `CAM_HELP`, `viewCamera`, `mountCamera`, `recordSign` | [[Camera Coach Screen]] |
+| 280 | `viewProgress` | [[Progress Screen]] |
+| 311–354 | `app`, `route`, `go`, click handler, `hashchange` | [[Router and Events]] |
+
+## `js/camera.js` function index
+| Lines | Symbol | Purpose |
+|---|---|---|
+| 7–27 | landmark index arrays, `HAND_LINKS`, `SHAPE_NAMES`, `SHAPE_ORDER`, `ZONE_NAMES`, `MOVE_HINTS` | constants |
+| 33–39 | `whyNot`, `supported` | environment check |
+| 42–50 | `sub`, `dist`, `dist2`, `mean`, `angle`, `toPx` | geometry |
+| 53 | `readBody` | face/pose → mouth, chin, forehead, cheeks, face width F, box, shoulders ([[Zones and Body Landmarks]]) |
+| 82 / 98 | `inZone` / `whereIs` | zone tests |
+| 107 | `readHand` | 21 points → shapes, openness, roll, reference points ([[Handshape Detection]]) |
+| 148 / 163 / 186 | `onResults`, `draw`, `pump` | per-frame loop |
+| 195 / 214 / 220 | `start`, `stop`, `record` | lifecycle |
+| 226–265 | `reversals`, `range`, `avg`, `ends`, `movement` | [[Movement Detection]] |
+| 268 | `evaluate` | [[Evaluation and Scoring]] |
+| 306 | public API | `{supported, whyNot, start, stop, record, evaluate, setTarget, SHAPE_NAMES, ZONE_NAMES, MOVE_HINTS, _readHand}` |
