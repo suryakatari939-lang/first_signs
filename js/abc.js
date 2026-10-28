@@ -53,7 +53,10 @@ function abcCardHtml(x) {
     </div></article>`;
 }
 const abcBack = `<button class="back" data-go="abc">← Letters &amp; numbers</button>`;
-const handNote = `<p class="note">Instructions are for a right-handed signer, palm facing the person you are signing to. If you are left-handed, mirror them.</p>`;
+const handNote = `<p class="note">Instructions are for a right-handed signer. The palm faces the person you are signing to, except G and H (turned sideways) and P and Q (pointing down). If you are left-handed, mirror them.</p>`;
+const sourcesPanel = () => `<details class="howto panel"><summary>Where these descriptions come from</summary>
+  <p class="note">Written in our own words from these published guides and checked against each other. Guides differ in small ways, so use "Watch it signed" and learn with Deaf adults whenever you can.</p>
+  <ul class="tips">${ABC_SOURCES.map(x => `<li><a href="${x.url}" target="_blank" rel="noopener">${esc(x.name)}</a></li>`).join("")}</ul></details>`;
 
 function viewAbc(sub) {
   if (sub === "letters") return abcLetters();
@@ -86,6 +89,7 @@ function abcLetters() {
   ${ABC_GROUPS.map(g => `<section class="stack" aria-labelledby="g-${g.id}">
     <h2 id="g-${g.id}">${esc(g.name)}</h2><p class="muted">${esc(g.tip)}</p>
     <div class="signlist">${LETTERS.filter(l => l.g === g.id).map(abcCardHtml).join("")}</div></section>`).join("")}
+  ${sourcesPanel()}
   <section class="panel"><h2>Ready to use them?</h2><p class="muted">Letters are for names and new words. Try spelling your child's name.</p>
   <div class="row"><button class="btn sun" data-go="abc.spell">Spell a word</button><button class="btn ghost" data-abc="start">Practice letters</button></div></section>`;
 }
@@ -94,6 +98,7 @@ function abcNumbers() {
   return `${abcBack}
   <div class="stack"><h1>Numbers 1 to 10</h1><p class="muted">${esc(NUMBER_TIP)}</p>${handNote}</div>
   <div class="signlist">${NUMBERS.map(abcCardHtml).join("")}</div>
+  ${sourcesPanel()}
   <div class="row"><button class="btn ghost" data-abc="start" data-val="numbers">Practice numbers</button></div>`;
 }
 
@@ -128,7 +133,8 @@ function abcSpell() {
   </form>
   <div class="stack"><span class="eyebrow">Or try one</span><div class="chips">${SPELL_WORDS.map(x => `<button class="chip" data-abc="word" data-val="${x}">${x}</button>`).join("")}</div></div>
   ${stepper}
-  <section class="panel"><h2>Fingerspelling tips</h2><ul class="tips">${SPELL_TIPS.map(t => `<li>${esc(t)}</li>`).join("")}</ul>${handNote}</section>`;
+  <section class="panel"><h2>Fingerspelling tips</h2><ul class="tips">${SPELL_TIPS.map(t => `<li>${esc(t)}</li>`).join("")}</ul>${handNote}</section>
+  ${sourcesPanel()}`;
 }
 
 /* Practice: same two modes as signs. Session AP (ABC practice) is in memory only. */

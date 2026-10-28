@@ -15,6 +15,8 @@ The 5th tab ("Aa" icon, between Routines and Practice). Teaches the ASL alphabet
 | `#abc.spell` | `abcSpell()` | type a word/name → tiles + one-letter-at-a-time stepper; suggested words; 5 fingerspelling tips |
 | `#abc.practice` | `abcPractice()` | Letters / Numbers scope switch + Try it yourself / Read & pick, same flow as [[Practice Screen]] |
 
+Letters, numbers and spell pages end with a collapsible **"Where these descriptions come from"** panel (`sourcesPanel()`, a function because it calls `esc` at render time) listing the 11 `ABC_SOURCES` links. Evidence per item: [[Alphabet Sources and Verification]].
+
 Each card (`abcCardHtml`) = big character, New/Learning/Known pill, Hand (+ Move for J, Z, 10), "Remember it" hook, **Add to my practice**, and a Signing Savvy search link (`abcVideo`: letter, or number word like "seven").
 
 ## Spell a word
