@@ -1,6 +1,7 @@
 # First Signs
 
-TSA Software Development entry by Surya and Anish.
+Our TSA Software Development entry.
+
 
 A bite-sized ASL app for hearing parents of deaf children. It teaches 42 everyday signs grouped
 by daily routine (mealtime, bath and bedtime, feelings, family, play, safety), with spaced
