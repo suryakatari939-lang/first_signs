@@ -2,7 +2,6 @@
 
 Our TSA Software Development entry.
 
-
 A bite-sized ASL app for hearing parents of deaf children. It teaches 42 everyday signs grouped
 by daily routine (mealtime, bath and bedtime, feelings, family, play, safety), with spaced
 practice, a daily "use it with your child" goal, and a camera coach that checks your sign.
