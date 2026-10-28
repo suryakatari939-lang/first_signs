@@ -293,6 +293,7 @@ function viewProgress() {
       return `<div class="prow"><span>${esc(r.name)}</span><div class="bar"><i style="width:${Math.round(k / l.length * 100)}%"></i></div><span class="n">${k}/${l.length}</span></div>`; }).join("")}
     <p class="note">A sign counts as known after you get it right on two separate days.</p>
   </section>
+  ${abcProgress()}
   <section class="panel"><h2>Signs used with your child</h2>
     ${recent.length ? `<ul class="log">${recent.map(u => `<li><b>${esc(byId(u.id)?.w || u.id)}</b><span class="muted">${fmt(u.t)}</span></li>`).join("")}</ul>` : `<p class="muted">Tap "We used it" on the Today screen after you sign with your child.</p>`}
   </section>
@@ -316,12 +317,13 @@ function route() {
   if (tab === "routines" && sub) html = viewRoutine(sub);
   else if (tab === "routines") html = viewRoutines();
   else if (tab === "practice") html = viewPractice();
+  else if (tab === "abc") html = viewAbc(sub);
   else if (tab === "progress") html = viewProgress();
   else html = viewToday();
   app.innerHTML = html;
   const camOn = tab === "practice" && P && P.cam && P.mode === "recall" && P.i < P.items.length;
   if (camOn) mountCamera(); else Coach.stop();
-  const active = ["routines", "practice", "progress"].includes(tab) ? tab : "today";
+  const active = ["routines", "abc", "practice", "progress"].includes(tab) ? tab : "today";
   document.querySelectorAll("nav.tabs a").forEach(a => {
     if (a.dataset.tab === active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   });
@@ -331,6 +333,7 @@ function go(hash) { if (location.hash === "#" + hash) route(); else location.has
 
 app.addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
+  if (abcClick(b)) return;   // ABC tab buttons (js/abc.js)
   const d = b.dataset;
   if (b.id === "reset") { S = { sample: false, cards: {}, days: [], used: [], mission: null }; P = null; save(); toast("Fresh start. Welcome!"); route(); return; }
   if (d.go) { if (d.go === "practice") P = null; go(d.go); }

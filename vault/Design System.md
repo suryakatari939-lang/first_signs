@@ -32,6 +32,8 @@ Buttons `.btn` (+ `.sun`, `.ghost`, `.good`, `.bad`, `.block`), hero card `.toda
 
 `.chip.known` is defined but not used by any view.
 
+ABC tab additions (end of `styles.css`): `button.chip` (clickable suggestion chips), `.field` (text input), `.tiles`/`.tile(.on/.done)` (letters of the word being spelled), `.tips` (bulleted list). The tab bar grid is now **5 columns** (Today, Routines, ABC, Practice, Progress).
+
 ## Accessibility choices
 - Visible `:focus-visible` outlines, `aria-current="page"` on tabs, `aria-pressed` on the mode switch, `role="status"` on toasts/feedback, `aria-label`s on the dot progress and nav, `aria-hidden` decorative icons.
 - Respects `prefers-reduced-motion` (the `.pop` entrance animation only runs when motion is allowed).

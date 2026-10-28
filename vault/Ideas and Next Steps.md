@@ -23,6 +23,12 @@ These are *suggestions drawn from the code review*, not decisions made by the te
 - Host on a static site with HTTPS (GitHub Pages / Vercel) and make it installable (manifest + service worker) so phones can use the camera coach.
 - Basic tests for `readHand`, `movement`, `evaluate` using recorded landmark fixtures.
 
+## ABC tab follow-ups
+- Review all 36 descriptions with a Deaf signer / ASL instructor and the real video; add licensed or self-made handshape illustrations (currently text only).
+- Camera coaching for letters/numbers (needs new keys in `readHand` for A/S/T/N/M/E, K/P, 6–9).
+- Let the parent save their child's name and show it on the Today screen; fingerspelling quiz (read a spelled word); numbers in context (ages, counting games).
+- Fix the stale header streak (Known Issues #26).
+
 ## Bigger
 - More signs / routines (the content model scales: add to `SIGNS` + `CHECKS`, see [[CHECKS Format]]).
 - Shared family mode (multiple caregivers), reminders at routine times, parent-set routine order.

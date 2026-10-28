@@ -9,10 +9,12 @@ Repo root (`~32 MB`, almost all of it `vendor/`):
 | Path | Lines/size | What it is |
 |---|---|---|
 | `README.md` | — | Intro, run instructions, how the coach works, file list |
-| `index.html` | 29 | Shell: `<main id="app">`, bottom tab nav (Today / Routines / Practice / Progress) with inline SVG icons, script tags |
-| `styles.css` | 203 | [[Design System]] — tokens, components, camera styles |
+| `index.html` | 32 | Shell: `<main id="app">`, bottom tab nav (Today / Routines / ABC / Practice / Progress) with inline SVG icons, script tags |
+| `styles.css` | 213 | [[Design System]] — tokens, components, camera styles |
+| `js/alphabet.js` | 66 | Alphabet/number/fingerspelling content ([[Alphabet and Numbers]]) |
+| `js/abc.js` | 210 | ABC tab views, practice, spell-a-word ([[ABC Screens]]) |
 | `js/signs.js` | 138 | Content + `CHECKS` ([[Routines and Signs Overview]], [[CHECKS Format]]) |
-| `js/app.js` | 354 | State, views, router |
+| `js/app.js` | 357 | State, views, router (+3 one-line ABC hooks, see [[ABC Screens]]) |
 | `js/camera.js` | 307 | `Coach` module ([[Camera Coach Overview]]) |
 | `start-mac.command` | 4 | `cd` to folder, open browser after 1s, `python3 -m http.server 8000` |
 | `start-windows.bat` | 7 | Opens browser, uses `py`, else `python`, else `npx --yes serve -l 8000 .` |
@@ -20,6 +22,8 @@ Repo root (`~32 MB`, almost all of it `vendor/`):
 | `.gitignore` | — | Generic Node template (no relevant rules) |
 
 ## `js/app.js` function index
+_Line numbers are from the original analysis; the 3 ABC hooks added later shift everything after ~line 296 down by 1–3 lines._
+
 | Lines | Symbol | Purpose |
 |---|---|---|
 | 1–25 | `KEY`, `DAY`, `INTERVALS`, `load`, `save`, `dayKey`, `sampleState`, `S` | storage + sample data ([[Data Model and Storage]]) |
