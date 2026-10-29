@@ -41,4 +41,11 @@ Found by reading the code at commit `e3c743a` (2026-10-28). Nothing here has bee
 24. ✔ `.gitignore` is the generic GitHub Node template; irrelevant to this repo.
 25. ✔ Large binary vendor files are committed directly (~32 MB) — fine for a competition, heavy for cloning. ([[MediaPipe Holistic Vendor Bundle]])
 
+## Added after the first pass
+26. ✔ **Header streak pill is stale until reload.** `const brand = ...${streak()}...` in `js/app.js` is a string evaluated **once at page load**, and every screen reuses it. Practising adds today to `S.days`, but the pill keeps showing the old number until you refresh (checked in a browser: 2 → still 2 after practising → 3 after reload). Fix: make `brand` a function and call `${brand()}` in the 6 places it's used. The ABC hub reuses `brand`, so it shows the same stale value.
+27. **ABC (letters/numbers) not yet video- or signer-verified.** The 36 descriptions in `js/alphabet.js` were audited against 11 published guides ([[Alphabet Sources and Verification]]) but 9 of them rest on a single written source and nobody has checked them against video or a Deaf signer ([[Open Questions]] #9).
+28. **No camera check for letters/numbers**, and the existing detector can't separate A/S/T/N/M/E anyway ([[Handshape Detection]]).
+29. ✔ "Known" uses the same box ≥ 2 rule for letters/numbers, so the single-correct-answer behaviour from #2 applies to them too.
+30. ABC practice avoids #4: switching Try-it/Read-&-pick keeps the same items and starts nothing new ([[ABC Screens]]).
+
 See [[Ideas and Next Steps]] for what to do about these.

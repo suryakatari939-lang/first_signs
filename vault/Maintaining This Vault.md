@@ -16,6 +16,7 @@ This vault (`vault/` in the repo) is the project's long-term memory: open the **
 
 ## Keeping it in sync
 - **Generated notes** (everything in `Content/Signs/`, `Content/Routines/`, `Content/Signs Index.md`, `Content/Phrases.md`, `Content/Handshape Cheat Sheet.md`, `Camera Coach/Camera CHECKS Table.md`) were produced from `js/signs.js` by a throwaway Node script. If signs change, regenerate them or edit by hand; don't trust them over the source.
+- `Content/Alphabet and Numbers.md` is generated from `js/alphabet.js`; `Content/Alphabet Sources and Verification.md` mixes generated tables (sources/confidence) with hand-written audit notes: update both when a description or its `src` changes.
 - **Hand-written notes** cite line numbers and thresholds from the code at commit `e3c743a`. When changing `js/app.js` or `js/camera.js`, update the matching note (see [[File Map]] for which note covers which function).
 - When you fix something in [[Known Issues and Quirks]], tick it off there. When you learn an answer in [[Open Questions]], move it into the right note.
 - Add a line to [[Git History]] for notable milestones.

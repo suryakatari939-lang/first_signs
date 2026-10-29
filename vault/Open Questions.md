@@ -14,3 +14,5 @@ Things I could not determine from the repo. Answer them and move the answers int
 6. **Target devices** — laptop only, or phones/tablets too? (The layout is phone-first but the camera instructions are laptop-only.)
 7. **Deployment** — will there be a hosted URL, or is it distributed as a folder with start scripts?
 8. **Has the camera coach been tested** on real signers? Accuracy numbers? The code has no tests and I could not run the camera here.
+9. **Have the 26 letter and 10 number descriptions been checked against video / a Deaf signer?** No. They were first written from general knowledge, then audited against 11 published guides and corrected ([[Alphabet Sources and Verification]]); several items rest on a single written source (U, W, R, 10 are the weakest). Still needs a video check, ideally a Deaf signer or ASL instructor, and a decision on adding drawings/photos (the app is text-only for handshapes).
+10. **Should letters get camera coaching?** Not built: the detector cannot distinguish several letters, so it would need new handshape rules.

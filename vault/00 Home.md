@@ -6,7 +6,7 @@ tags: [moc, home]
 
 > Map of content for the **First Signs** repo (`suryakatari939-lang/TSA_softwaredev_surya-Anish`): a TSA Software Development entry by Surya and Anish. A bite-sized ASL app for hearing parents of deaf children, with spaced practice and an in-browser camera coach.
 
-Start with [[Project Overview]], then [[Architecture]]. Last full analysis: 2026-10-28 at commit `e3c743a` (see [[Git History]]).
+Start with [[Project Overview]], then [[Architecture]]. Last full analysis: 2026-10-28 at commit `e3c743a`; ABC tab (alphabet, numbers, fingerspelling) added afterwards (see [[Git History]]).
 
 ## The project
 - [[Project Overview]] — what it is, who it's for, feature list
@@ -21,6 +21,7 @@ Start with [[Project Overview]], then [[Architecture]]. Last full analysis: 2026
 - [[Spaced Repetition]] — Leitner boxes, intervals, today's set
 - [[Router and Events]] — hash routes, click delegation, re-render model
 - Screens: [[Today Screen]] · [[Routines Screen]] · [[Routine Detail Screen]] · [[Practice Screen]] · [[Camera Coach Screen]] · [[Progress Screen]]
+- ABC tab (alphabet, numbers 1–10, fingerspelling): [[ABC Screens]]
 
 ## Camera coach (`js/camera.js`)
 - [[Camera Coach Overview]] — pipeline from webcam frame to verdict
@@ -31,6 +32,7 @@ Start with [[Project Overview]], then [[Architecture]]. Last full analysis: 2026
 
 ## Content (`js/signs.js`)
 - [[Routines and Signs Overview]] · [[Signs Index]] (43 signs) · [[Phrases]] · [[Handshape Cheat Sheet]]
+- Alphabet, numbers and fingerspelling content: [[Alphabet and Numbers]] · evidence and corrections: [[Alphabet Sources and Verification]]
 - Routines: [[Mealtime]] · [[Bath & bedtime]] · [[Feelings]] · [[Family]] · [[Play & manners]] · [[Safety & getting out]]
 
 ## Health of the project

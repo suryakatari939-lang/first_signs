@@ -162,7 +162,7 @@ nav.tabs {
   padding-left: max(8px, env(safe-area-inset-left, 0px));
   padding-right: max(8px, env(safe-area-inset-right, 0px));
 }
-nav.tabs .inner { max-width: 720px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+nav.tabs .inner { max-width: 720px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
 nav.tabs a {
   text-decoration: none; color: var(--muted); display: grid; justify-items: center; gap: 2px;
   padding: 10px 4px 12px; font-size: .78rem; font-weight: 700;
@@ -199,5 +199,15 @@ nav.tabs a[aria-current="page"] svg { color: var(--sun); }
 .checks li.no { background: var(--rose-soft); }
 .checks li.no .mark { color: var(--rose); font-weight: 700; }
 @media (max-width: 420px) { .checks li { grid-template-columns: 24px 1fr; } .checks li span:last-child { grid-column: 2; } }
+
+/* ABC tab */
+button.chip { cursor: pointer; color: inherit; }
+button.chip:hover { background: var(--sun-soft); }
+.field { flex: 1 1 200px; min-width: 0; font: inherit; font-size: 1.1rem; padding: 12px 14px; border-radius: 12px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); text-transform: uppercase; }
+.tiles { display: flex; flex-wrap: wrap; gap: 8px; }
+.tile { font-family: var(--display); font-weight: 700; font-size: 1.3rem; min-width: 44px; min-height: 48px; padding: 6px 10px; border-radius: 12px; border: 2px solid var(--line); background: var(--surface); }
+.tile.done { background: var(--sea-soft); border-color: transparent; }
+.tile.on { background: var(--sun); border-color: var(--sun); color: #1b2440; }
+.tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
 
 [hidden] { display: none !important; }

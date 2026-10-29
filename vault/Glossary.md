@@ -12,6 +12,8 @@ tags: [glossary]
 
 **Handshapes used in the app:** Flat-O, C, 5 (open), A, S, claw, Y, W, K, T, ILY (I-love-you), index — [[Handshape Cheat Sheet]], detection in [[Handshape Detection]].
 
+**Fingerspelling** — spelling a word letter by letter with the manual alphabet; used for names, places and words without their own sign ([[ABC Screens]]).
+
 **Routine** — a group of signs tied to a daily moment ([[Routines and Signs Overview]]).
 
 **Mission** — the single "use it for real today" sign on [[Today Screen]]. **Real moment** — one tap on "We used it" (`S.used`).
