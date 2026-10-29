@@ -4,7 +4,7 @@ tags: [content, alphabet, numbers, fingerspelling]
 ---
 # Alphabet and Numbers (content)
 
-Defined in `js/alphabet.js` (table generated from that file; the source wins). UI in [[ABC Screens]]. Evidence for each description: [[Alphabet Sources and Verification]]. Separate from `SIGNS`/`CHECKS` ([[Routines and Signs Overview]]); **no camera check** (letters like A/S/T/N/M/E are all fists, see [[Handshape Detection]]).
+Defined in `js/alphabet.js` (table generated from that file; the source wins; last regenerated after the source audit, commit `08d320f`). UI in [[ABC Screens]]. Evidence for each description: [[Alphabet Sources and Verification]]. Separate from `SIGNS`/`CHECKS` ([[Routines and Signs Overview]]); **no camera check** (letters like A/S/T/N/M/E are all fists, see [[Handshape Detection]]).
 
 ## Data
 - `ABC_SOURCES` — 11 reference pages (shown in the app's "Where these descriptions come from" panel on the letters, numbers and spell pages).
