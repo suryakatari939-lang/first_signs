@@ -22,6 +22,24 @@ the tracking files when you just double-click `index.html`).
 Use Chrome or Edge. Allow the camera when the browser asks. Nothing is uploaded: the video is
 processed on your laptop.
 
+
+## Run the latest version (auto-update)
+
+One-time setup on a Mac, in Terminal:
+
+1. Install the GitHub command-line tool: `brew install gh` (no Homebrew? install it from https://brew.sh first).
+2. Sign in: `gh auth login`, then choose GitHub.com, HTTPS, Yes, and "Login with a web browser". This works with a Google sign-in.
+3. Let git use that sign-in: `gh auth setup-git`
+4. Download a copy that can update itself: `cd ~/Desktop && gh repo clone suryakatari939-lang/TSA_softwaredev_surya-Anish First-Signs`
+
+Every time after that:
+
+```
+cd ~/Desktop/First-Signs && bash update-and-start.command
+```
+
+It pulls the newest code from `main`, starts the server, and opens the app in your browser.
+
 ## How the camera coach works
 
 `js/camera.js` uses MediaPipe Holistic (in `vendor/holistic/`) to find 21 points on each hand,

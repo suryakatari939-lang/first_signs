@@ -17,6 +17,7 @@ Repo root (`~32 MB`, almost all of it `vendor/`):
 | `js/app.js` | 357 | State, views, router (+3 one-line ABC hooks, see [[ABC Screens]]) |
 | `js/camera.js` | 307 | `Coach` module ([[Camera Coach Overview]]) |
 | `start-mac.command` | 4 | `cd` to folder, open browser after 1s, `python3 -m http.server 8000` |
+| `update-and-start.command` | 20 | `git pull --ff-only` on `main` (if the folder is a git clone), pick a free port from 8000, open browser, `python3 -m http.server`. Run with `bash update-and-start.command`; setup steps in README "Run the latest version" |
 | `start-windows.bat` | 7 | Opens browser, uses `py`, else `python`, else `npx --yes serve -l 8000 .` |
 | `vendor/holistic/` | ~32 MB | [[MediaPipe Holistic Vendor Bundle]] |
 | `.gitignore` | — | Generic Node template (no relevant rules) |
