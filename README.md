@@ -67,3 +67,5 @@ Sign and handshape photos are loaded from [Wikimedia Commons](https://commons.wi
 - Handshape K: [ASL K@Side-PalmForward.jpg](https://commons.wikimedia.org/wiki/File:ASL_K%40Side-PalmForward.jpg)
 - Handshape ILY: [ASL ILY@Side-PalmForward.jpg](https://commons.wikimedia.org/wiki/File:ASL_ILY%40Side-PalmForward.jpg)
 - Handshape Index: [ASL 1@Side-PalmForward.jpg](https://commons.wikimedia.org/wiki/File:ASL_1%40Side-PalmForward.jpg)
+- Handshape W: [Sign language W.svg](https://commons.wikimedia.org/wiki/File:Sign_language_W.svg)
+- Handshape T: [Sign language T.svg](https://commons.wikimedia.org/wiki/File:Sign_language_T.svg)
