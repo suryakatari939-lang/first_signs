@@ -62,7 +62,7 @@ function learn(id) { if (!S.cards[id]) { S.cards[id] = { box: 1, due: Date.now()
 
 /* ---------- Views ---------- */
 const brand = `<div class="top">
-  <div class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--sun)"/><path d="M14 27v-9.5a1.6 1.6 0 0 1 3.2 0V21M17.2 20V12a1.6 1.6 0 0 1 3.2 0v8M20.4 20v-6.5a1.6 1.6 0 0 1 3.2 0V21M23.6 19v-3a1.6 1.6 0 0 1 3.2 0v6.5c0 4-3 6.5-6.5 6.5h-.8c-2.2 0-3.8-.9-5-2.6l-2.3-3.3a1.5 1.5 0 0 1 2.4-1.8L14 23" fill="none" stroke="#1b2440" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>First Signs</div>
+  <div class="brand">First Signs</div>
   <span class="streak" title="Days in a row you've practiced">${streak()} day streak</span>
 </div>`;
 
