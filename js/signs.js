@@ -136,3 +136,29 @@ const CHECKS = {
   potty:   { hands:1, shape:["fist"], at:"body", ref:"center", move:["shake","side"] },
   shoes:   { hands:2, shape:["fist"], at:"body", ref:"center", move:["repeat"] },
 };
+
+/* Real photos of signs and handshapes from Wikimedia Commons (freely licensed).
+   The app loads them from Commons, so they only show when the computer is online.
+   Each file's page on Commons lists its author and license. */
+const COMMONS = "https://commons.wikimedia.org/wiki/";
+const photoSrc = file => COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_")) + "?width=360";
+const photoPage = file => COMMONS + "File:" + encodeURIComponent(file.replace(/ /g, "_"));
+const SIGN_PHOTOS = {
+  eat:    { file: "ASL FlatO@Mouth-PalmBack.jpg", caption: "Flat-O hand at the mouth" },
+  drink:  { file: "ASL C@NearMouth-TipUp.jpg", caption: "C-hand near the mouth" },
+  want:   { file: "ASL Claw5@InsideChesthigh-PalmUp-Claw5@InsideChesthigh-PalmUp WANT 1.jpg", caption: "Both hands, palms up, fingers curling in" },
+  ily:    { file: "ASL ILY@Side-PalmForward.jpg", caption: "I LOVE YOU, palm out" },
+  thanks: { file: "ASL OpenB@Chin-PalmBack.jpg", caption: "Starting position at the chin" },
+};
+const HANDSHAPE_PHOTOS = {
+  "Flat-O": "ASL FlatO@Side-PalmForward.jpg",
+  "C": "ASL C@NearChin.jpg",
+  "5 (open)": "ASL 5@Chest-PalmBack.jpg",
+  "A": "ASL A@Forehead.jpg",
+  "S": "ASL S@Side-PalmForward.jpg",
+  "Claw": "ASL Claw5@NearNose-PalmBack.jpg",
+  "Y": "ASL Y@Side.jpg",
+  "K": "ASL K@Side-PalmForward.jpg",
+  "ILY": "ASL ILY@Side-PalmForward.jpg",
+  "Index": "ASL 1@Side-PalmForward.jpg",
+};

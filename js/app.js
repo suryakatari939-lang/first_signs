@@ -122,7 +122,7 @@ function routineGrid() {
 function viewRoutines() {
   return `${brand}<div class="stack"><h1>Routines</h1><p class="muted">Signs are grouped by the moments you already share with your child, so practice happens inside your day instead of on top of it.</p></div>${routineGrid()}
   <section class="panel"><h2>Handshape cheat sheet</h2><p class="muted">Most signs use one of a dozen handshapes. Learn these and the instructions get much easier.</p>
-  <div class="hs">${HANDSHAPES.map(([n, d]) => `<div><b>${esc(n)}</b><span class="muted">${esc(d)}</span></div>`).join("")}</div></section>`;
+  <div class="hs">${HANDSHAPES.map(([n, d]) => `<div>${HANDSHAPE_PHOTOS[n] ? photo(HANDSHAPE_PHOTOS[n], n + " handshape", "photo small") : ""}<b>${esc(n)}</b><span class="muted">${esc(d)}</span></div>`).join("")}</div></section>`;
 }
 
 function viewRoutine(id) {
@@ -136,11 +136,18 @@ function viewRoutine(id) {
   ${(PHRASES[id] || []).map(([g, e]) => `<div class="phrase"><span class="g">${esc(g)}</span><span class="muted">${esc(e)}</span></div>`).join("")}</section>`;
 }
 
+// A Commons photo with its source link. If it can't load (offline), it removes itself.
+function photo(file, caption, cls = "photo") {
+  return `<figure class="${cls}"><img src="${photoSrc(file)}" alt="${esc(caption)}" loading="lazy" onerror="this.closest('figure').remove()">
+    <figcaption>${esc(caption)} · <a href="${photoPage(file)}" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>`;
+}
+
 function signCard(s) {
   const c = card(s.id);
   const st = !c ? `<span class="status">New</span>` : isKnown(s.id) ? `<span class="status k">Known</span>` : `<span class="status l">Learning</span>`;
   return `<article class="sign" id="sign-${s.id}">
     <div class="sign-head"><span class="gloss">${esc(s.w)}</span>${st}</div>
+    ${SIGN_PHOTOS[s.id] ? photo(SIGN_PHOTOS[s.id].file, SIGN_PHOTOS[s.id].caption) : ""}
     <dl class="steps"><dt>Hand</dt><dd>${esc(s.hand)}</dd><dt>Where</dt><dd>${esc(s.where)}</dd><dt>Move</dt><dd>${esc(s.move)}</dd></dl>
     <p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p>
     <p class="say">${esc(s.say)}</p>

@@ -211,3 +211,10 @@ button.chip:hover { background: var(--sun-soft); }
 .tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
 
 [hidden] { display: none !important; }
+
+/* photos from Wikimedia Commons */
+.photo { margin: 0; display: grid; gap: 6px; justify-items: start; }
+.photo img { width: 180px; max-width: 100%; height: auto; border-radius: 10px; background: var(--bg); }
+.photo.small img { width: 100%; max-height: 140px; object-fit: contain; }
+.photo figcaption { font-size: .8rem; color: var(--muted); }
+.hs div { display: grid; gap: 4px; align-content: start; }
