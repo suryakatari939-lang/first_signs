@@ -71,18 +71,18 @@ const PHRASES = {
 };
 
 const HANDSHAPES = [
-  ["Flat-O", "Fingertips together, touching the thumb. EAT, MORE"],
-  ["C", "Hand curved like the letter C. DRINK, HUNGRY"],
-  ["5 (open)", "All five fingers spread. MOM, DAD, ALL DONE"],
-  ["A", "Fist with the thumb along the side. BATH, SORRY"],
-  ["S", "Fist with the thumb across the front. YES, SHOES"],
-  ["Claw", "Spread fingers, bent. MAD, HOT"],
-  ["Y", "Thumb and pinky out. PLAY"],
-  ["W", "Index, middle and ring up. WATER"],
-  ["K", "Index up, middle out, thumb between. CAREFUL"],
-  ["T", "Thumb tucked between index and middle. POTTY"],
-  ["ILY", "Thumb, index, pinky up. I LOVE YOU"],
-  ["Index", "Just the pointer finger. BRUSH TEETH, HURT, FRIEND"],
+  ["Flat-O", "Fingertips touch the thumb"],
+  ["C", "Curved like a C"],
+  ["5 (open)", "All fingers spread"],
+  ["A", "Fist, thumb on the side"],
+  ["S", "Fist, thumb in front"],
+  ["Claw", "Fingers spread and bent"],
+  ["Y", "Thumb and pinky out"],
+  ["W", "Three fingers up"],
+  ["K", "Two up, thumb between"],
+  ["T", "Thumb under the index"],
+  ["ILY", "Thumb, index, pinky up"],
+  ["Index", "Pointer finger up"],
 ];
 
 /* What the camera coach looks for in each sign.
@@ -139,10 +139,9 @@ const CHECKS = {
 
 /* Real photos of signs and handshapes from Wikimedia Commons (freely licensed).
    The app loads them from Commons, so they only show when the computer is online.
-   Each file's page on Commons lists its author and license. */
+   Each file's page on Commons lists its author and license (see Photo credits in README.md). */
 const COMMONS = "https://commons.wikimedia.org/wiki/";
 const photoSrc = file => COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_")) + "?width=360";
-const photoPage = file => COMMONS + "File:" + encodeURIComponent(file.replace(/ /g, "_"));
 const SIGN_PHOTOS = {
   eat:    { file: "ASL FlatO@Mouth-PalmBack.jpg", caption: "Flat-O hand at the mouth" },
   drink:  { file: "ASL C@NearMouth-TipUp.jpg", caption: "C-hand near the mouth" },
@@ -161,4 +160,7 @@ const HANDSHAPE_PHOTOS = {
   "K": "ASL K@Side-PalmForward.jpg",
   "ILY": "ASL ILY@Side-PalmForward.jpg",
   "Index": "ASL 1@Side-PalmForward.jpg",
+  // No photo of W or T in the Commons ASL category, so these use the drawn manual alphabet series.
+  "W": "Sign language W.svg",
+  "T": "Sign language T.svg",
 };

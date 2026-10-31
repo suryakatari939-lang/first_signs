@@ -136,10 +136,9 @@ function viewRoutine(id) {
   ${(PHRASES[id] || []).map(([g, e]) => `<div class="phrase"><span class="g">${esc(g)}</span><span class="muted">${esc(e)}</span></div>`).join("")}</section>`;
 }
 
-// A Commons photo with its source link. If it can't load (offline), it removes itself.
+// A Commons photo. If it can't load (offline), it removes itself. Credits are in README.md.
 function photo(file, caption, cls = "photo") {
-  return `<figure class="${cls}"><img src="${photoSrc(file)}" alt="${esc(caption)}" loading="lazy" onerror="this.closest('figure').remove()">
-    <figcaption>${esc(caption)} · <a href="${photoPage(file)}" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption></figure>`;
+  return `<figure class="${cls}"><img src="${photoSrc(file)}" alt="${esc(caption)}" loading="lazy" onerror="this.closest('figure').remove()"></figure>`;
 }
 
 function signCard(s) {
