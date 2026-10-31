@@ -47,3 +47,23 @@ miss correct signs. The "It was right, count it" button lets the parent overrule
 - `js/app.js`: screens, practice and progress (saved in the browser with localStorage)
 - `js/camera.js`: camera coach
 - `vendor/holistic/`: MediaPipe Holistic 0.5 (Apache 2.0 license, from Google)
+
+## Photo credits
+
+Sign and handshape photos are loaded from [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:American_Sign_Language). Each file page lists the author and license.
+
+- Sign EAT: [ASL FlatO@Mouth-PalmBack.jpg](https://commons.wikimedia.org/wiki/File:ASL_FlatO%40Mouth-PalmBack.jpg)
+- Sign DRINK: [ASL C@NearMouth-TipUp.jpg](https://commons.wikimedia.org/wiki/File:ASL_C%40NearMouth-TipUp.jpg)
+- Sign WANT: [ASL Claw5@InsideChesthigh-PalmUp-Claw5@InsideChesthigh-PalmUp WANT 1.jpg](https://commons.wikimedia.org/wiki/File:ASL_Claw5%40InsideChesthigh-PalmUp-Claw5%40InsideChesthigh-PalmUp_WANT_1.jpg)
+- Sign ILY: [ASL ILY@Side-PalmForward.jpg](https://commons.wikimedia.org/wiki/File:ASL_ILY%40Side-PalmForward.jpg)
+- Sign THANKS: [ASL OpenB@Chin-PalmBack.jpg](https://commons.wikimedia.org/wiki/File:ASL_OpenB%40Chin-PalmBack.jpg)
+- Handshape Flat-O: [ASL FlatO@Side-PalmForward.jpg](https://commons.wikimedia.org/wiki/File:ASL_FlatO%40Side-PalmForward.jpg)
+- Handshape C: [ASL C@NearChin.jpg](https://commons.wikimedia.org/wiki/File:ASL_C%40NearChin.jpg)
+- Handshape 5 (open): [ASL 5@Chest-PalmBack.jpg](https://commons.wikimedia.org/wiki/File:ASL_5%40Chest-PalmBack.jpg)
+- Handshape A: [ASL A@Forehead.jpg](https://commons.wikimedia.org/wiki/File:ASL_A%40Forehead.jpg)
+- Handshape S: [ASL S@Side-PalmForward.jpg](https://commons.wikimedia.org/wiki/File:ASL_S%40Side-PalmForward.jpg)
+- Handshape Claw: [ASL Claw5@NearNose-PalmBack.jpg](https://commons.wikimedia.org/wiki/File:ASL_Claw5%40NearNose-PalmBack.jpg)
+- Handshape Y: [ASL Y@Side.jpg](https://commons.wikimedia.org/wiki/File:ASL_Y%40Side.jpg)
+- Handshape K: [ASL K@Side-PalmForward.jpg](https://commons.wikimedia.org/wiki/File:ASL_K%40Side-PalmForward.jpg)
+- Handshape ILY: [ASL ILY@Side-PalmForward.jpg](https://commons.wikimedia.org/wiki/File:ASL_ILY%40Side-PalmForward.jpg)
+- Handshape Index: [ASL 1@Side-PalmForward.jpg](https://commons.wikimedia.org/wiki/File:ASL_1%40Side-PalmForward.jpg)
