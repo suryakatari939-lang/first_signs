@@ -138,6 +138,7 @@ function viewRoutine(id) {
 
 // A Commons photo. If it can't load (offline), it removes itself. Credits are in README.md.
 function photo(file, caption, cls = "photo") {
+  if (file.endsWith(".svg")) cls += " drawing";
   return `<figure class="${cls}"><img src="${photoSrc(file)}" alt="${esc(caption)}" loading="lazy" onerror="this.closest('figure').remove()"></figure>`;
 }
 

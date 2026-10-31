@@ -8,3 +8,5 @@ Real sign and handshape photos come from Wikimedia Commons (category "American S
 `photo()` in `js/app.js` loads each image through `Special:FilePath`. No caption or source link shows on the page (Ramani found it cluttered); credits with links to each Commons file page are in `README.md` under "Photo credits". Images load from the internet, so offline the figure removes itself.
 
 Not yet checked: each file's license and author, and whether every photo matches the sign exactly (files were chosen by their handshape@location names). Verify before the competition and add credits to the documentation.
+
+W and T are drawings (`.svg`): `photoSrc` loads the original vector (no `?width=`) so they stay sharp, and `photo()` adds the `drawing` class, which gives them a white card (`.photo.drawing img`) so the black lines show in dark mode.

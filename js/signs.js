@@ -141,7 +141,8 @@ const CHECKS = {
    The app loads them from Commons, so they only show when the computer is online.
    Each file's page on Commons lists its author and license (see Photo credits in README.md). */
 const COMMONS = "https://commons.wikimedia.org/wiki/";
-const photoSrc = file => COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_")) + "?width=360";
+// Photos load as 360px thumbnails. Drawings (.svg) load as the original vector so they stay sharp.
+const photoSrc = file => COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_")) + (file.endsWith(".svg") ? "" : "?width=360");
 const SIGN_PHOTOS = {
   eat:    { file: "ASL FlatO@Mouth-PalmBack.jpg", caption: "Flat-O hand at the mouth" },
   drink:  { file: "ASL C@NearMouth-TipUp.jpg", caption: "C-hand near the mouth" },
