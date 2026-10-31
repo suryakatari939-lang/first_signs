@@ -24,12 +24,12 @@ S = {
 ## ABC progress (`S.abc`)
 Added with the ABC tab ([[ABC Screens]]):
 ```js
-S.abc = { cards: { [letterOrNumberId]: { box, due, seen } } }   // ids: "a".."z", "n1".."n10"
+S.abc = { cards: { [id]: { box, due, seen } } }   // ids: "a".."z", "n1".."n10", and "w-SAT" style easy-word cards (54 words, see [[Easy Word Lessons]])
 ```
 Created lazily by `abcCards()`; older saved states without it work unchanged; "Start fresh" wipes it (it replaces all of `S`). Same Leitner scheme as signs ([[Spaced Repetition]]); kept separate so the 43-sign counts are unaffected. `markDay()` is shared, so ABC practice counts toward the streak.
 
 ## Not persisted
-`P` (the current practice session: mode, item list, index, score, reveal/answer state, `cam` flag, quiz options) is in-memory only, and so are `AP` (ABC practice session) and `SP` (spell-a-word state). Refreshing the page loses an in-progress session. See [[Practice Screen]].
+`P` (the current practice session: mode, item list, index, score, reveal/answer state, `cam` flag, quiz options) is in-memory only, and so are `AP` (ABC practice session), `WP` (easy-word practice session) and `SP` (spell-a-word state). Refreshing the page loses an in-progress session. See [[Practice Screen]].
 
 ## Sample ("example progress") state
 On first visit (no saved state) `sampleState()` seeds:

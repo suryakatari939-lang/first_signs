@@ -9,11 +9,14 @@ The 5th tab ("Aa" icon, between Routines and Practice). Teaches the ASL alphabet
 ## Routes
 | Hash | View | What it shows |
 |---|---|---|
-| `#abc` | `abcHub()` | 4 tiles: The alphabet (progress bar), Numbers (progress bar), Spell a word, Practice |
+| `#abc` | `abcHub()` | 5 tiles: The alphabet (progress bar), Numbers (progress bar), Easy words (progress bar), Spell a word, Practice |
 | `#abc.letters` | `abcLetters()` | 26 sign-style cards in 6 groups (closed fists, round, pointing, two-finger, fingers up, little finger/thumb), each group with a tip; link to Spell a word |
 | `#abc.numbers` | `abcNumbers()` | 10 cards + `NUMBER_TIP` (6–9: thumb moves along the fingers) |
 | `#abc.spell` | `abcSpell()` | type a word/name → tiles + one-letter-at-a-time stepper; suggested words; 5 fingerspelling tips |
 | `#abc.practice` | `abcPractice()` | Letters / Numbers scope switch + Try it yourself / Read & pick, same flow as [[Practice Screen]] |
+| `#abc.lessons` | `abcLessons()` | the 9 easy-word lessons as tiles with progress; the first unfinished one is marked "Next up" |
+| `#abc.lesson-<id>` (e.g. `#abc.lesson-l1`) | `abcLesson(id)` | one lesson: (1) cards for its new letters, (2) its words as tappable chips with New/Learning/Known pills, (3) "Practice these words". Unknown id falls back to the list |
+| `#abc.wordpractice` | `abcWordPractice()` | spell-it-yourself practice for one lesson; with no session in memory it falls back to the lessons list |
 
 Letters, numbers and spell pages end with a collapsible **"Where these descriptions come from"** panel (`sourcesPanel()`, a function because it calls `esc` at render time) listing the 11 `ABC_SOURCES` links. Evidence per item: [[Alphabet Sources and Verification]].
 
@@ -24,6 +27,12 @@ Each card (`abcCardHtml`) = big character, New/Learning/Known pill, Hand (+ Move
 - Form `#spell-form` (submit handled by a listener on `#app` registered in `abc.js` at load time via `document.getElementById("app")`; the click handler ignores it). Enter key works.
 - Tiles are buttons (`data-abc="at"`), current = sun-colored, passed = green. Stepper shows the letter, hand/move, hook, Back / Next letter (Start over on the last). Double letters (same as neighbour) show a "bounce or slide" note.
 - Chips from `SPELL_WORDS`: SAM, ANNA, MAYA, ZOE, LUCAS, PIZZA, TEXAS.
+
+## Easy word lessons (`WORD_LESSONS`, see [[Easy Word Lessons]])
+- **Lesson page:** new-letter cards reuse `abcCardHtml`; each word is a `.chip` (`data-abc="tryword"`) that sets `SP` and opens the [[ABC Screens#Spell a word|spell stepper]] below. Words that match a gloss in `SIGNS` (`signFor`) get a note "Has its own sign: use the sign in real life".
+- **Word practice (`WP`, in memory):** `abcWordStart(lessonId)` calls `abcLearn("w-<WORD>")` for the lesson's words, shuffles them, then for each word shows the word large, the parent spells it with their hand, **Show the handshapes** lists each letter's Hand/Move (double-letter note if the word has one), then **Not yet / Got it** calls `abcRate("w-<WORD>", got)`. Done screen: "n of 6 felt solid", Practice again, **Next lesson** (or **Spell a name** after lesson 9).
+- Word cards share `S.abc.cards`; `abcSet`/letter practice only use `LETTERS`/`NUMBERS`, so they are unaffected. Hub tile, lesson tiles and the Progress panel count known words (`wordKnown`).
+- Actions added to `abcClick`: `tryword wstart wagain wreveal wrate`.
 
 ## Practice (`AP` session, in memory)
 - `abcSet(scope)`: like [[Spaced Repetition]] `todaysSet()`: due first (weakest box), then new ones in order (alphabetical A→Z, or 1→10), 2–6 items, fallback 5 random if < 4.

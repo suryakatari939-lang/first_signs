@@ -42,8 +42,8 @@ miss correct signs. The "It was right, count it" button lets the parent overrule
 - `index.html`: page structure
 - `styles.css`: look and feel, light and dark mode
 - `js/signs.js`: the signs, phrases, handshapes and camera targets
-- `js/alphabet.js`: the ASL alphabet, numbers 1 to 10 and fingerspelling tips
-- `js/abc.js`: the ABC tab (alphabet, numbers, spell a word, practice)
+- `js/alphabet.js`: the ASL alphabet, numbers 1 to 10, fingerspelling tips and the easy-word lessons
+- `js/abc.js`: the ABC tab (alphabet, numbers, easy-word lessons, spell a word, practice)
 - `js/app.js`: screens, practice and progress (saved in the browser with localStorage)
 - `js/camera.js`: camera coach
 - `vendor/holistic/`: MediaPipe Holistic 0.5 (Apache 2.0 license, from Google)

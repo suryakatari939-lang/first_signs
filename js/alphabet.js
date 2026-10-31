@@ -81,3 +81,19 @@ const SPELL_TIPS = [
   "Double letters (like NN or ZZ): make a slight bounce, or slide your hand a little to the side (away from the middle of your body), instead of forming the letter again.",
   "Fingerspelling is mainly for names, titles, brands and words with no established sign. If a word has its own sign (like MILK or BOOK), sign it. Many places have their own signs too.",
 ];
+
+/* Easy-word lessons: a path from 3-letter words to names. `letters` = the letters first introduced in that lesson
+   (so by lesson 7 all 26 have been taught). Every word only uses letters taught up to and including its lesson.
+   The order and word choice are our own teaching design (not from a published ASL curriculum). */
+const WORD_LESSON_INTRO = "Short words first. Each lesson adds a few letters, and every word only uses letters you have already learned. Say or mouth the word while you spell it, and keep practising common letter combinations until they feel automatic. These are practice words: in real life, use the sign when a word has one (we flag those).";
+const WORD_LESSONS = [
+  { id:"l1", title:"Lesson 1: first words",        letters:"AINPST", blurb:"Six letters make six little words. Start here.", words:["SAT","PAT","TIP","PIN","NAP","ANT"] },
+  { id:"l2", title:"Lesson 2: more letters",       letters:"MDC",    blurb:"Three new letters, and the first six keep coming back.", words:["CAT","CAN","MAP","MAD","DIP","DAD"] },
+  { id:"l3", title:"Lesson 3: round letters",      letters:"BHO",    blurb:"O is a round shape, H lies sideways, B is a flat hand.", words:["BAT","HAT","HOT","DOT","POT","MOM"] },
+  { id:"l4", title:"Lesson 4: everyday words",     letters:"EGR",    blurb:"E stays closed, G points sideways, R has crossed fingers.", words:["BED","RED","BIG","PIG","DOG","HEN"] },
+  { id:"l5", title:"Lesson 5: four more letters",  letters:"ULKF",   blurb:"U, L, K and F open up longer words.", words:["SUN","BUS","CUP","FUN","MILK","FLAG"] },
+  { id:"l6", title:"Lesson 6: W, Y, J and V",      letters:"WYJV",   blurb:"J is the first letter that moves.", words:["YES","WET","JAM","VAN","JET","BOY"] },
+  { id:"l7", title:"Lesson 7: the last letters",   letters:"QXZ",    blurb:"Q, X and Z finish the alphabet. Z moves too.", words:["BOX","FOX","SIX","MIX","QUIZ","ZIP"] },
+  { id:"l8", title:"Lesson 8: double letters",     letters:"",       blurb:"No new letters. Practise the small bounce or slide for double letters.", words:["BALL","DOLL","BOOK","MOON","BEE","ZOO"] },
+  { id:"l9", title:"Lesson 9: names and places",   letters:"",       blurb:"Fingerspelling matters most for names. Finish by spelling your child's name.", words:["SAM","ANNA","MAYA","ZOE","LUCAS","TEXAS"] },
+];

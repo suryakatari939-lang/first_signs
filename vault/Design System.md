@@ -26,3 +26,12 @@ Dark mode is automatic via `prefers-color-scheme`, with `data-theme` overrides o
 Two button looks: `.btn` (outline) and `.btn.sun` / `.btn.good` (filled blue; class names kept from the old design so the JS didn't change). Boxes with a 1px border: `.today`, `.card`, `.routine`, `.stat`, `.mission`. Sections divided by a top line instead of a box: `.sign`, `.phrases`, `.panel`. Photos: `.photo`, `.photo.small` (see [[Photos]]). Camera, ABC and quiz classes are unchanged in name.
 
 Layout: `main` is max 640px, 20px side padding, 28px gaps. Routines grid 2 to 3 columns at 560px; camera result rows collapse at 420px.
+
+ABC tab additions (end of `styles.css`): `button.chip` (clickable suggestion chips), `.field` (text input), `.tiles`/`.tile(.on/.done)` (letters of the word being spelled), `.tips` (bulleted list), `.wordrow` (word chip + status pill + note). A rule makes a lone last tile in any `.routines` grid span the full width (`.routines > :last-child:nth-child(odd)`). The tab bar grid is now **5 columns** (Today, Routines, ABC, Practice, Progress).
+
+## Accessibility choices
+- Visible `:focus-visible` outlines, `aria-current="page"` on tabs, `aria-pressed` on the mode switch, `role="status"` on toasts/feedback, `aria-label`s on the dot progress and nav, `aria-hidden` decorative icons.
+- No entrance animations (the minimal style dropped the `.pop` animation, so there is no motion to reduce).
+- 48px minimum button height; large type; muted text contrast tuned for both themes (not formally audited).
+- Mirrors camera preview so it feels like a mirror; text feedback instead of color-only (✓/✕ marks + words).
+

@@ -32,7 +32,7 @@ Start with [[Project Overview]], then [[Architecture]]. Last full analysis: 2026
 
 ## Content (`js/signs.js`)
 - [[Routines and Signs Overview]] · [[Signs Index]] (43 signs) · [[Phrases]] · [[Handshape Cheat Sheet]]
-- Alphabet, numbers and fingerspelling content: [[Alphabet and Numbers]] · evidence and corrections: [[Alphabet Sources and Verification]]
+- Alphabet, numbers and fingerspelling content: [[Alphabet and Numbers]] · [[Easy Word Lessons]] (9 lessons, 54 words) · evidence and corrections: [[Alphabet Sources and Verification]]
 - Routines: [[Mealtime]] · [[Bath & bedtime]] · [[Feelings]] · [[Family]] · [[Play & manners]] · [[Safety & getting out]]
 
 ## Health of the project

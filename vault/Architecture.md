@@ -4,14 +4,14 @@ tags: [architecture, project]
 ---
 # Architecture
 
-A **static single-page app**. No framework, bundler, package manager (root), backend, or tests. ~1,350 lines of first-party code (`index.html` 32, `styles.css` 213, `js/app.js` 357, `js/camera.js` 307, `js/signs.js` 138, `js/alphabet.js` 83, `js/abc.js` 216).
+A **static single-page app**. No framework, bundler, package manager (root), backend, or tests. ~1,440 lines of first-party code (`index.html` 32, `styles.css` 213, `js/app.js` 357, `js/camera.js` 307, `js/signs.js` 138, `js/alphabet.js` 99, `js/abc.js` 294).
 
 ```
 index.html
  ├─ styles.css                (design tokens, light/dark)
  ├─ vendor/holistic/holistic.js   → global `Holistic`
  ├─ js/signs.js               → globals ROUTINES, SIGNS, PHRASES, HANDSHAPES, CHECKS
- ├─ js/alphabet.js            → globals ABC_SOURCES, ABC_GROUPS, LETTERS, NUMBERS, SPELL_WORDS, SPELL_TIPS
+ ├─ js/alphabet.js            → globals ABC_SOURCES, ABC_GROUPS, LETTERS, NUMBERS, SPELL_WORDS, SPELL_TIPS, WORD_LESSONS
  ├─ js/camera.js              → global `Coach` (IIFE module)
  ├─ js/abc.js                 → ABC tab views + logic (uses app.js helpers at runtime)
  └─ js/app.js                 → state S, views, router (runs `route()` on load)

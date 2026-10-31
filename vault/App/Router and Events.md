@@ -11,7 +11,7 @@ tags: [app, router, events]
 | `#routines` | `viewRoutines()` — [[Routines Screen]] |
 | `#routines.<routineId>` (e.g. `#routines.meal`) | `viewRoutine(id)` — [[Routine Detail Screen]] (unknown id falls back to the list) |
 | `#practice` | `viewPractice()` — [[Practice Screen]] (+ [[Camera Coach Screen]] when `P.cam`) |
-| `#abc`, `#abc.letters`, `#abc.numbers`, `#abc.spell`, `#abc.practice` | `viewAbc(sub)` in `js/abc.js` — [[ABC Screens]] |
+| `#abc`, `#abc.letters`, `#abc.numbers`, `#abc.spell`, `#abc.practice`, `#abc.lessons`, `#abc.lesson-<id>`, `#abc.wordpractice` | `viewAbc(sub)` in `js/abc.js` — [[ABC Screens]] |
 | `#progress` | `viewProgress()` — [[Progress Screen]] |
 
 The hash is split on `"."` → `[tab, sub]`. Routine ids: `meal`, `bed`, `feel`, `family`, `play`, `safe`.
@@ -49,7 +49,7 @@ One listener on `#app`; finds closest `button`, switches on `dataset`:
 The tab bar uses plain anchor links, so tapping **Practice** in the bar does *not* reset `P` (resumes), whereas "Start practice" on Today does.
 
 ## ABC events
-Buttons with `data-abc="<action>"` (+ `data-val`) are handled by `abcClick(b)` in `js/abc.js`, called first in the click handler (`if (abcClick(b)) return;`). It returns `false` when the button has no `data-abc`, so all the actions above are untouched. The spell-a-word form uses a separate `submit` listener on `#app`. Actions: `learn start scope mode again reveal rate pick nextq word at prev next`.
+Buttons with `data-abc="<action>"` (+ `data-val`) are handled by `abcClick(b)` in `js/abc.js`, called first in the click handler (`if (abcClick(b)) return;`). It returns `false` when the button has no `data-abc`, so all the actions above are untouched. The spell-a-word form uses a separate `submit` listener on `#app`. Actions: `learn start scope mode again reveal rate pick nextq word at prev next tryword wstart wagain wreveal wrate`. `lesson-l1` works as a `sub` because the hash is only split on the first `.`.
 
 ## Gotchas
 - Every action re-renders everything → focus and scroll position reset; camera video element is recreated each time (the MediaStream is reused, see `Coach.start`).

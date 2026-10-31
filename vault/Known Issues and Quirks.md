@@ -48,4 +48,8 @@ Found by reading the code at commit `e3c743a` (2026-10-28). Nothing here has bee
 29. ✔ "Known" uses the same box ≥ 2 rule for letters/numbers, so the single-correct-answer behaviour from #2 applies to them too.
 30. ABC practice avoids #4: switching Try-it/Read-&-pick keeps the same items and starts nothing new ([[ABC Screens]]).
 
+31. **Easy-word lessons are our own design, unreviewed.** Order and word choices are not from a published curriculum ([[Easy Word Lessons]], [[Open Questions]] #11).
+32. 10 of the 54 lesson words (BED, DOG, MILK, BOOK, BALL, MOM, DAD, YES, MAD, HOT) already have real signs in the app; they are flagged but still taught as spelling practice, which can look contradictory next to "use the sign for words that have one".
+33. ✔ A word becomes Known after one "Got it" (same box >= 2 rule as everything else, #2), and the practice is self-rated: nothing checks the parent's hands.
+
 See [[Ideas and Next Steps]] for what to do about these.

@@ -29,6 +29,12 @@ These are *suggestions drawn from the code review*, not decisions made by the te
 - Let the parent save their child's name and show it on the Today screen; fingerspelling quiz (read a spelled word); numbers in context (ages, counting games).
 - Fix the stale header streak (Known Issues #26).
 
+## Lesson follow-ups
+- "Read the word" lessons: show someone else's fingerspelling (video) and ask which word it was; fingerspelling is mostly understood by word shape, which the current lessons don't train.
+- Let a parent save a custom word list or their child's name as its own mini lesson.
+- Mark a lesson complete only after the words are right on two different days (see Known Issues #2).
+- Review lesson order/words with a Deaf educator; consider replacing words that have signs with names, places and brand-like words.
+
 ## Bigger
 - More signs / routines (the content model scales: add to `SIGNS` + `CHECKS`, see [[CHECKS Format]]).
 - Shared family mode (multiple caregivers), reminders at routine times, parent-set routine order.

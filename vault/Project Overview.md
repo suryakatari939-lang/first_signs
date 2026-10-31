@@ -24,7 +24,7 @@ From [[Progress Screen]] "Why this matters":
 3. **"Use it with your child" daily goal** — one mission sign per day; "We used it" logs a real moment ([[Today Screen]]).
 4. **Camera coach** — in-browser hand/face/pose tracking (MediaPipe Holistic) checks handshape, location and movement of the parent's sign ([[Camera Coach Overview]]).
 5. **Progress** — known/started counts, per-routine bars, streak, log of real-life uses ([[Progress Screen]]).
-6. **ABC tab** — the ASL alphabet (26 letters in 6 look-alike groups), numbers 1–10, a "Spell a word" stepper (type a name, see each handshape in order, with double-letter and smooth-spelling tips), and spaced practice for letters and numbers ([[ABC Screens]], [[Alphabet and Numbers]]). No camera check for these.
+6. **ABC tab** — the ASL alphabet (26 letters in 6 look-alike groups), numbers 1–10, a "Spell a word" stepper (type a name, see each handshape in order, with double-letter and smooth-spelling tips), and spaced practice for letters and numbers, and **9 easy-word lessons** (54 words, from 3-letter words to names) with spell-it-yourself practice ([[ABC Screens]], [[Alphabet and Numbers]], [[Easy Word Lessons]]). No camera check for these.
 7. Written sign descriptions (Hand / Where / Move), a memory hook, a "say it" real-life prompt, phrases ("Put them together"), a handshape cheat sheet, and a link out to Signing Savvy for video.
 
 ## Key product ideas worth remembering

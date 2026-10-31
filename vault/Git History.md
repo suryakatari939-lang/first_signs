@@ -18,6 +18,8 @@ Repo: `suryakatari939-lang/TSA_softwaredev_surya-Anish` · default branch `main`
 
 **Merged:** the ABC tab and the source-checked descriptions (`7113483`, `08d320f`, `ac960c0`) went into `main` as PR #2 (merge `f4a40a2`).
 
+| (this branch) | 2026-10-30 | — | Easy-word lessons: 9 lessons, 54 words, lesson pages, spell-it-yourself practice |
+
 Branches seen: `main`, and `feature/nice-darwin-n61n6q`, where the vault was added (PR #1) and the ABC tab built (PR #2); the branch is restarted from `main` after each merge.
 
 Observations

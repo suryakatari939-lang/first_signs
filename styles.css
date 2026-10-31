@@ -190,4 +190,6 @@ nav.tabs a[aria-current="page"] { color: var(--accent); }
 .tile { font-weight: 700; font-size: 1.25rem; min-width: 44px; min-height: 48px; padding: 6px 10px; border-radius: var(--r); border: 1px solid var(--line); background: var(--bg); }
 .tile.done { border-color: var(--good); color: var(--good); }
 .tile.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.wordrow { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.routines > :last-child:nth-child(odd) { grid-column: 1 / -1; }
 .tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
