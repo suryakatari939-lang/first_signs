@@ -39,7 +39,7 @@ ABC tab additions (end of `styles.css`): `button.chip` (clickable suggestion chi
 ## Full-width layout and photo banners (2026-11-01, Ramani's request)
 - `main` is now up to **1120px** wide (was 640px). On screens ≥900px: the tabs move into the top header bar, Today shows the practice card and "Use it for real" side by side (`.duo`), routine/ABC tiles use 3 columns, a routine's sign cards use 2 columns, and the practice card is centered at 760px.
 - **Header** moved out of the views into `index.html` (`<header class="site-top">` with `.brand` and `#streak`). `route()` in `js/app.js` fills in the streak text. The `brand` constant is now an empty string so old view code still works.
-- **Hero banners**: `hero(key, eyebrow, title, sub, slim)` in `js/app.js` renders a full-bleed photo with a dark gradient and white serif title at the top of Today, Routines, a routine (slim), ABC hub, Practice (slim) and Progress. Photos are in the `HERO` map and hotlinked from Wikimedia Commons at 2000px, each with a small credit link in the corner:
+- **Hero banners**: `hero(key, eyebrow, title, sub, slim)` in `js/app.js` renders a full-bleed photo with a dark gradient and white serif title at the top of Today, Routines, a routine (slim), ABC hub, Practice (slim) and Progress. Photos are in the `HERO` map and hotlinked from Wikimedia Commons at 1920px (a standard Commons thumbnail size; asking for 2000px returns the slow full-size original), each with a small credit link in the corner:
 
 | Key | Commons file | License |
 |---|---|---|
@@ -50,6 +50,7 @@ ABC tab additions (end of `styles.css`): `button.chip` (clickable suggestion chi
 | practice | Child using sign language.jpg | CC BY 2.0, Bev Sykes (credit required) |
 | progress | Summer in Paphos (Unsplash).jpg | CC0 |
 
+- A left-to-right dark shade keeps the white headline readable on bright photos. Each photo has a `pos` (CSS background-position) in `HERO` to keep faces visible.
 - Offline, the banners fall back to a teal gradient (the photos need internet, like the sign photos).
 - **Curves, no hard edges** (follow-up request): banners end in a two-layer **wave** (`.hero::after`, inline SVG) instead of a straight cut; the page background has fixed soft color blooms (`body::before`, radial gradients) and faint flowing contour lines (`body::after`, inline SVG); section headings get a small gold wavy underline; section dividers fade out at the ends; corner radius is 20px (cards) / 14px (buttons). `body` uses `min-height` (not `height: 100%`) so the sticky header stays on long pages.
 - `index.html` loads `styles.css?v=4`; bump the number after style changes so browsers don't reuse an old stylesheet.

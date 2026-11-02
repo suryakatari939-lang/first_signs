@@ -68,17 +68,17 @@ const brand = "";
 /* Full-width photo banners at the top of each tab. Photos are hotlinked from Wikimedia Commons
    (same as the sign photos); if they can't load, the banner falls back to a teal gradient. */
 const HERO = {
-  today:    { file: "There you go (Unsplash).jpg", pos: "center 40%", credit: "Photo: Unsplash, CC0" },
-  routines: { file: "Escape from the sandbox (Unsplash).jpg", pos: "center 55%", credit: "Photo: Unsplash, CC0" },
+  today:    { file: "There you go (Unsplash).jpg", pos: "70% 40%", credit: "Photo: Unsplash, CC0" },
+  routines: { file: "Escape from the sandbox (Unsplash).jpg", pos: "65% 45%", credit: "Photo: Unsplash, CC0" },
   abc:      { file: "Follow my lead (6623478).jpg", pos: "center 60%", credit: "Photo: U.S. Air Force, public domain" },
-  practice: { file: "Child using sign language.jpg", pos: "center 30%", credit: "Photo: Bev Sykes, CC BY 2.0" },
-  progress: { file: "Summer in Paphos (Unsplash).jpg", pos: "center 60%", credit: "Photo: Unsplash, CC0" },
+  practice: { file: "Child using sign language.jpg", pos: "center 12%", credit: "Photo: Bev Sykes, CC BY 2.0" },
+  progress: { file: "Summer in Paphos (Unsplash).jpg", pos: "85% 60%", credit: "Photo: Unsplash, CC0" },
   bed:      { file: "Sleeping baby (Unsplash).jpg", pos: "center 70%", credit: "Photo: Unsplash, CC0" },
 };
 const commons = (file, w) => COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_")) + (w ? "?width=" + w : "");
 function hero(key, eyebrow, title, sub, slim) {
   const h = HERO[key] || HERO.today;
-  return `<section class="hero${slim ? " slim" : ""}" style="--hero-img:url('${commons(h.file, 2000)}');--hero-pos:${h.pos}">
+  return `<section class="hero${slim ? " slim" : ""}" style="--hero-img:url('${commons(h.file, 1920)}');--hero-pos:${h.pos}">
     <div class="hero-inner">
       ${eyebrow ? `<span class="hero-eyebrow">${eyebrow}</span>` : ""}
       <h1>${title}</h1>
