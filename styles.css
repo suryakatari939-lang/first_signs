@@ -44,10 +44,22 @@
 
 /* base */
 * { box-sizing: border-box; }
-html, body { height: 100%; }
+html { height: 100%; }
+body { min-height: 100%; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 html { overflow-x: clip; background: var(--bg); }
-body { overflow-x: clip; }
+body { overflow-x: clip; position: relative; isolation: isolate; }
+
+/* background character: soft color blooms and flowing contour lines behind everything (no hard edges) */
+body::before, body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+body::before {
+  background:
+    radial-gradient(42vw 38vw at 4% 22%, rgba(21, 94, 99, .09), transparent 70%),
+    radial-gradient(36vw 32vw at 98% 48%, rgba(176, 125, 31, .10), transparent 70%),
+    radial-gradient(40vw 30vw at 18% 96%, rgba(95, 170, 140, .10), transparent 70%),
+    radial-gradient(28vw 24vw at 70% 4%, rgba(21, 94, 99, .06), transparent 70%);
+}
+body::after { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='xMidYMid slice' fill='none' stroke='%23155e63' stroke-width='1.4'%3E%3Cpath stroke-opacity='0.1' d='M-60,560 C240,440 420,710 720,580 C1000,460 1180,690 1500,550'/%3E%3Cpath stroke-opacity='0.09' d='M-60,600 C240,480 420,750 720,620 C1000,500 1180,730 1500,590'/%3E%3Cpath stroke-opacity='0.08' d='M-60,640 C240,520 420,790 720,660 C1000,540 1180,770 1500,630'/%3E%3Cpath stroke-opacity='0.07' d='M-60,680 C240,560 420,830 720,700 C1000,580 1180,810 1500,670'/%3E%3Cpath stroke-opacity='0.06' d='M-60,720 C240,600 420,870 720,740 C1000,620 1180,850 1500,710'/%3E%3Cpath stroke-opacity='0.08' d='M1500,150 C1240,240 1100,40 860,120 C640,190 520,60 300,90'/%3E%3Cpath stroke-opacity='0.07' d='M1500,185 C1240,275 1100,75 860,155 C640,225 520,95 300,125'/%3E%3Cpath stroke-opacity='0.06' d='M1500,220 C1240,310 1100,110 860,190 C640,260 520,130 300,160'/%3E%3C/svg%3E") center / cover no-repeat; }
 main {
   --page: 1120px;
   max-width: var(--page); margin: 0 auto;
@@ -97,9 +109,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .hero.slim h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); }
 .hero p { margin: 0; max-width: 54ch; font-size: clamp(1rem, 1.6vw, 1.15rem); color: rgba(255,255,255,.88); }
 .hero-eyebrow { font-family: var(--font-mono); font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: #f2c46d; }
-.hero-credit { position: absolute; right: 12px; bottom: 8px; font-size: .68rem; color: rgba(255,255,255,.6); text-decoration: none; }
+.hero-credit { position: absolute; right: 12px; top: 10px; z-index: 2; font-size: .68rem; color: rgba(255,255,255,.6); text-decoration: none; }
 .hero-credit:hover { color: #fff; text-decoration: underline; }
-.hero + * { margin-top: 4px; }
+.hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: clamp(46px, 7vw, 100px);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='white' fill-opacity='.28' d='M0,46 C180,86 360,96 560,70 C760,44 900,10 1100,22 C1260,32 1360,58 1440,52 L1440,100 L0,100 Z'/%3E%3Cpath fill='white' d='M0,70 C200,40 400,30 620,58 C840,86 1020,98 1220,74 C1320,62 1390,52 1440,56 L1440,100 L0,100 Z'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat; pointer-events: none; z-index: 1; }
+.hero-inner { position: relative; z-index: 2; padding-bottom: calc(clamp(46px, 7vw, 100px) + 8px) !important; }
+.hero + * { margin-top: -8px; position: relative; z-index: 2; }
+
+/* a hand-drawn-looking wavy underline under section headings */
+.stack > h2, .panel > h2, .phrases > h2 { position: relative; padding-bottom: 14px; }
+.stack > h2::after, .panel > h2::after, .phrases > h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 54px; height: 9px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 10'%3E%3Cpath d='M2,6 C10,0 16,0 22,5 C28,10 34,10 40,5 C46,0 52,0 58,5' fill='none' stroke='%23b07d1f' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") left / contain no-repeat; }
+
+/* softer, rounder corners everywhere */
+:root { --r: 20px; --r-sm: 14px; }
 
 /* Today: practice card and "use it for real" side by side on wide screens */
 .duo { display: grid; gap: 28px; }
@@ -127,7 +150,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .mission strong { font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; }
 
 /* sections separated by lines instead of boxes */
-.sign, .phrases, .panel { padding-top: 22px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+.sign, .phrases, .panel { padding-top: 26px; display: grid; gap: 12px; position: relative; }
+.sign::before, .phrases::before, .panel::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line) 15%, var(--line) 85%, transparent); }
 
 /* chips */
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }

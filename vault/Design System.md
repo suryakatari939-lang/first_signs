@@ -51,7 +51,8 @@ ABC tab additions (end of `styles.css`): `button.chip` (clickable suggestion chi
 | progress | Summer in Paphos (Unsplash).jpg | CC0 |
 
 - Offline, the banners fall back to a teal gradient (the photos need internet, like the sign photos).
-- `index.html` loads `styles.css?v=3`; bump the number after style changes so browsers don't reuse an old stylesheet.
+- **Curves, no hard edges** (follow-up request): banners end in a two-layer **wave** (`.hero::after`, inline SVG) instead of a straight cut; the page background has fixed soft color blooms (`body::before`, radial gradients) and faint flowing contour lines (`body::after`, inline SVG); section headings get a small gold wavy underline; section dividers fade out at the ends; corner radius is 20px (cards) / 14px (buttons). `body` uses `min-height` (not `height: 100%`) so the sticky header stays on long pages.
+- `index.html` loads `styles.css?v=4`; bump the number after style changes so browsers don't reuse an old stylesheet.
 
 ## Accessibility choices
 - Visible `:focus-visible` outlines, `aria-current="page"` on tabs, `aria-pressed` on the mode switch, `role="status"` on toasts/feedback, `aria-label`s on the dot progress and nav, `aria-hidden` decorative icons.
