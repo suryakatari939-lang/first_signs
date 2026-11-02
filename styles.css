@@ -3,13 +3,13 @@
    a clean sans for reading, and small uppercase mono labels. Rounded cards with soft fills.
    Green/red only mean right/wrong. */
 :root {
-  /* light (default) */
-  --bg: #f6f4ef;          /* page: warm paper */
+  color-scheme: light;
+  --bg: #ffffff;          /* page: white */
   --surface: #ffffff;     /* cards */
   --ink: #14232b;         /* main text */
-  --muted: #5b6b75;       /* hints, labels */
-  --line: #e2ddd2;        /* borders and dividers */
-  --soft: #efece4;        /* light fill */
+  --muted: #5f6d76;       /* hints, labels */
+  --line: #e6e9ec;        /* borders and dividers */
+  --soft: #f3f5f6;        /* light fill */
   --accent: #155e63;      /* deep teal */
   --accent-soft: #dfeeec;
   --on-accent: #ffffff;
@@ -18,7 +18,7 @@
   --good-soft: #e3f1e8;
   --bad: #b84a3c;
   --bad-soft: #f8e4df;
-  --nav-bg: rgba(246, 244, 239, .86);
+  --nav-bg: rgba(255, 255, 255, .88);
   --shadow: 0 1px 2px rgba(20, 35, 43, .05), 0 8px 24px -12px rgba(20, 35, 43, .18);
   --font: "Roboto", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   --font-display: "Fraunces", "Recoleta", Georgia, "Times New Roman", serif;
@@ -26,15 +26,7 @@
   --r: 14px;
   --r-sm: 10px;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0c1c21; --surface: #12262d; --ink: #e5eaf1; --muted: #8fa6b6; --line: #213a44; --soft: #183039;
-    --accent: #f2c46d; --accent-soft: #2c2a1c; --on-accent: #0c1c21; --gold: #f2c46d;
-    --good: #5fcf98; --good-soft: #13302a; --bad: #f08a7c; --bad-soft: #351c1b;
-    --nav-bg: rgba(12, 28, 33, .82); --shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 10px 30px -14px rgba(0,0,0,.6);
-    color-scheme: dark;
-  }
-}
+/* Always white. Dark colors only apply if <html data-theme="dark"> is set on purpose. */
 :root[data-theme="dark"] {
   --bg: #0c1c21; --surface: #12262d; --ink: #e5eaf1; --muted: #8fa6b6; --line: #213a44; --soft: #183039;
   --accent: #f2c46d; --accent-soft: #2c2a1c; --on-accent: #0c1c21; --gold: #f2c46d;

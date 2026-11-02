@@ -10,7 +10,7 @@ Repo root (`~32 MB`, almost all of it `vendor/`):
 |---|---|---|
 | `README.md` | — | Intro, run instructions, how the coach works, file list |
 | `index.html` | 32 | Shell: `<main id="app">`, bottom tab nav (Today / Routines / ABC / Practice / Progress) with inline SVG icons, script tags |
-| `styles.css` | 233 | [[Design System]] — tokens, components, camera styles |
+| `styles.css` | 225 | [[Design System]] — tokens, components, camera styles |
 | `js/alphabet.js` | 99 | Alphabet/number/fingerspelling content, `ABC_SOURCES` (11 reference links) a `src` list per item, and `WORD_LESSONS` ([[Alphabet and Numbers]], [[Alphabet Sources and Verification]], [[Easy Word Lessons]]) |
 | `js/abc.js` | 294 | ABC tab views, practice, spell-a-word, sources panel, easy-word lessons ([[ABC Screens]]) |
 | `js/signs.js` | 138 | Content + `CHECKS` ([[Routines and Signs Overview]], [[CHECKS Format]]) |

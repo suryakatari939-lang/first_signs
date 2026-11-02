@@ -4,19 +4,19 @@ tags: [design, css, accessibility]
 ---
 # Design System (`styles.css`)
 
-**Slate-teal and amber style (2026-11-01, Ramani's request).** Inspired by the Sammamish Circle site (not copied): deep slate-teal surfaces in dark mode, warm paper background in light mode, a serif display face for headings and sign glosses, Roboto for reading, small uppercase Roboto Mono labels (`.eyebrow`, `.status`, `.routine .time`, stat labels), pill chips and tabs, rounded cards with a soft shadow. Green and red still only mean right and wrong. Replaced the earlier "minimal style" (white, blue accent, system font).
+**Slate-teal and amber style (2026-11-01, Ramani's request).** Inspired by the Sammamish Circle site (not copied): **always white** (Ramani's follow-up request: no automatic dark mode), a serif display face for headings and sign glosses, Roboto for reading, small uppercase Roboto Mono labels (`.eyebrow`, `.status`, `.routine .time`, stat labels), pill chips and tabs, rounded cards with a soft shadow. Green and red still only mean right and wrong. Replaced the earlier "minimal style" (white, blue accent, system font).
 
 Fonts are **vendored in `vendor/fonts/`** (Fraunces variable, Roboto 400/500/600, Roboto Mono 500, latin subset, ~144 KB) with `@font-face` rules at the top of `styles.css`, so the app still works offline. Licenses: `vendor/fonts/LICENSE-*.txt` (SIL OFL 1.1).
 
 ## Tokens (`:root`)
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--bg` | `#f6f4ef` | `#0c1c21` | page |
+| `--bg` | `#ffffff` | `#0c1c21` | page |
 | `--surface` | `#ffffff` | `#12262d` | cards, buttons, inputs |
 | `--ink` | `#14232b` | `#e5eaf1` | text |
-| `--muted` | `#5b6b75` | `#8fa6b6` | hints, labels |
-| `--line` | `#e2ddd2` | `#213a44` | borders, dividers |
-| `--soft` | `#efece4` | `#183039` | light fill (bars, hooks, photos) |
+| `--muted` | `#5f6d76` | `#8fa6b6` | hints, labels |
+| `--line` | `#e6e9ec` | `#213a44` | borders, dividers |
+| `--soft` | `#f3f5f6` | `#183039` | light fill (bars, hooks, photos) |
 | `--accent` / `--accent-soft` | `#155e63` / `#dfeeec` | `#f2c46d` / `#2c2a1c` | main buttons, links, current tab |
 | `--on-accent` | `#ffffff` | `#0c1c21` | text on accent fills |
 | `--gold` | `#b07d1f` | `#f2c46d` | brand mark, streak pill, progress gradient end, hook border |
@@ -27,7 +27,7 @@ Fonts are **vendored in `vendor/fonts/`** (Fraunces variable, Roboto 400/500/600
 | `--font` / `--font-display` / `--font-mono` | Roboto / Fraunces / Roboto Mono | | body / headings / labels |
 | `--r` / `--r-sm` | 14px / 10px | | cards / buttons, tiles, inputs |
 
-Dark mode is automatic via `prefers-color-scheme`, with `data-theme` overrides on `<html>`. The brand mark is pure CSS (`.brand::before`); no markup changed.
+The app is always light/white: the `prefers-color-scheme: dark` block was removed. The dark slate-teal colors (Dark column) only apply if `<html data-theme="dark">` is set on purpose; nothing in the JS sets it today. The brand mark is pure CSS (`.brand::before`); no markup changed.
 
 ## Components
 Two button looks: `.btn` (outline) and `.btn.sun` / `.btn.good` (filled accent; class names kept from the old design so the JS didn't change). Boxes with a 1px border: `.today`, `.card`, `.routine`, `.stat`, `.mission`. Sections divided by a top line instead of a box: `.sign`, `.phrases`, `.panel`. Photos: `.photo`, `.photo.small` (see [[Photos]]). Camera, ABC and quiz classes are unchanged in name.
