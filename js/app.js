@@ -61,10 +61,32 @@ function rate(id, got) {
 function learn(id) { if (!S.cards[id]) { S.cards[id] = { box: 1, due: Date.now() + DAY, seen: 1 }; markDay(); save(); } }
 
 /* ---------- Views ---------- */
-const brand = `<div class="top">
-  <div class="brand">First Signs</div>
-  <span class="streak" title="Days in a row you've practiced">${streak()} day streak</span>
-</div>`;
+/* The brand and streak now live in the fixed <header> in index.html (filled in by route()).
+   `brand` stays as an empty string so older views that include it still work. */
+const brand = "";
+
+/* Full-width photo banners at the top of each tab. Photos are hotlinked from Wikimedia Commons
+   (same as the sign photos); if they can't load, the banner falls back to a teal gradient. */
+const HERO = {
+  today:    { file: "There you go (Unsplash).jpg", pos: "center 40%", credit: "Photo: Unsplash, CC0" },
+  routines: { file: "Escape from the sandbox (Unsplash).jpg", pos: "center 55%", credit: "Photo: Unsplash, CC0" },
+  abc:      { file: "Follow my lead (6623478).jpg", pos: "center 60%", credit: "Photo: U.S. Air Force, public domain" },
+  practice: { file: "Child using sign language.jpg", pos: "center 30%", credit: "Photo: Bev Sykes, CC BY 2.0" },
+  progress: { file: "Summer in Paphos (Unsplash).jpg", pos: "center 60%", credit: "Photo: Unsplash, CC0" },
+  bed:      { file: "Sleeping baby (Unsplash).jpg", pos: "center 70%", credit: "Photo: Unsplash, CC0" },
+};
+const commons = (file, w) => COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_")) + (w ? "?width=" + w : "");
+function hero(key, eyebrow, title, sub, slim) {
+  const h = HERO[key] || HERO.today;
+  return `<section class="hero${slim ? " slim" : ""}" style="--hero-img:url('${commons(h.file, 2000)}');--hero-pos:${h.pos}">
+    <div class="hero-inner">
+      ${eyebrow ? `<span class="hero-eyebrow">${eyebrow}</span>` : ""}
+      <h1>${title}</h1>
+      ${sub ? `<p>${sub}</p>` : ""}
+    </div>
+    <a class="hero-credit" href="${COMMONS}File:${encodeURIComponent(h.file.replace(/ /g, "_"))}" target="_blank" rel="noopener">${esc(h.credit)}</a>
+  </section>`;
+}
 
 function sampleBanner() {
   return S.sample ? `<div class="mission" style="border-color:var(--line)">
@@ -81,11 +103,12 @@ function viewToday() {
     : (SIGNS.filter(s => s.r === moment && card(s.id))[0] || SIGNS.find(s => s.r === moment));
   S.mission = { id: pick.id, day: dayKey() };
   const usedToday = S.used.filter(u => dayKey(u.t) === dayKey()).length;
-  return `${brand}${sampleBanner()}
+  return `${hero("today", "First Signs", "Words your child can see.", "Five minutes of practice, then one sign used for real. That's the whole habit.")}${sampleBanner()}
+  <div class="duo">
   <section class="today pop" aria-labelledby="t1">
     <div class="stack">
       <span class="eyebrow">Today's 5 minutes</span>
-      <h1 id="t1">${set.length} signs to practice</h1>
+      <h2 id="t1">${set.length} signs to practice</h2>
       <p class="muted">Short, daily practice sticks better than one long session. Signs you know come back less often.</p>
     </div>
     <div class="chips">${set.map(s => `<span class="chip ${card(s.id) ? "due" : ""}">${esc(s.w)}${card(s.id) ? "" : " · new"}</span>`).join("")}</div>
@@ -102,6 +125,7 @@ function viewToday() {
       <span class="muted">${usedToday ? usedToday + " real moment" + (usedToday > 1 ? "s" : "") + " today" : ""}</span>
     </div>
   </section>
+  </div>
 
   <section class="stack" aria-labelledby="r1">
     <h2 id="r1">Daily routines</h2>
@@ -120,7 +144,7 @@ function routineGrid() {
 }
 
 function viewRoutines() {
-  return `${brand}<div class="stack"><h1>Routines</h1><p class="muted">Signs are grouped by the moments you already share with your child, so practice happens inside your day instead of on top of it.</p></div>${routineGrid()}
+  return `${hero("routines", "Routines", "Signs for the moments you already share.", "Practice happens inside your day instead of on top of it: at meals, at bath time, at play.")}${routineGrid()}
   <section class="panel"><h2>Handshape cheat sheet</h2><p class="muted">Most signs use one of a dozen handshapes. Learn these and the instructions get much easier.</p>
   <div class="hs">${HANDSHAPES.map(([n, d]) => `<div>${HANDSHAPE_PHOTOS[n] ? photo(HANDSHAPE_PHOTOS[n], n + " handshape", "photo small") : ""}<b>${esc(n)}</b><span class="muted">${esc(d)}</span></div>`).join("")}</div></section>`;
 }
@@ -128,9 +152,8 @@ function viewRoutines() {
 function viewRoutine(id) {
   const r = ROUTINES.find(x => x.id === id); if (!r) return viewRoutines();
   const list = SIGNS.filter(s => s.r === id);
-  return `<button class="back" data-go="routines">← All routines</button>
-  <div class="stack"><span class="eyebrow">${esc(r.time)}</span><h1>${esc(r.name)}</h1>
-  <p class="muted">"One hand" means your dominant hand. Keep signs in front of your chest and face, where your child is already looking.</p></div>
+  return `${hero(id === "bed" ? "bed" : "routines", esc(r.time), esc(r.name), `"One hand" means your dominant hand. Keep signs in front of your chest and face, where your child is already looking.`, true)}
+  <button class="back" data-go="routines">← All routines</button>
   <div class="signlist">${list.map(signCard).join("")}</div>
   <section class="phrases"><h2>Put them together</h2><p class="muted">ASL glosses are written in capitals. Yes/no questions use raised eyebrows.</p>
   ${(PHRASES[id] || []).map(([g, e]) => `<div class="phrase"><span class="g">${esc(g)}</span><span class="muted">${esc(e)}</span></div>`).join("")}</section>`;
@@ -168,7 +191,7 @@ function startPractice(mode) {
 }
 function viewPractice() {
   if (!P) startPractice("recall");
-  const seg = `<div class="seg" role="group" aria-label="Practice type">
+  const seg = `${hero("practice", "Practice", "Five signs, five minutes.", "Try it with your hands, or read the description and pick the sign.", true)}<div class="seg" role="group" aria-label="Practice type">
     <button data-mode="recall" aria-pressed="${P.mode === "recall"}">Try it yourself</button>
     <button data-mode="pick" aria-pressed="${P.mode === "pick"}">Read &amp; pick</button></div>`;
   const dots = `<div class="progress-dots" aria-label="Sign ${Math.min(P.i + 1, P.items.length)} of ${P.items.length}">${P.items.map((_, k) => `<i class="${k < P.i ? "on" : ""}"></i>`).join("")}</div>`;
@@ -289,7 +312,7 @@ function viewProgress() {
   const known = SIGNS.filter(s => isKnown(s.id)).length;
   const recent = S.used.slice().sort((a, b) => b.t - a.t).slice(0, 6);
   const fmt = t => new Date(t).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
-  return `${brand}${sampleBanner()}<h1>Your progress</h1>
+  return `${hero("progress", "Your progress", "Every sign is a word they can see.", "Track what you know, and the real moments you've shared.")}${sampleBanner()}
   <div class="stats">
     <div class="stat"><b>${known}</b><span>signs known</span></div>
     <div class="stat"><b>${started}</b><span>signs started</span></div>
@@ -328,6 +351,7 @@ function route() {
   else if (tab === "progress") html = viewProgress();
   else html = viewToday();
   app.innerHTML = html;
+  const st = $("#streak"); if (st) st.textContent = streak() + " day streak";
   const camOn = tab === "practice" && P && P.cam && P.mode === "recall" && P.i < P.items.length;
   if (camOn) mountCamera(); else Coach.stop();
   const active = ["routines", "abc", "practice", "progress"].includes(tab) ? tab : "today";

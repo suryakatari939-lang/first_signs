@@ -79,9 +79,7 @@ function abcHub() {
     <span class="time">${esc(line)}</span><span class="name">${esc(name)}</span>
     ${list ? `<div class="bar" aria-hidden="true"><i style="width:${Math.round(abcStarted(list) / list.length * 100)}%"></i></div>
     <span class="count">${abcStarted(list)} of ${list.length} started</span>` : ""}</button>`;
-  return `${brand}
-  <div class="stack"><span class="eyebrow">Fingerspelling</span><h1>Letters &amp; numbers</h1>
-  <p class="muted">The ASL alphabet spells names and words that don't have their own sign, like your child's name, a street or a pet. Numbers 1 to 10 cover ages, counting and time.</p></div>
+  return `${hero("abc", "Fingerspelling", "Letters &amp; numbers.", "Spell names and words that don't have their own sign, like your child's name, a street or a pet. Numbers 1 to 10 cover ages, counting and time.")}
   <div class="routines">
     ${tile("abc.letters", "The alphabet", "A to Z", LETTERS)}
     ${tile("abc.numbers", "Numbers", "1 to 10", NUMBERS)}

@@ -36,6 +36,23 @@ Layout: `main` is max 640px, 20px side padding, 28px gaps. Routines grid 2 to 3 
 
 ABC tab additions (end of `styles.css`): `button.chip` (clickable suggestion chips), `.field` (text input), `.tiles`/`.tile(.on/.done)` (letters of the word being spelled), `.tips` (bulleted list), `.wordrow` (word chip + status pill + note). A rule makes a lone last tile in any `.routines` grid span the full width (`.routines > :last-child:nth-child(odd)`). The tab bar grid is now **5 columns** (Today, Routines, ABC, Practice, Progress).
 
+## Full-width layout and photo banners (2026-11-01, Ramani's request)
+- `main` is now up to **1120px** wide (was 640px). On screens ≥900px: the tabs move into the top header bar, Today shows the practice card and "Use it for real" side by side (`.duo`), routine/ABC tiles use 3 columns, a routine's sign cards use 2 columns, and the practice card is centered at 760px.
+- **Header** moved out of the views into `index.html` (`<header class="site-top">` with `.brand` and `#streak`). `route()` in `js/app.js` fills in the streak text. The `brand` constant is now an empty string so old view code still works.
+- **Hero banners**: `hero(key, eyebrow, title, sub, slim)` in `js/app.js` renders a full-bleed photo with a dark gradient and white serif title at the top of Today, Routines, a routine (slim), ABC hub, Practice (slim) and Progress. Photos are in the `HERO` map and hotlinked from Wikimedia Commons at 2000px, each with a small credit link in the corner:
+
+| Key | Commons file | License |
+|---|---|---|
+| today | There you go (Unsplash).jpg | CC0 |
+| routines | Escape from the sandbox (Unsplash).jpg | CC0 |
+| bed (Bath & bedtime routine) | Sleeping baby (Unsplash).jpg | CC0 |
+| abc | Follow my lead (6623478).jpg | Public domain (U.S. Air Force) |
+| practice | Child using sign language.jpg | CC BY 2.0, Bev Sykes (credit required) |
+| progress | Summer in Paphos (Unsplash).jpg | CC0 |
+
+- Offline, the banners fall back to a teal gradient (the photos need internet, like the sign photos).
+- `index.html` loads `styles.css?v=3`; bump the number after style changes so browsers don't reuse an old stylesheet.
+
 ## Accessibility choices
 - Visible `:focus-visible` outlines, `aria-current="page"` on tabs, `aria-pressed` on the mode switch, `role="status"` on toasts/feedback, `aria-label`s on the dot progress and nav, `aria-hidden` decorative icons.
 - No entrance animations; only short hover/press transitions (routine cards lift 2px, active progress dot widens).
