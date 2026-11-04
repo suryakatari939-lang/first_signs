@@ -38,7 +38,7 @@ Script load order matters (classic scripts, shared global scope): `holistic.js` 
 
 ## External dependencies
 - **Google Fonts** (Fredoka, Atkinson Hyperlegible) via `<link>` in `index.html` — the only network dependency besides optional outbound links.
-- **Signing Savvy** — "Watch it signed ↗" opens `https://www.signingsavvy.com/search/<word>` in a new tab (search page, not a direct video).
+- **Signing Savvy** — only cited as a source on the ABC tab. (Until 2026-11-03, "Watch it signed ↗" opened `https://www.signingsavvy.com/search/<word>` in a new tab (search page, not a direct video).; replaced by the in-app Hint button.)
 - MediaPipe is **vendored locally** (loaded via `locateFile: f => "vendor/holistic/" + f`), so tracking works offline once served.
 
 ## Runtime constraints

@@ -20,7 +20,7 @@ The 5th tab ("Aa" icon, between Routines and Practice). Teaches the ASL alphabet
 
 Letters, numbers and spell pages end with a collapsible **"Where these descriptions come from"** panel (`sourcesPanel()`, a function because it calls `esc` at render time) listing the 11 `ABC_SOURCES` links. Evidence per item: [[Alphabet Sources and Verification]].
 
-Each card (`abcCardHtml`) = big character, New/Learning/Known pill, Hand (+ Move for J, Z, 10), "Remember it" hook, **Add to my practice**, and a Signing Savvy search link (`abcVideo`: letter, or number word like "seven").
+Each card (`abcCardHtml`) = big character, New/Learning/Known pill, Hand (+ Move for J, Z, 10), "Remember it" hook, **Add to my practice**, and a **Hint** button that opens the letter's group tip and its look-alike letters (`abcHint`; numbers show the counting tip). It replaced a link to a Signing Savvy search page on 2026-11-03.
 
 ## Spell a word
 - `SP = { word, i }` (in memory, not saved). `spellClean` uppercases and strips everything except A–Z, max 12 letters (spaces and punctuation are dropped: one word at a time).

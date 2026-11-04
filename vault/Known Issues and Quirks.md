@@ -32,7 +32,7 @@ Found by reading the code at commit `e3c743a` (2026-10-28). Nothing here has bee
 
 ## Privacy / dependencies
 19. ✔ "Nothing is uploaded" is true for video, but `index.html` loads **Google Fonts** from the network on every visit (leaks IP/UA to Google, fails offline → fallback fonts). Self-hosting the two fonts would make the claim airtight. ([[Design System]])
-20. "Watch it signed" opens a Signing Savvy **search URL** (`/search/<gloss>`), not a verified video page; multi-word glosses like "all done" or "i love you" may not hit directly. ([[Routine Detail Screen]])
+20. ✔ Fixed 2026-11-03: the "Watch it signed" links to another site were replaced by an in-app **Hint** button ([[App Layout and Screens]]). There is still no video of each sign in the app.
 
 ## Engineering
 21. ✔ No tests, no linter, no CI, no `package.json` at root, no PWA manifest/service worker (despite phone-first layout). `Coach._readHand` is exported, so unit tests are feasible.

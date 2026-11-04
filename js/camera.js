@@ -110,17 +110,24 @@ const Coach = (() => {
     const fingers = [1, 2, 3, 4].map(f => {
       const reach = dist(p[TIP[f]], p[0]) / (dist(p[MCP[f]], p[0]) || 1);
       const bend = angle(sub(p[PIP[f]], p[MCP[f]]), sub(p[TIP[f]], p[PIP[f]]));
-      if (reach > 1.6 || (reach > 1.45 && bend < 35)) return "ext";
-      if (reach < 1.15) return "curl";
+      // Straight: nearly no bend, or reaching far with only a little bend. A claw finger bends a lot
+      // at the middle joints, so it no longer counts as straight just because it is long.
+      if ((reach > 1.45 && bend < 35) || (reach > 1.75 && bend < 50)) return "ext";
+      // Curled into a fist: the fingertip comes back close to the wrist. A claw finger bends toward
+      // the camera and looks short, but its tip stays further out (reach about 1.1 or more).
+      if (reach < 1.0) return "curl";
       return "bent";
     });
     const [i, m, r, k] = fingers;
     const count = s => fingers.filter(x => x === s).length;
     const thumbOut = dist(p[4], p[5]) / palm > 0.55 && dist(p[4], p[9]) / palm > 0.7;
     const thumbUp = thumbOut && p[4].y < p[5].y - 0.3 * palm;
-    const spread = dist(p[8], p[20]) / palm > 0.85;
+    // Fingers fanned apart: the middle joints of the index and pinky are clearly wider apart than
+    // their knuckles. C-hand fingers stay together, so this separates a claw from a C.
+    const fanned = dist(p[6], p[18]) / (dist(p[5], p[17]) || 1) > 1.18;
     const pinch = Math.max(dist(p[8], p[4]), dist(p[12], p[4])) / palm < 0.5 && dist(p[16], p[4]) / palm < 0.7 && count("curl") <= 1;
     const gap = dist(p[8], p[4]) / palm;
+    const spread = dist(p[8], p[20]) / palm > 0.85;
 
     const S = new Set();
     if (pinch) S.add("flatO");
@@ -132,7 +139,7 @@ const Coach = (() => {
     if (k === "ext" && i !== "ext" && m !== "ext" && r !== "ext") S.add("Y");
     if (i === "ext" && k === "ext" && m !== "ext" && r !== "ext") S.add("ILY");
     if (!pinch && count("bent") >= 2 && count("curl") <= 1 && gap > 0.35 && gap < 1.6) S.add("C");
-    if (count("bent") >= 3 && spread) S.add("claw");
+    if (!pinch && count("ext") === 0 && count("bent") >= 3 && fanned) S.add("claw");
 
     const label = SHAPE_ORDER.find(s => S.has(s)) || null;
     return {

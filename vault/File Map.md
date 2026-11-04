@@ -29,7 +29,7 @@ _Line numbers are from the original analysis; the 3 ABC hooks added later shift 
 | Lines | Symbol | Purpose |
 |---|---|---|
 | 1–25 | `KEY`, `DAY`, `INTERVALS`, `load`, `save`, `dayKey`, `sampleState`, `S` | storage + sample data ([[Data Model and Storage]]) |
-| 27–45 | `$`, `esc`, `byId`, `card`, `isKnown`, `isDue`, `videoUrl`, `shuffle`, `streak`, `markDay`, `toast` | helpers |
+| 27–45 | `$`, `esc`, `byId`, `card`, `isKnown`, `isDue`, `shuffle`, `streak`, `markDay`, `toast` | helpers |
 | 48–61 | `todaysSet`, `rate`, `learn` | [[Spaced Repetition]] |
 | 64–73 | `brand`, `sampleBanner` | shared header + example-progress banner |
 | 75 | `viewToday` | [[Today Screen]] |

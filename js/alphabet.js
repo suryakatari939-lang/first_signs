@@ -26,7 +26,7 @@ const ABC_GROUPS = [
   { id: "pinky", name: "Little finger and thumb", tip: "I and J use the little finger. J draws a hook in the air. Y spreads the thumb and little finger." },
 ];
 
-// id, ch = what is shown, g = group (also used to pick look-alike answers in the quiz), q = search word for the video link,
+// id, ch = what is shown, g = group (also used to pick look-alike answers in the quiz), q = the plain word for the character,
 // src = which ABC_SOURCES back the description
 const LETTERS = [
   { id:"a", ch:"A", g:"fist",  src:["HK","W"],            hand:"Make a fist with your thumb resting against the side of your index finger, pointing up.", hook:"The thumb stands up beside the fist, like the point of a capital A." },

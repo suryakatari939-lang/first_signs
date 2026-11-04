@@ -11,7 +11,7 @@ tags: [app, screen, ui]
   - gloss + status pill (**New** / **Learning** / **Known**, from `card()`/`isKnown()`),
   - `Hand / Where / Move` definition list,
   - "Remember it:" hook, italic `say` prompt,
-  - buttons: **Add to my practice** (if no card, `data-learn`), **Check with camera** (only if `Coach.supported()`, `data-camsign` → straight into [[Camera Coach Screen]]), and **Watch it signed ↗** link (`videoUrl(s)` = `https://www.signingsavvy.com/search/<lowercased gloss>`, opens in new tab).
+  - buttons: **Add to my practice** (if no card, `data-learn`), **Check with camera** (only if `Coach.supported()`, `data-camsign` → straight into [[Camera Coach Screen]]), and **Hint** (was "Watch it signed ↗" until 2026-11-03) link (`videoUrl(s)` = `https://www.signingsavvy.com/search/<lowercased gloss>`, opens in new tab).
 - **Put them together** — phrases for this routine from [[Phrases]], with a reminder that ASL glosses are capitalized and yes/no questions use raised eyebrows.
 
 Sign card anchors have `id="sign-<id>"` (not currently linked to).
