@@ -20,7 +20,7 @@ Start with [[Project Overview]], then [[Architecture]]. Last full analysis: 2026
 - [[Data Model and Storage]] — localStorage state shape, sample data
 - [[Spaced Repetition]] — Leitner boxes, intervals, today's set
 - [[Router and Events]] — hash routes, click delegation, re-render model
-- Screens: [[Today Screen]] · [[Routines Screen]] · [[Routine Detail Screen]] · [[Practice Screen]] · [[Camera Coach Screen]] · [[Progress Screen]]
+- Screens: [[App Layout and Screens]] (Learn path, lessons, Practice, Rewards, Profile; current) · [[Routine Detail Screen]] (sign guide) · older notes: [[Today Screen]] · [[Routines Screen]] · [[Practice Screen]] · [[Camera Coach Screen]] · [[Progress Screen]]
 - ABC tab (alphabet, numbers 1–10, fingerspelling): [[ABC Screens]]
 
 ## Camera coach (`js/camera.js`)

@@ -4,6 +4,8 @@ tags: [app, screen, ui, practice]
 ---
 # Practice Screen (`#practice`, `viewPractice()`)
 
+> **Replaced (2026-11-03).** The app-style redesign changed this screen; see [[App Layout and Screens]]. The notes below describe the old version and are kept for history.
+
 Session object `P` (module variable, not persisted):
 ```js
 P = { mode: "recall" | "pick", items: [signIds shuffled], i: 0, right: 0,

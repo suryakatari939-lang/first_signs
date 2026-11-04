@@ -4,6 +4,8 @@ tags: [app, screen, ui]
 ---
 # Today Screen (`#today`, `viewToday()`)
 
+> **Replaced (2026-11-03).** The app-style redesign changed this screen; see [[App Layout and Screens]]. The notes below describe the old version and are kept for history.
+
 Default landing view. Top to bottom:
 
 1. **Header** (`brand`): logo + "First Signs" + `N day streak` pill (`streak()`).

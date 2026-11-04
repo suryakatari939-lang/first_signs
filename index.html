@@ -4,26 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>First Signs</title>
-<link rel="stylesheet" href="styles.css?v=5">
+<link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
-<header class="site-top">
-  <div class="inner">
-    <a class="brand" href="#today">First Signs</a>
-    <span class="streak" id="streak" title="Days in a row you've practiced"></span>
-  </div>
-</header>
-<main id="app"></main>
-
-<nav class="tabs" aria-label="Main">
-  <div class="inner">
-    <a href="#today" data-tab="today">Today</a>
-    <a href="#routines" data-tab="routines">Routines</a>
-    <a href="#abc" data-tab="abc">ABC</a>
-    <a href="#practice" data-tab="practice">Practice</a>
-    <a href="#progress" data-tab="progress">Progress</a>
-  </div>
-</nav>
+<div class="shell">
+  <nav class="tabs" aria-label="Main">
+    <a class="logo" href="#learn" aria-label="First Signs home">
+      <svg width="34" height="40" viewBox="0 0 112 130" aria-hidden="true"><path d="M30 70V34c0-7 10-7 10 0v26V22c0-7 10-7 10 0v36V18c0-7 10-7 10 0v40V24c0-7 10-7 10 0v46l8-12c4-6 13-1 9 6L82 96c-5 13-14 22-30 22h-2c-12 0-20-8-20-22z" fill="#ffb938" stroke="#e6951a" stroke-width="5" stroke-linejoin="round"/><circle cx="47" cy="84" r="5.5" fill="#20313a"/><circle cx="65" cy="84" r="5.5" fill="#20313a"/><path d="M48 96c5 5 11 5 16 0" fill="none" stroke="#20313a" stroke-width="4" stroke-linecap="round"/></svg>
+      <span>First Signs</span>
+    </a>
+    <a href="#learn" data-tab="learn"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 15L16 6l11 9v11H19v-7h-6v7H5z"/></svg><span>Learn</span></a>
+    <a href="#practice" data-tab="practice"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="12" width="5" height="8" rx="2"/><rect x="24" y="12" width="5" height="8" rx="2"/><rect x="8" y="8" width="4" height="16" rx="2"/><rect x="20" y="8" width="4" height="16" rx="2"/><rect x="12" y="14.5" width="8" height="3"/></svg><span>Practice</span></a>
+    <a href="#abc" data-tab="abc"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="6" width="26" height="20" rx="6"/><text x="16" y="21" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="11" fill="#fff">ABC</text></svg><span>ABC</span></a>
+    <a href="#rewards" data-tab="rewards"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="12" width="22" height="14" rx="3"/><rect x="9" y="6" width="14" height="7" rx="2"/><path d="M5 16h22" stroke="#fff" stroke-width="2.5"/></svg><span>Rewards</span></a>
+    <a href="#profile" data-tab="profile"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="11" r="6"/><path d="M5 27c1-6 6-9 11-9s10 3 11 9z"/></svg><span>Profile</span></a>
+  </nav>
+  <main id="app" class="main"></main>
+  <aside id="rail" class="rail" aria-label="Your day"></aside>
+</div>
 
 <!-- MediaPipe Holistic (hand, face and body tracking), stored locally in vendor/ -->
 <script src="vendor/holistic/holistic.js"></script>

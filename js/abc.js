@@ -1,6 +1,6 @@
 /* ABC tab: the alphabet, numbers 1-10, spelling words, and practice for them.
-   Uses helpers and state from app.js (S, $, esc, shuffle, markDay, save, toast, go, route, brand,
-   INTERVALS, DAY), which are only called at runtime, after app.js has loaded.
+   Uses helpers and state from app.js (S, $, esc, shuffle, markDay, bumpGoal, save, toast, go, route, brand,
+   hero, INTERVALS, DAY), which are only called at runtime, after app.js has loaded.
    Progress lives in S.abc.cards, separate from the 43 signs in S.cards. */
 const ABC_ITEMS = [...LETTERS, ...NUMBERS];
 const abcById = id => ABC_ITEMS.find(x => x.id === id);
@@ -22,7 +22,7 @@ function abcRate(id, got) {   // same Leitner rules as rate() in app.js
   c.seen++;
   c.box = got ? Math.min(c.box + 1, INTERVALS.length - 1) : 1;
   c.due = Date.now() + INTERVALS[got ? c.box : 0] * DAY;
-  abcCards()[id] = c; markDay(); save();
+  abcCards()[id] = c; markDay(); bumpGoal(); save();
 }
 
 // Due items first (weakest box first), then new ones in order, like todaysSet() for signs.
@@ -164,7 +164,7 @@ function abcPractice() {
     return `${head}<section class="card pop"><span class="eyebrow">Session done</span>
       <h1>${AP.right} of ${AP.items.length} ${AP.mode === "pick" ? "right" : "felt solid"}</h1>
       <p>${AP.scope === "letters" ? "Now put them to work: spell your child's name for them." : "Use a number today: count the crackers or the stairs out loud and on your hands."}</p>
-      <div class="row"><button class="btn sun" data-abc="again">Practice again</button><button class="btn ghost" data-go="abc.spell">Spell a word</button><button class="btn ghost" data-go="today">Back to today</button></div></section>`;
+      <div class="row"><button class="btn sun" data-abc="again">Practice again</button><button class="btn ghost" data-go="abc.spell">Spell a word</button><button class="btn ghost" data-go="learn">Back to the path</button></div></section>`;
   }
   const x = abcById(AP.items[AP.i]);
   if (AP.mode === "recall") {

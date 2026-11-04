@@ -4,6 +4,8 @@ tags: [app, screen, ui, camera]
 ---
 # Camera Coach Screen (inside `#practice` when `P.cam`)
 
+> **Replaced (2026-11-03).** The app-style redesign changed this screen; see [[App Layout and Screens]]. The notes below describe the old version and are kept for history.
+
 Rendered by `viewCamera(s, dots)`, then wired by `mountCamera()` after `route()` sets the HTML (`js/app.js:211–278`). Engine: [[Camera Coach Overview]].
 
 ## Layout
