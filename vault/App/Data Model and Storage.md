@@ -12,7 +12,8 @@ S = {
   cards: { [signId]: { box: 0..6, due: msEpoch, seen: n } },
   days:  ["2026-10-28", ...],      // practice days, NOT zero-padded: "YYYY-M-D"
   used:  [{ id: signId, t: msEpoch }],   // "We used it" real-life moments
-  mission: { id: signId, day: "YYYY-M-D" } | null   // today's chosen mission sign
+  mission: { id: signId, day: "YYYY-M-D" } | null,  // today's chosen mission sign
+  goal: { day: "YYYY-M-D", n: number },  // signs practiced today, for the daily goal (added 2026-11-03)
 }
 ```
 
@@ -43,3 +44,9 @@ While `sample` is true, [[Today Screen]] and [[Progress Screen]] show a banner (
 
 ## Clearing data manually
 `localStorage.removeItem("firstsigns.v1")` in the console resets to sample state on next load.
+
+
+## Added in the app-style redesign (2026-11-03)
+- `S.goal` counts signs practiced today (`bumpGoal()`); sample state starts it at 2 of 5.
+- XP is not stored: `xp()` works it out from `seen` counts and `S.used`.
+- Lesson state `P` (steps, hearts, score) is in memory only. See [[App Layout and Screens]].

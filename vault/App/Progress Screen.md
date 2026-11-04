@@ -4,6 +4,8 @@ tags: [app, screen, ui]
 ---
 # Progress Screen (`#progress`, `viewProgress()`)
 
+> **Replaced (2026-11-03).** The app-style redesign changed this screen; see [[App Layout and Screens]]. The notes below describe the old version and are kept for history.
+
 1. Sample banner if applicable ([[Data Model and Storage]]).
 2. Three stat tiles: **signs known** (box ≥ 2), **signs started** (cards), **real moments** (`S.used.length`).
 3. **By routine**: bar per routine showing known ÷ total, with `k/n`. Note under it: "A sign counts as known after you get it right on two separate days." (the code does not enforce this — [[Known Issues and Quirks]]).

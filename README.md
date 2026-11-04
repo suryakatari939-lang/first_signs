@@ -6,8 +6,14 @@ A bite-sized ASL app for hearing parents of deaf children. It teaches 42 everyda
 by daily routine (mealtime, bath and bedtime, feelings, family, play, safety), with spaced
 practice, a daily "use it with your child" goal, and a camera coach that checks your sign.
 
-## Project plan
+## What's in the app
 
+- **Learn:** a path of short lessons, one unit per routine. Each lesson teaches up to 3 signs,
+  then quizzes you. The green chest at the end of a unit is a review.
+- **Lessons:** one question per screen, with hearts, instant feedback and a "Continue" bar.
+- **Practice:** quick sessions (read and pick, sign it yourself, camera coach) and a handshape cheat sheet.
+- **ABC:** the alphabet, numbers 1 to 10, fingerspelling and easy-word lessons.
+- **Rewards and Profile:** badges, streak, XP, daily goal, and the real moments you've signed with your child.
 
 ## Run it on your laptop
 

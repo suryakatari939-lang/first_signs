@@ -9,18 +9,18 @@ Repo root (`~32 MB`, almost all of it `vendor/`):
 | Path | Lines/size | What it is |
 |---|---|---|
 | `README.md` | — | Intro, run instructions, how the coach works, file list |
-| `index.html` | 32 | Shell: `<main id="app">`, bottom tab nav (Today / Routines / ABC / Practice / Progress) with inline SVG icons, script tags |
-| `styles.css` | 298 | [[Design System]] — tokens, components, camera styles |
+| `index.html` | 34 | Shell: nav (Learn / Practice / ABC / Rewards / Profile; sidebar on laptops, tab bar on phones), `<main id="app">`, `<aside id="rail">`, script tags ([[App Layout and Screens]]) |
+| `styles.css` | 376 | [[Design System]] — tokens, components, camera styles |
 | `js/alphabet.js` | 99 | Alphabet/number/fingerspelling content, `ABC_SOURCES` (11 reference links) a `src` list per item, and `WORD_LESSONS` ([[Alphabet and Numbers]], [[Alphabet Sources and Verification]], [[Easy Word Lessons]]) |
-| `js/abc.js` | 294 | ABC tab views, practice, spell-a-word, sources panel, easy-word lessons ([[ABC Screens]]) |
+| `js/abc.js` | 292 | ABC tab views, practice, spell-a-word, sources panel, easy-word lessons ([[ABC Screens]]) |
 | `js/signs.js` | 138 | Content + `CHECKS` ([[Routines and Signs Overview]], [[CHECKS Format]]) |
-| `js/app.js` | 357 | State, views, router (+3 one-line ABC hooks, see [[ABC Screens]]) |
+| `js/app.js` | 543 | State, stats (streak, daily goal, XP), Mitt and icons, Learn path, lessons, Practice, Rewards, Profile, camera screen, router ([[App Layout and Screens]]) |
 | `js/camera.js` | 307 | `Coach` module ([[Camera Coach Overview]]) |
 | `start-mac.command` | 4 | `cd` to folder, open browser after 1s, `python3 -m http.server 8000` |
 | `update-and-start.command` | 20 | `git pull --ff-only` on `main` (if the folder is a git clone), pick a free port from 8000, open browser, `python3 -m http.server`. Run with `bash update-and-start.command`; setup steps in README "Run the latest version" |
 | `start-windows.bat` | 7 | Opens browser, uses `py`, else `python`, else `npx --yes serve -l 8000 .` |
 | `vendor/holistic/` | ~32 MB | [[MediaPipe Holistic Vendor Bundle]] |
-| `vendor/fonts/` | ~144 KB | [[Design System]] — Fraunces, Roboto, Roboto Mono (SIL OFL) |
+| `vendor/fonts/` | ~110 KB | [[Design System]] — Fredoka, Nunito (SIL OFL) |
 | `.gitignore` | — | Generic Node template (no relevant rules) |
 
 ## `js/app.js` function index
