@@ -31,7 +31,6 @@ const byId = id => SIGNS.find(s => s.id === id);
 const card = id => S.cards[id];
 const isKnown = id => (card(id)?.box || 0) >= 2;
 const isDue = id => card(id) && card(id).due <= Date.now();
-const videoUrl = s => "https://www.signingsavvy.com/search/" + encodeURIComponent(s.w.toLowerCase());
 function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 function streak() {
   const set = new Set(S.days); let n = 0; let t = Date.now();
@@ -82,6 +81,7 @@ const ICON = {
   cam: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="9" width="20" height="15" rx="4" fill="${c}"/><path d="M23 14l6-4v13l-6-4z" fill="${c}"/></svg>`,
   quiz: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="${c}"/><path d="M12 12a4 4 0 1 1 6 3c-1.5 1-2 2-2 3.5M16 23v.5" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
   hand: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 26V12c0-2 3-2 3 0v6V8c0-2 3-2 3 0v10V7c0-2 3-2 3 0v11V9c0-2 3-2 3 0v12c0 4-3 6-6 6h-1c-3 0-5-2-6-5l-3-6c-1-2 2-3 3-1z" fill="${c}"/></svg>`,
+  bulb: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4a9 9 0 0 0-5 16.5V24h10v-3.5A9 9 0 0 0 16 4z" fill="#e6951a"/><path d="M13 14l3 3 3-3" fill="none" stroke="#fff2d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="11.5" y="25.5" width="9" height="3" rx="1.5" fill="#a8771e"/></svg>`,
   lock: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="13" width="16" height="13" rx="3" fill="#b4c1c7"/><path d="M11 13V10a5 5 0 0 1 10 0v3" fill="none" stroke="#b4c1c7" stroke-width="3"/></svg>`,
 };
 // One picture per routine, used on the lesson bubbles and badges.
@@ -251,6 +251,38 @@ function photo(file, caption, cls = "photo") {
   if (file.endsWith(".svg")) cls += " drawing";
   return `<figure class="${cls}"><img src="${photoSrc(file)}" alt="${esc(caption)}" loading="lazy" onerror="this.closest('figure').remove()"></figure>`;
 }
+/* ---------- Hints: a panel that opens right under the question, instead of a link to another site ---------- */
+// Which handshapes a sign uses, read from its written "hand" text, in the order they appear.
+const SHAPE_WORDS = [
+  [/flat-o/i, "Flat-O"], [/claw|slightly bent|bent hands/i, "Claw"], [/\bC-hand|C to S|curved hands/i, "C"],
+  [/\bA-hand|thumbs-up/i, "A"], [/\bS-hand/i, "S"], [/\bT-hand/i, "T"], [/\bK-hand/i, "K"], [/\bW-hand/i, "W"], [/\bY-hand/i, "Y"],
+  [/thumb, index and pinky/i, "ILY"], [/index fingers?\b(?! and middle)/i, "Index"], [/\bfists?\b/i, "S"],
+  [/5-hand|open hands?|hands open/i, "5 (open)"], [/flat hands?/i, "Flat"],
+];
+const EXTRA_SHAPES = { Flat: "Fingers straight and together" };
+function signShapes(s) {
+  const hits = SHAPE_WORDS.map(([re, n]) => { const m = s.hand.match(re); return m ? [m.index, n] : null; }).filter(Boolean).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+  let out = [...new Set(hits)];
+  if (out.some(n => ["A", "T"].includes(n))) out = out.filter(n => n !== "S" || /\bS-hand/i.test(s.hand));   // "A-hand (fist...)" is not an S
+  if (out.includes("Claw")) out = out.filter(n => n !== "5 (open)" || /hands open/i.test(s.hand));          // "claw (5-hand with fingers bent)"
+  return out.slice(0, 2);
+}
+const hintButton = id => `<button class="hintbtn" data-hint="${id}" aria-expanded="false" aria-controls="${id}">${ICON.bulb()}<span>Hint</span></button>`;
+function hintShape(n) {
+  const d = (HANDSHAPES.find(h => h[0] === n) || [, EXTRA_SHAPES[n]])[1];
+  if (!d) return "";
+  return `<div class="hint-hs">${HANDSHAPE_PHOTOS[n] ? photo(HANDSHAPE_PHOTOS[n], n + " handshape", "photo tiny") : ""}
+    <div><small>Handshape</small><b>${esc(n === "Flat" ? "Flat hand" : n)}</b><span>${esc(d)}</span></div></div>`;
+}
+// withHook: also show the memory hook (left out where the hook is already on screen).
+function hintPanel(id, s, withHook = true) {
+  const shapes = signShapes(s).map(hintShape).join("");
+  return `<div class="hintpop" id="${id}" hidden>${shapes}
+    ${withHook ? `<p class="hint-tip"><b>Remember it:</b> ${esc(s.hook)}</p>` : ""}
+    ${!shapes && !withHook ? `<p class="hint-tip">${esc(s.hand)}</p>` : ""}
+    <p class="note">Left-handed? Mirror the sign with your left hand.</p></div>`;
+}
+
 const stepsDl = s => `<dl class="steps"><dt>Hand</dt><dd>${esc(s.hand)}</dd><dt>Where</dt><dd>${esc(s.where)}</dd><dt>Move</dt><dd>${esc(s.move)}</dd></dl>`;
 
 function signCard(s) {
@@ -265,8 +297,8 @@ function signCard(s) {
     <div class="row">
       ${c ? "" : `<button class="btn ghost sm" data-learn="${s.id}">Add to my practice</button>`}
       ${Coach.supported() ? `<button class="btn ghost sm" data-camsign="${s.id}">Check with camera</button>` : ""}
-      <a href="${videoUrl(s)}" target="_blank" rel="noopener">Watch it signed ↗</a>
-    </div></article>`;
+      ${hintButton("hint-" + s.id)}
+    </div>${hintPanel("hint-" + s.id, s, false)}</article>`;
 }
 
 /* ---------- Lessons: full screen, one step at a time ----------
@@ -304,14 +336,16 @@ function viewLesson() {
   const st = P.steps[P.i], s = byId(st.id);
   if (st.t === "teach") return `${lessonTop()}<div class="lbody">
       <div class="qtype c-text-leaf">${ICON.star("#48c774")}New sign · ${esc(P.title)}</div><h1 class="q">Meet <span class="hl">${esc(s.w)}</span></h1>
+      <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s, false)}</div>
       <div class="signcard">${SIGN_PHOTOS[s.id] ? photo(SIGN_PHOTOS[s.id].file, SIGN_PHOTOS[s.id].caption) : `<div class="handpic">${mitt(110)}</div>`}
         <div class="stack">${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p><p class="say">${esc(s.say)}</p></div></div></div>
-    <footer class="lfoot"><a class="btn ghost" href="${videoUrl(s)}" target="_blank" rel="noopener">Watch it signed ↗</a><button class="btn green wide" data-taught="1">Got it</button></footer>`;
+    <footer class="lfoot"><span class="ask">Try it with your hands.</span><button class="btn green wide" data-taught="1">Got it</button></footer>`;
   if (st.t === "pick") {
     if (!P.opts) P.opts = shuffle([s, ...shuffle(SIGNS.filter(x => x.id !== s.id)).slice(0, 3)]).map(x => x.id);
     const ok = P.answered === s.id;
     return `${lessonTop()}<div class="lbody">
       <div class="qtype c-text-plum">${ICON.quiz("#7c5cff")}Read &amp; pick · ${esc(P.title)}</div><h1 class="q">Which sign is this?</h1>
+      ${P.answered ? "" : `<div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>`}
       <div class="signcard"><div class="handpic">${mitt(100)}</div>${stepsDl(s)}</div>
       <div class="opts">${P.opts.map(id => {
         const cls = P.answered ? (id === s.id ? "right" : id === P.answered ? "wrong" : "dim") : "";
@@ -325,6 +359,7 @@ function viewLesson() {
   return `${lessonTop()}<div class="lbody">
     <div class="qtype c-text-teal">${ICON.hand("#11a3a0")}Sign it yourself · ${esc(P.title)}</div><h1 class="q">Sign <span class="hl">${esc(s.w)}</span></h1>
     <p class="situation">${esc(s.say)}</p>
+    ${P.revealed ? "" : `<div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>`}
     ${P.revealed ? `<div class="signcard">${SIGN_PHOTOS[s.id] ? photo(SIGN_PHOTOS[s.id].file, SIGN_PHOTOS[s.id].caption) : `<div class="handpic">${mitt(100)}</div>`}
         <div class="stack">${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p></div></div>`
       : `<div class="bigword">${esc(s.w)}<span>Make the sign with your hands, then check.</span></div>
@@ -359,6 +394,7 @@ const CAM_HELP = {
 function viewCamera(s) {
   return `<div class="lbody wide">
     <div class="qtype c-text-teal">${ICON.cam("#11a3a0")}Camera coach · ${esc(P.title)}</div><h1 class="q">Sign <span class="hl">${esc(s.w)}</span></h1>
+    <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>
     <div class="camgrid">
       <div class="cam-stage" id="cam-stage">
         <video id="cam-video" playsinline muted></video><canvas id="cam-canvas"></canvas>
@@ -472,7 +508,7 @@ function viewProfile() {
       <div class="fact"><b>70%</b><p>of deaf children may miss out on language early on, say Boston University researchers.</p></div>
     </div>
     <p>The first years are when the brain is built for language. Every sign you use at the table or at bedtime gives your child words they can see. You don't have to be fluent to start. You only have to start.</p>
-    <p class="note">Sign descriptions are written guides. Use "Watch it signed" to see each sign on video, and learn alongside Deaf adults and your local early intervention program whenever you can.</p>
+    <p class="note">Sign descriptions are written guides. Tap "Hint" for the handshape and a memory tip, and learn alongside Deaf adults and your local early intervention program whenever you can.</p>
   </section>
   <section class="panel"><h2>Start over</h2><p class="muted">Clears all progress saved in this browser.</p>
     <div class="row"><button class="btn ghost" data-askreset="1">Reset my progress</button></div><div id="resetconfirm" hidden class="row"><span>Are you sure?</span><button class="btn coral sm" id="reset">Yes, reset</button></div></section>`;
@@ -511,8 +547,9 @@ function go(hash) { if (location.hash === "#" + hash) route(); else location.has
 function score(id, ok) { rate(id, ok); P.scored++; if (ok) { P.right++; P.xp += 10; } else P.hearts--; }
 function onClick(e) {
   const b = e.target.closest("button"); if (!b) return;
-  if (abcClick(b)) return;   // ABC tab buttons (js/abc.js)
   const d = b.dataset;
+  if (d.hint) { const el = document.getElementById(d.hint); if (el) { el.hidden = !el.hidden; b.setAttribute("aria-expanded", String(!el.hidden)); } return; }
+  if (abcClick(b)) return;   // ABC tab buttons (js/abc.js)
   if (b.id === "reset") { S = { sample: false, cards: {}, days: [], used: [], mission: null }; P = null; save(); toast("Fresh start. Welcome!"); go("learn"); return; }
   if (d.askreset) { const n = $("#resetconfirm"); if (n) n.hidden = false; }
   else if (d.go) go(d.go);

@@ -374,3 +374,22 @@ button.chip:hover { border-color: #9fe0dc; background: #f3fbfb; }
 /* ---------- toast ---------- */
 .toast { position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 10; max-width: calc(100% - 32px);
   background: var(--ink); color: #fff; padding: 12px 20px; border-radius: 16px; font-weight: 700; text-align: center; box-shadow: 0 8px 24px -8px rgba(0,0,0,.35); }
+
+/* ---------- hints: a panel that opens right under the question ---------- */
+.hintwrap { display: grid; gap: 0; justify-items: start; }
+.hintbtn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px 6px 10px; border-radius: 99px; border: 2px solid #ffd98a; background: var(--sun-l);
+  color: #8a5a00; font-family: var(--display); font-weight: 600; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 3px 0 #ffd98a; }
+.hintbtn svg { width: 20px; height: 20px; }
+.hintbtn:active { transform: translateY(2px); box-shadow: 0 1px 0 #ffd98a; }
+.hintbtn[aria-expanded="true"] { background: #ffe2a3; border-color: var(--sun); color: #5a3b00; box-shadow: 0 3px 0 var(--sun); }
+.hintpop { position: relative; margin-top: 14px; width: 100%; background: #fffaf0; border: 2px solid #ffd98a; border-radius: 16px; padding: 14px 16px; display: grid; gap: 10px;
+  animation: hintIn .18s ease-out; }
+.hintpop::before { content: ""; position: absolute; top: -10px; left: 26px; width: 16px; height: 16px; background: #fffaf0; border-left: 2px solid #ffd98a; border-top: 2px solid #ffd98a; transform: rotate(45deg); }
+@keyframes hintIn { from { opacity: 0; transform: translateY(-4px); } }
+.hint-hs { display: flex; gap: 12px; align-items: center; }
+.hint-hs small { display: block; font-family: var(--display); font-weight: 600; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: #a8771e; }
+.hint-hs b { display: block; font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
+.hint-hs span { color: #6b5a3a; font-size: .92rem; }
+.hint-tip { color: #5a4a2a; }
+.photo.tiny img { width: 72px; height: 72px; object-fit: contain; background: #fff; }
+.sign .hintpop { margin-top: 2px; }

@@ -8,7 +8,6 @@ const abcCards = () => (S.abc = S.abc || { cards: {} }).cards;
 const abcCard = id => abcCards()[id];
 const abcKnown = id => (abcCard(id)?.box || 0) >= 2;   // same rule as isKnown() for signs
 const abcDue = id => abcCard(id) && abcCard(id).due <= Date.now();
-const abcVideo = x => "https://www.signingsavvy.com/search/" + encodeURIComponent(x.q);
 const abcStarted = list => list.filter(x => abcCard(x.id)).length;
 const wordId = w => "w-" + w;                        // easy-word cards live in S.abc.cards under "w-<WORD>"
 const wordKnown = w => abcKnown(wordId(w));
@@ -54,13 +53,22 @@ function abcCardHtml(x) {
     <p class="hook"><b>Remember it:</b> ${esc(x.hook)}</p>
     <div class="row">
       ${c ? "" : `<button class="btn" data-abc="learn" data-val="${x.id}">Add to my practice</button>`}
-      <a href="${abcVideo(x)}" target="_blank" rel="noopener">Watch it signed ↗</a>
-    </div></article>`;
+      ${hintButton("hint-abc-" + x.id)}
+    </div>${abcHint(x)}</article>`;
+}
+// Hint for a letter or number: its group's tip and the look-alikes that are easy to mix up.
+function abcHint(x) {
+  const isNum = NUMBERS.includes(x), grp = ABC_GROUPS.find(g => g.id === x.g);
+  const alike = isNum ? [] : LETTERS.filter(y => y.g === x.g && y.id !== x.id).map(y => y.ch);
+  return `<div class="hintpop" id="hint-abc-${x.id}" hidden>
+    ${grp ? `<div class="hint-hs"><div><small>Group</small><b>${esc(grp.name)}</b><span>${esc(grp.tip)}</span></div></div>` : isNum ? `<p class="hint-tip">${esc(NUMBER_TIP)}</p>` : ""}
+    ${alike.length ? `<p class="hint-tip"><b>Easy to mix up with:</b> ${alike.map(esc).join(", ")}</p>` : ""}
+    <p class="note">Left-handed? Mirror it with your left hand.</p></div>`;
 }
 const abcBack = `<button class="back" data-go="abc">← Letters &amp; numbers</button>`;
 const handNote = `<p class="note">Instructions are for a right-handed signer. The palm faces the person you are signing to, except G and H (turned sideways) and P and Q (pointing down). If you are left-handed, mirror them.</p>`;
 const sourcesPanel = () => `<details class="howto panel"><summary>Where these descriptions come from</summary>
-  <p class="note">Written in our own words from these published guides and checked against each other. Guides differ in small ways, so use "Watch it signed" and learn with Deaf adults whenever you can.</p>
+  <p class="note">Written in our own words from these published guides and checked against each other. Guides differ in small ways, so tap "Hint" for look-alike letters and learn with Deaf adults whenever you can.</p>
   <ul class="tips">${ABC_SOURCES.map(x => `<li><a href="${x.url}" target="_blank" rel="noopener">${esc(x.name)}</a></li>`).join("")}</ul></details>`;
 
 function viewAbc(sub) {

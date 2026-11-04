@@ -46,5 +46,10 @@ Header with Mitt, four stat tiles (streak, XP, signs known, real moments), this 
 - **Daily goal**: `GOAL = 5` signs practiced today, stored in `S.goal` (`bumpGoal()` is called from `rate()`, `abcRate()` and teach steps).
 - **XP**: `xp()` is worked out from saved data (10 per sign review, 5 per letter/number/word review, 20 per real moment), so older saves get XP too.
 
+## Hints (added 2026-11-03)
+A **Hint** button (`hintButton(id)`) sits right under the question in every lesson step (hidden once a pick is answered or the steps are shown), and on every sign guide card and ABC card. Tapping it toggles a panel (`.hintpop`) under it without re-rendering the page. It replaced the "Watch it signed" links to another site.
+- Signs (`hintPanel`): the handshape(s) the sign uses, read from its written hand text by `signShapes()` (`SHAPE_WORDS` patterns, at most 2), each with its cheat-sheet photo and description; the "Remember it" hook (left out where it is already on screen); a left-handed note.
+- Letters (`abcHint` in `js/abc.js`): the letter's group and tip, plus the letters in the same group that are easy to mix up. Numbers show the counting tip.
+
 ## ABC tab
 Unchanged logic ([[ABC Screens]]). `hero()` now draws a colored page header with Mitt instead of a photo banner.

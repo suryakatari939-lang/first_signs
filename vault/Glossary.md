@@ -30,7 +30,7 @@ tags: [glossary]
 
 **MediaPipe Holistic** — Google's combined face + pose + hands landmark model ([[MediaPipe Holistic Vendor Bundle]]).
 
-**Signing Savvy** — external ASL video dictionary the "Watch it signed" links search.
+**Signing Savvy** — external ASL video dictionary, cited as a source for the ABC tab. (The old "Watch it signed" links to it were replaced by in-app hints.)
 
 **Early intervention** — local services for deaf/hard-of-hearing infants and toddlers; the app recommends joining them.
 
