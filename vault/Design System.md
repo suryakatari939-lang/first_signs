@@ -11,7 +11,7 @@ tags: [design, css, accessibility]
 |---|---|---|
 | `--teal` / `-d` / `-l` | `#11a3a0` / `#0b7f7c` / `#d9f4f2` | main buttons, current tab, links, Mealtime unit |
 | `--plum` | `#7c5cff` / `#5d3fe0` / `#ece7ff` | read-and-pick, XP, Bedtime and Safety units |
-| `--coral` | `#ff7a6b` / `#e2584a` / `#ffe6e2` | hearts, real moments, wrong answers, Feelings unit |
+| `--coral` | `#ff7a6b` / `#e2584a` / `#ffe6e2` | real moments, wrong answers, Feelings unit |
 | `--sun` | `#ffb938` / `#e6951a` / `#fff2d6` | streak, finished lessons, hooks, Family unit |
 | `--leaf` | `#48c774` / `#2fa85a` / `#e2f7e9` | right answers, Continue, unit review chest, Play unit |
 | `--ink`, `--muted`, `--line`, `--track`, `--soft` | `#20313a`, `#6c7e87`, `#e5ebee`, `#e9eef1`, `#f5f8f9` | text, hints, borders, empty bars, light fills |
@@ -26,7 +26,7 @@ The app is light only. Fonts are stored in `vendor/fonts` (Fredoka 600/700, Nuni
 - **Cards** `.panelcard`, `.panel`, `.card`, `.sign`, `.routine`, `.badge`, `.stattile`: 2px light border, 18px corners, no drop shadows.
 - **Progress bars** `.pbar` (`.thin`, `.big`, color classes) and the older `.bar` (ABC tiles).
 - **Path** `.unitbar`, `.path`, `.step` (`--x` zig-zag offset, scaled down on phones), `.node` (`.done`, `.started`, `.new`, `.now`, `.chest`), `.startbubble`, `.pathmitt`.
-- **Lesson** `.ltop` (exit, progress, hearts), `.lbody`, `.signcard`, `.opts`/`.opt` (`.right`, `.wrong`, `.dim`), `.bigword`, `.lfoot` (sticky bottom bar; `.good` / `.bad` for feedback), `.endstats`.
+- **Lesson (minimal, 2026-11-16)** `body.lesson-mode` switches to a muted dark palette: `--lbg #16191f`, `--lpanel #1d2128`, text `--link #e6e8ec` / `--lsub #a0a8b4` / `--ldim #6f7783`, accent lavender `--llav #8e8bc4`, sage `--lsage #86b4a2` (right), rose `--lrose #c99393` (wrong), sand `--lsand #cbb48a`. Classes: `.ltop` (`.x` exit, `.lprog` bar, `.lcount`), `.lgrid` (two columns ≥900px), `.pane`, `.plabel` (Watch / Your turn), `.lframe`, `.lgloss`, `.lbig`, `.lname`, `.ldesc`, `.lcard`, `.lopts`/`.lopt` (`.right`, `.wrong`, `.dim`), `.lresult` (`.ok`/`.no`, `.lcheck`), `.lfoot` (sticky), `.lbtn` (`.main`, `.ghost`, `.plain`, `.small`), `.lend`. The camera check list `.checks li` is a 3-column row: mark, text, accuracy note.
 
 ## Layout
 - Phones: bottom tab bar, page padding 16px, stats bar at the top of each page.

@@ -51,5 +51,6 @@ Found by reading the code at commit `e3c743a` (2026-10-28). Nothing here has bee
 31. **Easy-word lessons are our own design, unreviewed.** Order and word choices are not from a published curriculum ([[Easy Word Lessons]], [[Open Questions]] #11).
 32. 10 of the 54 lesson words (BED, DOG, MILK, BOOK, BALL, MOM, DAD, YES, MAD, HOT) already have real signs in the app; they are flagged but still taught as spelling practice, which can look contradictory next to "use the sign for words that have one".
 33. ✔ A word becomes Known after one "Got it" (same box >= 2 rule as everything else, #2), and the practice is self-rated: nothing checks the parent's hands.
+34. The camera's "Matched N% of the time" is the share of recorded frames that matched, not a grade. Good signing often shows 60-90% because frames while moving into the sign count too. The pass line is still 35% (shape) and 30% (location) ([[Evaluation and Scoring]]).
 
 See [[Ideas and Next Steps]] for what to do about these.

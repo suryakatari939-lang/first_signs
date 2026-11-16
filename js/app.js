@@ -303,10 +303,10 @@ function signCard(s) {
 
 /* ---------- Lessons: full screen, one step at a time ----------
    A lesson is a list of steps: "teach" (meet a new sign), "pick" (read the description, pick the sign)
-   and "recall" (see the word, make the sign, check yourself or with the camera). Wrong answers cost a heart. */
+   and "recall" (see the word, make the sign, check yourself or with the camera). */
 let P = null;
 function startLesson(title, steps, back = "learn", cam = false) {
-  P = { title, steps, back, i: 0, right: 0, scored: 0, hearts: 5, answered: null, opts: null, revealed: false, cam, xp: 0 };
+  P = { title, steps, back, i: 0, right: 0, scored: 0, answered: null, opts: null, revealed: false, cam, xp: 0 };
   go("lesson");
 }
 function lessonFromSigns(title, list, back) {
@@ -324,65 +324,73 @@ function startMode(key) {
     shuffle(set).map(s => ({ t: key === "pick" ? "pick" : "recall", id: s.id })), "practice", key === "cam");
 }
 
-const HEART_ROW = () => `<span class="hearts" aria-label="${P.hearts} hearts left">${ICON.heart()}${P.hearts}</span>`;
+/* Lesson screens: a calm, two-column layout ("Watch" | "Your turn") on a muted dark background,
+   with a thin progress bar and one main button at the bottom. */
 function lessonTop() {
-  return `<div class="ltop"><button class="x" data-exit="1" aria-label="Leave lesson">✕</button>
-    <div class="pbar big" role="progressbar" aria-valuemin="0" aria-valuemax="${P.steps.length}" aria-valuenow="${P.i}"><i style="width:${P.i / P.steps.length * 100}%"></i></div>${HEART_ROW()}</div>`;
+  const n = P.steps.length, at = Math.min(P.i + 1, n);
+  return `<div class="ltop"><button class="x" data-exit="1" aria-label="Leave lesson"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <div class="lprog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${P.i}"><i style="width:${P.i / n * 100}%"></i></div>
+    <span class="lcount">${P.i >= n ? n : at} of ${n}</span></div>`;
 }
+// The "Watch" picture: the sign's photo, else its handshape's photo, else the word itself.
+function watchFrame(s) {
+  const file = SIGN_PHOTOS[s.id] ? SIGN_PHOTOS[s.id].file : HANDSHAPE_PHOTOS[signShapes(s)[0]];
+  return `<div class="lframe"><span class="lgloss">${esc(s.w)}</span>
+    ${file ? `<img src="${photoSrc(file)}" alt="${esc(s.w)}" loading="lazy" onerror="this.remove()">` : ""}</div>`;
+}
+const paneLabel = (t, live) => `<div class="plabel">${live ? "<i></i>" : ""}${t}</div>`;
+const lbtn = (cls, data, text) => `<button class="lbtn ${cls}" ${data}>${text}</button>`;
+const resultRow = (ok, title, text) => `<div class="lresult ${ok ? "ok" : "no"}" role="status">
+    <span class="lcheck">${ok ? ICON.check("#86b4a2") : ICON.cross("#c99393")}</span><div><b>${esc(title)}</b><p>${esc(text)}</p></div></div>`;
+
 function viewLesson() {
   if (!P) { setTimeout(() => go("learn")); return ""; }
-  if (P.hearts <= 0 && !P.answered) return lessonEnd(true);   // show the last answer's feedback first
-  if (P.i >= P.steps.length) return lessonEnd(false);
+  if (P.i >= P.steps.length) return lessonEnd();
   const st = P.steps[P.i], s = byId(st.id);
-  if (st.t === "teach") return `${lessonTop()}<div class="lbody">
-      <div class="qtype c-text-leaf">${ICON.star("#48c774")}New sign · ${esc(P.title)}</div><h1 class="q">Meet <span class="hl">${esc(s.w)}</span></h1>
-      <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s, false)}</div>
-      <div class="signcard">${SIGN_PHOTOS[s.id] ? photo(SIGN_PHOTOS[s.id].file, SIGN_PHOTOS[s.id].caption) : `<div class="handpic">${mitt(110)}</div>`}
-        <div class="stack">${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p><p class="say">${esc(s.say)}</p></div></div></div>
-    <footer class="lfoot"><span class="ask">Try it with your hands.</span><button class="btn green wide" data-taught="1">Got it</button></footer>`;
+  if (st.t === "teach") return `${lessonTop()}<div class="lgrid">
+      <section class="pane">${paneLabel("Watch")}${watchFrame(s)}
+        <h1 class="lname">${esc(s.w)}</h1><p class="ldesc">${esc(s.hand)}</p>
+        <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s, false)}</div></section>
+      <section class="pane">${paneLabel("Your turn")}
+        <div class="lcard"><p class="lnew">New sign</p>${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p><p class="say">${esc(s.say)}</p></div>
+        <p class="lnote">Try it with your hands now. Mirror it if you're left-handed.</p></section></div>
+    <footer class="lfoot">${lbtn("main", 'data-taught="1"', "Continue")}</footer>`;
   if (st.t === "pick") {
     if (!P.opts) P.opts = shuffle([s, ...shuffle(SIGNS.filter(x => x.id !== s.id)).slice(0, 3)]).map(x => x.id);
     const ok = P.answered === s.id;
-    return `${lessonTop()}<div class="lbody">
-      <div class="qtype c-text-plum">${ICON.quiz("#7c5cff")}Read &amp; pick · ${esc(P.title)}</div><h1 class="q">Which sign is this?</h1>
-      ${P.answered ? "" : `<div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>`}
-      <div class="signcard"><div class="handpic">${mitt(100)}</div>${stepsDl(s)}</div>
-      <div class="opts">${P.opts.map(id => {
-        const cls = P.answered ? (id === s.id ? "right" : id === P.answered ? "wrong" : "dim") : "";
-        return `<button class="opt ${cls}" data-pick="${id}" ${P.answered ? "disabled" : ""}>${esc(byId(id).w)}</button>`;
-      }).join("")}</div></div>
-    ${P.answered ? feedbackBar(ok, ok ? "Nice signing!" : "Not quite.", (ok ? "" : "The answer is " + s.w + ". ") + s.hook)
-      : `<footer class="lfoot"><span class="ask">Tap the sign that matches the description.</span></footer>`}`;
+    return `${lessonTop()}<div class="lgrid">
+      <section class="pane">${paneLabel("Read")}
+        <div class="lcard">${stepsDl(s)}</div>
+        ${P.answered ? "" : `<div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>`}</section>
+      <section class="pane">${paneLabel("Which sign is this?")}
+        <div class="lopts">${P.opts.map(id => {
+          const cls = P.answered ? (id === s.id ? "right" : id === P.answered ? "wrong" : "dim") : "";
+          return `<button class="lopt ${cls}" data-pick="${id}" ${P.answered ? "disabled" : ""}>${esc(byId(id).w)}</button>`;
+        }).join("")}</div>
+        ${P.answered ? resultRow(ok, ok ? "Correct" : "Not quite. It's " + s.w + ".", s.hook) : ""}</section></div>
+    <footer class="lfoot">${P.answered ? lbtn("main", 'data-next="1"', "Continue") : `<span class="lnote">Tap the sign that matches.</span>`}</footer>`;
   }
-  // recall
+  // recall: see the word, make the sign
   if (P.cam && Coach.supported()) return `${lessonTop()}${viewCamera(s)}`;
-  return `${lessonTop()}<div class="lbody">
-    <div class="qtype c-text-teal">${ICON.hand("#11a3a0")}Sign it yourself · ${esc(P.title)}</div><h1 class="q">Sign <span class="hl">${esc(s.w)}</span></h1>
-    <p class="situation">${esc(s.say)}</p>
-    ${P.revealed ? "" : `<div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>`}
-    ${P.revealed ? `<div class="signcard">${SIGN_PHOTOS[s.id] ? photo(SIGN_PHOTOS[s.id].file, SIGN_PHOTOS[s.id].caption) : `<div class="handpic">${mitt(100)}</div>`}
-        <div class="stack">${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p></div></div>`
-      : `<div class="bigword">${esc(s.w)}<span>Make the sign with your hands, then check.</span></div>
-        <p class="note" id="camhelp" hidden>${esc(CAM_HELP[Coach.whyNot()] || "")}</p>`}</div>
-  ${P.revealed ? `<footer class="lfoot"><span class="ask">Did your sign match?</span><div class="row"><button class="btn ghost" data-rate="0">Not yet</button><button class="btn green wide" data-rate="1">Got it</button></div></footer>`
-    : `<footer class="lfoot"><button class="btn ghost" data-reveal="1">Show me the steps</button>
-      ${Coach.supported() ? `<button class="btn teal wide" data-camon="1">Check with camera</button>` : `<button class="btn ghost" data-camhelp="1">Check with camera</button>`}</footer>`}`;
+  return `${lessonTop()}<div class="lgrid">
+    <section class="pane">${paneLabel("Sign this")}
+      <div class="lframe"><span class="lbig">${esc(s.w)}</span></div>
+      <p class="ldesc">${esc(s.say)}</p>
+      ${P.revealed ? "" : `<div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>`}</section>
+    <section class="pane">${paneLabel("Your turn")}
+      ${P.revealed ? `<div class="lcard">${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p></div><p class="lnote">Did your sign match?</p>`
+        : `<div class="lcard center"><p>Make the sign with your hands, then check it.</p>
+            ${Coach.supported() ? lbtn("main", 'data-camon="1"', "Check with camera") : lbtn("ghost", 'data-camhelp="1"', "Check with camera")}
+            <p class="lnote" id="camhelp" hidden>${esc(CAM_HELP[Coach.whyNot()] || "")}</p></div>`}</section></div>
+  <footer class="lfoot">${P.revealed ? `${lbtn("plain", 'data-rate="0"', "Not yet")}${lbtn("main", 'data-rate="1"', "Got it")}`
+    : lbtn("plain", 'data-reveal="1"', "Show me the steps")}</footer>`;
 }
-function feedbackBar(ok, title, text) {
-  return `<footer class="lfoot ${ok ? "good" : "bad"}" role="status">
-    <div class="yay"><span class="tick">${ok ? ICON.check("#2fa85a") : ICON.cross("#e2584a")}</span><div><b>${esc(title)}</b><span>${esc(text)}</span></div></div>
-    <button class="btn ${ok ? "green" : "coral"} wide" data-next="1">Continue</button></footer>`;
-}
-function lessonEnd(outOfHearts) {
+function lessonEnd() {
   const acc = P.scored ? Math.round(P.right / P.scored * 100) : 100;
-  if (outOfHearts) return `<div class="lbody end">${mitt(150, "sad")}<h1 class="q">Out of hearts</h1>
-      <p class="muted">That's OK. Look over the steps for these signs, then try again. Mistakes help you remember.</p></div>
-    <footer class="lfoot"><button class="btn ghost" data-exit="1">Back</button><button class="btn teal wide" data-retry="1">Try again</button></footer>`;
-  return `<div class="lbody end">${mitt(150)}<h1 class="q">Lesson complete!</h1>
-      <div class="endstats"><div class="c-sun"><small>XP earned</small><b>${ICON.star("#fff")}+${P.xp}</b></div>
-        <div class="c-leaf"><small>Accuracy</small><b>${acc}%</b></div><div class="c-coral"><small>Hearts left</small><b>${ICON.heart("#fff")}${P.hearts}</b></div></div>
-      <p class="muted">Now the important part: use one of these with your child today. Real conversations are what build language.</p></div>
-    <footer class="lfoot"><span></span><button class="btn green wide" data-exit="1">Continue</button></footer>`;
+  const done = new Set(P.steps.map(x => x.id)).size;
+  return `<div class="lend">${resultRow(true, "Lesson complete", `${done} sign${done > 1 ? "s" : ""} practiced · ${acc}% correct · +${P.xp} XP`)}
+      <p class="ldesc">Now the important part: use one of these with your child today. Real conversations are what build language.</p></div>
+    <footer class="lfoot">${lbtn("main", 'data-exit="1"', "Continue")}</footer>`;
 }
 
 /* ---------- Camera coach (inside a lesson) ---------- */
@@ -392,24 +400,21 @@ const CAM_HELP = {
   browser: "This browser doesn't allow camera access here. Open the app in Chrome or Edge at localhost:8000.",
 };
 function viewCamera(s) {
-  return `<div class="lbody wide">
-    <div class="qtype c-text-teal">${ICON.cam("#11a3a0")}Camera coach · ${esc(P.title)}</div><h1 class="q">Sign <span class="hl">${esc(s.w)}</span></h1>
-    <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>
-    <div class="camgrid">
+  return `<div class="lgrid">
+    <section class="pane">${paneLabel("Watch")}${watchFrame(s)}
+      <h1 class="lname">${esc(s.w)}</h1><p class="ldesc">${esc(s.hand)}</p>
+      <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div></section>
+    <section class="pane">${paneLabel("Your turn", true)}
       <div class="cam-stage" id="cam-stage">
         <video id="cam-video" playsinline muted></video><canvas id="cam-canvas"></canvas>
         <div class="cam-count" id="cam-count" hidden></div>
         <div class="cam-status" id="cam-status">Starting camera…</div>
       </div>
-      <div class="livecard"><b>Live check</b>
-        <p class="cam-live" aria-live="off"><span id="live-hand">Looking for your hand…</span></p>
-        <p class="note">The dashed outline shows where this sign happens. Sit so your face and chest are in view.</p>
-        <div id="cam-result" class="cam-result" role="status"></div>
-        <details class="howto"><summary>How to sign ${esc(s.w)}</summary>${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p></details>
-        <button class="link" data-camoff="1">Turn camera off</button>
-      </div>
-    </div></div>
-  <footer class="lfoot"><div class="row" id="cam-actions"><button class="btn ghost" data-camskip="1">Skip</button><button class="btn teal wide" data-record="1">Record my sign</button></div></footer>`;
+      <p class="cam-live" aria-live="off"><span id="live-hand">Looking for your hand…</span></p>
+      <div id="cam-result" class="cam-result" role="status"></div>
+      <button class="lbtn plain small" data-camoff="1">Turn camera off</button>
+    </section></div>
+  <footer class="lfoot"><div class="row" id="cam-actions">${lbtn("plain", 'data-camskip="1"', "Skip")}${lbtn("main", 'data-record="1"', "Record my sign")}</div></footer>`;
 }
 function mountCamera() {
   const s = byId(P.steps[P.i].id);
@@ -443,8 +448,8 @@ async function recordSign() {
   const res = Coach.evaluate(frames, check);
   acts.hidden = false;
   if (res.error) {
-    out.innerHTML = `<p class="cam-verdict no">${esc(res.error)}</p>`;
-    acts.innerHTML = `<button class="btn ghost" data-camskip="1">Skip</button><button class="btn teal wide" data-record="1">Try again</button>`;
+    out.innerHTML = resultRow(false, "Let's try that again", res.error);
+    acts.innerHTML = `${lbtn("plain", 'data-camskip="1"', "Skip")}${lbtn("main", 'data-record="1"', "Try again")}`;
     return;
   }
   const want = check.shape.map(x => Coach.SHAPE_NAMES[x]).slice(0, 2).join(" or ");
@@ -456,11 +461,16 @@ async function recordSign() {
     [res.moveOk, "Movement", res.moveOk ? "Movement looks right." : `Try to ${Coach.MOVE_HINTS[check.move[0]]}.`],
   ];
   const all = rows.every(r => r[0]);
-  out.innerHTML = `<p class="cam-verdict ${all ? "ok" : "no"}">${all ? "That matches!" : "Close. Here's what to fix:"}</p>
-    <ul class="checks">${rows.map(([ok, k, t]) => `<li class="${ok ? "ok" : "no"}"><span class="mark" aria-hidden="true">${ok ? "✓" : "✕"}</span><b>${k}</b><span>${esc(t)}</span></li>`).join("")}</ul>`;
+  // How much of the recording matched each part. Movement is a yes/no check.
+  const pct = [res.shapePct, res.zonePct, null].map(v => v == null ? null : Math.round(v * 100));
+  const passed = rows.filter(r => r[0]).length;
+  out.innerHTML = `${resultRow(all, all ? "Great match" : "Almost there", `${passed} of 3 checks passed${all ? "" : ". Here's what to fix."}`)}
+    <ul class="checks">${rows.map(([ok, k, t], n) => `<li class="${ok ? "ok" : "no"}"><span class="mark" aria-hidden="true">${ok ? "✓" : "✕"}</span>
+      <div><b>${k}</b><span>${esc(t)}</span></div>
+      <em>${pct[n] == null ? (ok ? "Detected" : "Not seen") : `Matched ${pct[n]}% of the time`}</em></li>`).join("")}</ul>`;
   acts.innerHTML = all
-    ? `<button class="btn ghost" data-record="1">Record again</button><button class="btn green wide" data-rate="1">Next sign</button>`
-    : `<button class="btn ghost" data-rate="1">It was right, count it</button><button class="btn teal wide" data-record="1">Try again</button>`;
+    ? `${lbtn("plain", 'data-record="1"', "Record again")}${lbtn("main", 'data-rate="1"', "Next sign")}`
+    : `${lbtn("plain", 'data-rate="1"', "It was right, count it")}${lbtn("main", 'data-record="1"', "Try again")}`;
 }
 
 /* ---------- Rewards and profile ---------- */
@@ -534,7 +544,7 @@ function route() {
   document.body.classList.toggle("lesson-mode", inLesson);
   app.innerHTML = html;
   const r = $("#rail"); if (r) r.innerHTML = inLesson ? "" : rail();
-  const camOn = inLesson && P && P.cam && P.i < P.steps.length && P.hearts > 0 && P.steps[P.i].t === "recall" && Coach.supported();
+  const camOn = inLesson && P && P.cam && P.i < P.steps.length && P.steps[P.i].t === "recall" && Coach.supported();
   if (camOn) mountCamera(); else Coach.stop();
   const active = tab === "routines" ? "learn" : tab;
   document.querySelectorAll("nav.tabs a").forEach(a => {
@@ -544,7 +554,7 @@ function route() {
 }
 function go(hash) { if (location.hash === "#" + hash) route(); else location.hash = hash; window.scrollTo(0, 0); }
 
-function score(id, ok) { rate(id, ok); P.scored++; if (ok) { P.right++; P.xp += 10; } else P.hearts--; }
+function score(id, ok) { rate(id, ok); P.scored++; if (ok) { P.right++; P.xp += 10; } }
 function onClick(e) {
   const b = e.target.closest("button"); if (!b) return;
   const d = b.dataset;
@@ -561,7 +571,6 @@ function onClick(e) {
     l.forEach(s => learn(s.id)); startLesson(r.name + " review", [...shuffle(l).map(s => ({ t: "pick", id: s.id })), ...shuffle(l).slice(0, 2).map(s => ({ t: "recall", id: s.id }))], "learn"); }
   else if (d.start) startMode(d.start);
   else if (d.exit) { const back = P ? P.back : "learn"; P = null; Coach.stop(); go(back); }
-  else if (d.retry) { P = Object.assign(P, { i: 0, right: 0, scored: 0, hearts: 5, answered: null, opts: null, revealed: false, xp: 0 }); route(); }
   else if (d.taught) { learn(P.steps[P.i].id); bumpGoal(); P.i++; route(); }
   else if (d.reveal) { P.revealed = true; route(); }
   else if (d.rate) { score(P.steps[P.i].id, d.rate === "1"); P.i++; P.revealed = false; route(); }

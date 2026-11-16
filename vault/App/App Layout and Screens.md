@@ -13,7 +13,7 @@ tags: [app, screens, layout]
 - During a lesson `body.lesson-mode` hides the nav and rail so the lesson fills the screen.
 
 ## Mitt, the mascot
-`mitt(size, mood)` in `js/app.js` draws an original open-hand character (inline SVG). Used in the logo, page headers, next to the current lesson, in lesson cards and on the end screen (sad face when out of hearts).
+`mitt(size, mood)` in `js/app.js` draws an original open-hand character (inline SVG). Used in the logo, page headers, next to the current lesson, in lesson cards and on the Learn path.
 
 ## Learn (`#learn`, default; `#today` still works)
 - One **unit per routine** (`ROUTINES` order), each with a colored bar (`UNIT_COLOR`) and a **Sign guide** button that opens the routine's sign cards (`#routines.<id>`, [[Routine Detail Screen]]).
@@ -21,13 +21,18 @@ tags: [app, screens, layout]
 - A green chest at the end of each unit starts a **unit review** (every sign as read-and-pick, plus 2 sign-it-yourself).
 
 ## Lessons (`#lesson`)
-`startLesson(title, steps, back, cam)` sets `P` and goes to `#lesson`. Steps:
-- `teach`: meet a new sign (photo or Mitt, steps, hook). "Got it" calls `learn()` and counts toward the daily goal.
-- `pick`: read the description, tap one of 4 signs. Instant feedback bar (green / coral) with the hook, then Continue.
+`startLesson(title, steps, back, cam)` sets `P` and goes to `#lesson`.
+
+**Minimal lesson screen (2026-11-16).** Lessons use a calm dark screen (see [[Design System]]): an exit X, a thin progress bar and "N of M" on top (`lessonTop()`), then two columns on screens ≥900px (`.lgrid`, one column on phones): **Watch** on the left (photo or word in `watchFrame()`, sign name, handshape, Hint) and **Your turn** on the right. Buttons sit in a sticky footer (`.lfoot`, helpers `lbtn()`). Feedback uses one row, `resultRow(ok, title, text)`, with a check or cross.
+
+Steps:
+- `teach`: meet a new sign (Watch: photo + hint; Your turn: steps, hook). "Continue" calls `learn()` and counts toward the daily goal.
+- `pick`: read the description, tap one of 4 signs. Result row ("Correct" / "Not quite. It's X.") with the hook, then Continue.
 - `recall`: see the word, make the sign; "Show me the steps" then Got it / Not yet, or **Check with camera** (camera coach inside the lesson).
 - Lesson from the path (`lessonFromSigns`): teach steps for signs not started yet, then a pick for every sign, then one recall.
-- **Hearts:** 5 per lesson, a wrong answer (or camera Skip) costs one. At 0 the last feedback still shows, then an "Out of hearts" screen with Try again.
-- End screen: XP earned (+10 per right answer), accuracy, hearts left, and the reminder to use a sign with your child.
+- **No hearts.** Hearts were removed with the minimal redesign; a wrong answer just shows the result row and the lesson continues.
+- Camera step: live camera in the Your turn column. After recording, a result row ("Great match" / "Almost there", "N of 3 checks passed") and the three check marks (Handshape, Location, Movement), each with "Matched N% of the time" or Detected / Not seen. See [[Evaluation and Scoring]].
+- End screen: "Lesson complete" row with signs practiced, % correct and XP (+10 per right answer), and the reminder to use a sign with your child.
 
 ## Practice (`#practice`)
 Mode cards: **Today's 5 minutes** (mixed lesson from `todaysSet()`), **Read & pick**, **Sign it yourself**, **Camera coach**. Below them, the [[Handshape Cheat Sheet]] (moved here from the old Routines tab).

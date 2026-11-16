@@ -34,14 +34,13 @@ tags: [app, router, events]
 | `data-review="routineId"` | start the unit review |
 | `data-start` (`mix`, `pick`, `recall`, `cam`) | start a practice mode (`startMode`) |
 | `data-exit` | leave the lesson, back to `P.back` |
-| `data-retry` | restart the same lesson with 5 hearts |
 | `data-taught` | finish a teach step (`learn`, daily goal +1) |
 | `data-reveal` | show the steps in a recall step |
-| `data-rate` ("1" got it, "0" not yet) | `score()` (rate, XP, hearts), next step |
+| `data-rate` ("1" got it, "0" not yet) | `score()` (rate, XP), next step |
 | `data-pick="id"` | answer a pick step |
 | `data-next` | next step after feedback |
 | `data-camon` / `data-camoff` | turn the camera on/off for recall steps |
 | `data-camhelp` | show why the camera isn't available |
 | `data-record` | `recordSign()` |
-| `data-camskip` | counts as wrong (costs a heart), next step |
+| `data-camskip` | counts as wrong, next step |
 | `data-camsign="id"` | one-sign camera lesson from a sign card |

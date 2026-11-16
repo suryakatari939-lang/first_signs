@@ -49,4 +49,4 @@ While `sample` is true, [[Today Screen]] and [[Progress Screen]] show a banner (
 ## Added in the app-style redesign (2026-11-03)
 - `S.goal` counts signs practiced today (`bumpGoal()`); sample state starts it at 2 of 5.
 - XP is not stored: `xp()` works it out from `seen` counts and `S.used`.
-- Lesson state `P` (steps, hearts, score) is in memory only. See [[App Layout and Screens]].
+- Lesson state `P` (steps, score, XP) is in memory only. See [[App Layout and Screens]].
