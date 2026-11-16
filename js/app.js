@@ -188,32 +188,47 @@ function unitLessons(r) {
   return out;
 }
 const lessonState = list => list.every(s => isKnown(s.id)) ? "done" : list.some(s => card(s.id)) ? "started" : "new";
-const ZIG = [0, -70, -105, -70, 0, 70, 105, 70];
+// Learn: "Up next" card, then one card per routine with its lessons as a short checklist.
 function viewLearn() {
-  // The current lesson is the first one, in path order, that isn't fully known yet.
+  // The current lesson is the first one, in routine order, that isn't fully known yet.
   let current = null;
   for (const r of ROUTINES) { unitLessons(r).forEach((l, i) => { if (!current && lessonState(l) !== "done") current = r.id + ":" + i; }); }
-  let k = 0;
-  const units = ROUTINES.map((r, ui) => {
-    const lessons = unitLessons(r), c = UNIT_COLOR[r.id];
-    const nodes = lessons.map((l, i) => {
-      const key = r.id + ":" + i, st = lessonState(l), now = key === current, x = ZIG[k++ % ZIG.length];
-      const cls = now ? "now c-" + c : st === "done" ? "done" : st === "started" ? "started" : "new";
-      const icon = st === "done" ? ICON.check() : UNIT_ICON[r.id](st === "new" && !now ? "#b4c1c7" : "#fff");
-      const words = l.map(s => s.w).join(", ");
-      return `<div class="step" style="--x:${x}px">
-        ${now ? `<span class="startbubble">START</span>` : ""}
-        <button class="node ${cls}" data-lesson="${key}" aria-label="Lesson ${i + 1}: ${esc(words)}${st === "done" ? ", done" : ""}">${icon}</button>
-        ${now ? `<div class="pathmitt" style="--side:${x > 0 ? -1 : 1}">${mitt(96)}</div>` : ""}
-        <span class="nodelabel">${esc(words)}</span></div>`;
+  let upnext = "";
+  if (current) {
+    const [rid, ci] = current.split(":"), r = ROUTINES.find(x => x.id === rid), lessons = unitLessons(r), l = lessons[+ci];
+    upnext = `<section class="upnext" aria-labelledby="upnext-t">
+      <div class="upnext-text"><small>Up next · ${esc(r.name)}, lesson ${+ci + 1} of ${lessons.length}</small>
+        <h1 id="upnext-t">${l.map(s => esc(s.w)).join(", ")}</h1>
+        <p>${l.map(s => esc(s.say)).filter(Boolean)[0] || "Three signs you can use today."}</p></div>
+      <div class="upnext-words">${l.map(s => `<span class="${isKnown(s.id) ? "k" : ""}">${esc(s.w)}</span>`).join("")}</div>
+      <div class="row"><button class="btn calm" data-lesson="${current}">${lessonState(l) === "started" ? "Keep going" : "Start lesson"}</button>
+        <button class="btn ghost" data-open="${r.id}">Sign guide</button></div></section>`;
+  } else {
+    upnext = `<section class="upnext"><div class="upnext-text"><small>All lessons done</small><h1>You've learned every sign.</h1>
+      <p>Keep them fresh with Practice, and keep using them with your child.</p></div>
+      <div class="row"><button class="btn calm" data-go="practice">Practice</button></div></section>`;
+  }
+  const cards = ROUTINES.map(r => {
+    const lessons = unitLessons(r), c = UNIT_COLOR[r.id], all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length;
+    const rows = lessons.map((l, i) => {
+      const key = r.id + ":" + i, st = lessonState(l), now = key === current;
+      const tag = st === "done" ? `<span class="lstate done">${ICON.check("#2f8f5b")}Done</span>`
+        : now ? `<span class="lstate now">${st === "started" ? "Keep going" : "Start"}</span>`
+        : st === "started" ? `<span class="lstate">Keep going</span>` : `<span class="lstate">Start</span>`;
+      return `<li><button class="lrow ${now ? "now" : ""} ${st}" data-lesson="${key}" aria-label="${esc(r.name)} lesson ${i + 1}: ${esc(l.map(s => s.w).join(", "))}${st === "done" ? ", done" : ""}">
+        <span class="lnum">${i + 1}</span><span class="lwords">${l.map(s => esc(s.w)).join(" · ")}</span>${tag}</button></li>`;
     }).join("");
-    const review = `<div class="step" style="--x:${ZIG[k++ % ZIG.length]}px"><button class="node chest" data-review="${r.id}" aria-label="${esc(r.name)} review">${ICON.chest()}</button><span class="nodelabel">Unit review</span></div>`;
-    return `<section class="unit" aria-labelledby="u-${r.id}">
-      <header class="unitbar c-${c}"><div><small>Unit ${ui + 1} · ${esc(r.time)}</small><b id="u-${r.id}">${esc(r.name)}</b></div>
-        <button class="guide" data-open="${r.id}">${ICON.book()}<span>Sign guide</span></button></header>
-      <div class="path">${nodes}${review}</div></section>`;
+    return `<section class="rcard t-${c}" aria-labelledby="r-${r.id}">
+      <header class="rhead"><i class="ric">${UNIT_ICON[r.id]("currentColor")}</i>
+        <div><b id="r-${r.id}">${esc(r.name)}</b><small>${esc(r.time)}</small></div>
+        <span class="rcount">${k}/${all.length}</span></header>
+      <div class="rbar"><i style="width:${Math.round(k / all.length * 100)}%"></i></div>
+      <ol class="lrows">${rows}</ol>
+      <footer class="rfoot"><button class="textbtn" data-review="${r.id}">Review all ${all.length}</button><button class="textbtn" data-open="${r.id}">Sign guide</button></footer>
+    </section>`;
   }).join("");
-  return `${statBar()}${sampleBanner()}<div class="rail-dup">${momentCard()}</div>${units}`;
+  return `${statBar()}${sampleBanner()}${upnext}<div class="rail-dup">${momentCard()}</div>
+    <h2 class="learn-h">Your routines</h2><div class="rcards">${cards}</div>`;
 }
 
 /* ---------- Practice hub ---------- */
@@ -237,7 +252,7 @@ function viewPractice() {
 function viewRoutine(id) {
   const r = ROUTINES.find(x => x.id === id); if (!r) return viewLearn();
   const list = SIGNS.filter(s => s.r === id);
-  return `<button class="back" data-go="learn">← Back to the path</button>
+  return `<button class="back" data-go="learn">← Back to Learn</button>
   <section class="pagehead c-${UNIT_COLOR[id]}"><div class="pagehead-text"><small>Sign guide · ${esc(r.time)}</small><h1>${esc(r.name)}</h1>
     <p>"One hand" means your dominant hand. Keep signs in front of your chest and face, where your child is already looking.</p></div>
     <div class="pagehead-mitt">${mitt(92)}</div></section>
@@ -341,7 +356,7 @@ function watchFrame(s) {
 const paneLabel = (t, live) => `<div class="plabel">${live ? "<i></i>" : ""}${t}</div>`;
 const lbtn = (cls, data, text) => `<button class="lbtn ${cls}" ${data}>${text}</button>`;
 const resultRow = (ok, title, text) => `<div class="lresult ${ok ? "ok" : "no"}" role="status">
-    <span class="lcheck">${ok ? ICON.check("#86b4a2") : ICON.cross("#c99393")}</span><div><b>${esc(title)}</b><p>${esc(text)}</p></div></div>`;
+    <span class="lcheck">${ok ? ICON.check("#3f8a70") : ICON.cross("#b46262")}</span><div><b>${esc(title)}</b><p>${esc(text)}</p></div></div>`;
 
 function viewLesson() {
   if (!P) { setTimeout(() => go("learn")); return ""; }

@@ -34,6 +34,7 @@ Repo: `suryakatari939-lang/TSA_softwaredev_surya-Anish` · default branch `main`
 | 2026-11-03 | suryakatari939-lang | App-style redesign: Learn path, full-screen lessons with hearts (removed 2026-11-16), Practice, Rewards, Profile, Mitt mascot |
 | 2026-11-03 | suryakatari939-lang | Better claw handshape detection; Hint buttons replace the links to another site |
 | 2026-11-16 | suryakatari939-lang | Minimal lesson screens (Watch / Your turn, muted dark palette, no hearts); camera checks show how often each one matched |
+| 2026-11-16 | suryakatari939-lang | White lesson screens; Learn becomes an Up next card plus a checklist card per routine |
 
 Feature work happens on short-lived branches merged into `main` through pull requests.
 

@@ -13,17 +13,17 @@ tags: [app, screens, layout]
 - During a lesson `body.lesson-mode` hides the nav and rail so the lesson fills the screen.
 
 ## Mitt, the mascot
-`mitt(size, mood)` in `js/app.js` draws an original open-hand character (inline SVG). Used in the logo, page headers, next to the current lesson, in lesson cards and on the Learn path.
+`mitt(size, mood)` in `js/app.js` draws an original open-hand character (inline SVG). Used in the logo, page headers and lesson cards.
 
 ## Learn (`#learn`, default; `#today` still works)
-- One **unit per routine** (`ROUTINES` order), each with a colored bar (`UNIT_COLOR`) and a **Sign guide** button that opens the routine's sign cards (`#routines.<id>`, [[Routine Detail Screen]]).
-- Each unit's signs are split into **lessons of 3** (`unitLessons()`, `LESSON_SIZE`). Each lesson is a bubble on a zig-zag path (`ZIG` offsets). States: done (all known, gold check), started (gold), new (grey), and **current** = first lesson in path order not fully known (unit color, ring, bobbing START bubble, Mitt beside it).
-- A green chest at the end of each unit starts a **unit review** (every sign as read-and-pick, plus 2 sign-it-yourself).
+**Redesigned 2026-11-16** to move away from the Duolingo-style zig-zag path (no bubbles, START bubble, chests or Mitt on the path).
+- **Up next card** (`.upnext`): the current lesson = first lesson, in `ROUTINES` order, not fully known. Shows the routine and lesson number, the three words, the first sign's "say it" line, word chips (green once known), **Start lesson** / **Keep going** and **Sign guide**. When everything is known it points to Practice.
+- **Your routines**: one card per routine (`.rcard`, two columns ≥760px) with an icon tile in the unit color (`UNIT_COLOR` → `.t-<color>`), time of day, "known/total" and a thin bar. Lessons of 3 (`unitLessons()`, `LESSON_SIZE`) are a numbered checklist (`.lrow`): Done with a check, the current one highlighted with a Start / Keep going pill, others "Start". Footer links: **Review all N** (unit review: every sign as read-and-pick, plus 2 sign-it-yourself) and **Sign guide** (`#routines.<id>`, [[Routine Detail Screen]]).
 
 ## Lessons (`#lesson`)
 `startLesson(title, steps, back, cam)` sets `P` and goes to `#lesson`.
 
-**Minimal lesson screen (2026-11-16).** Lessons use a calm dark screen (see [[Design System]]): an exit X, a thin progress bar and "N of M" on top (`lessonTop()`), then two columns on screens ≥900px (`.lgrid`, one column on phones): **Watch** on the left (photo or word in `watchFrame()`, sign name, handshape, Hint) and **Your turn** on the right. Buttons sit in a sticky footer (`.lfoot`, helpers `lbtn()`). Feedback uses one row, `resultRow(ok, title, text)`, with a check or cross.
+**Minimal lesson screen (2026-11-16).** Lessons use a calm white screen with muted colors (see [[Design System]]): an exit X, a thin progress bar and "N of M" on top (`lessonTop()`), then two columns on screens ≥900px (`.lgrid`, one column on phones): **Watch** on the left (photo or word in `watchFrame()`, sign name, handshape, Hint) and **Your turn** on the right. Buttons sit in a sticky footer (`.lfoot`, helpers `lbtn()`). Feedback uses one row, `resultRow(ok, title, text)`, with a check or cross.
 
 Steps:
 - `teach`: meet a new sign (Watch: photo + hint; Your turn: steps, hook). "Continue" calls `learn()` and counts toward the daily goal.
