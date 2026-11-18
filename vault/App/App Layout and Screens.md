@@ -15,12 +15,11 @@ tags: [app, screens, layout]
 `mitt(size, mood)` in `js/app.js` draws an original open-hand character (inline SVG). Used in the logo, the Learn welcome banner, page banners and the sample-progress notice.
 
 ## Learn (`#learn`, default; `#today` still works)
-**Dashboard (2026-11-17).** Same features as before, laid out as cards.
-- Page title "Learn", then a peach **welcome banner**: "Welcome back!" / "Welcome!", the **Up next** lesson with Start lesson / Keep going, and the day-streak pill. Mitt on the right.
-- Two halves (`.dash-l`, `.dash-r`, side by side ≥1180px, each 2 columns ≥700px, one column on phones):
-  - Left: **Daily goal** (donut `donut()`, goal and done today, "Start practice session" → Practice), **Today's real moment** (sign of the day, We did it / How to sign), **Quick access** (big tiles for the 3 signs in the next lesson → their Sign guide).
-  - Right: **Learning path** (`.mods`: every routine as a module with arrows; In progress / N of M signs / Not started / Done; tap one, `data-mapsel` → `mapSel`), overall % bar, then the picked routine's lesson checklist (`routineCard()`) and **Milestones** (earned badges with checks, next milestone with progress, View all badges).
-- The current lesson is `currentLesson()`: first lesson, in routine order, not fully known.
+**Learning map + dashboard cards (2026-11-18).**
+- Header: "Welcome back!" (or "Welcome!" with no progress), a day-streak pill and a daily-goal pill.
+- **Map card** (`learningMap()`, `mapScene()`): an SVG mountain in blues and white with a winding trail. The 6 routines are stops in `ROUTINES` order, with a flag at the summit ("All 43 signs", known count and %). Stop states: done (filled check), now (routine of the current lesson: big ring, "You're here", pulsing halo), started (progress ring), new (number). The trail is solid up to the current routine. Two layouts in `MAP`: `wide` (1000×440) and `tall` (400×620, under 700px); SVG ids get a `-wide`/`-tall` suffix because both are in the page. The map header has the **Up next** box with Start lesson / Keep going.
+- Tapping a stop (`data-mapsel`, sets `mapSel`) shows that routine's lesson card (`routineCard()`: numbered checklist, Review all, Sign guide) under the map. Default: the routine with the current lesson (`currentLesson()`).
+- Cards under the map: the routine card and **Quick access** (tiles for the 3 signs in the next lesson → their Sign guide) on the left; **Daily goal** (donut, "Start practice session"), **Today's real moment** (We did it / How to sign) and **Milestones** (earned badges, next milestone, View all badges) on the right.
 
 ## Lessons (`#lesson`)
 `startLesson(title, steps, back, cam)` sets `P` and goes to `#lesson`.

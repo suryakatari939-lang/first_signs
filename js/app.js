@@ -70,16 +70,16 @@ function learn(id) { if (!S.cards[id]) { S.cards[id] = { box: 1, due: Date.now()
 
 /* ---------- Icons and Mitt, the mascot (an open hand) ---------- */
 const ICON = {
-  heart: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 27C7 21 3 16 3 11a6.5 6.5 0 0 1 13-2 6.5 6.5 0 0 1 13 2c0 5-4 10-13 16z" fill="${c || "#ff7a6b"}"/></svg>`,
-  flame: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c2 6 9 8 9 16a9 9 0 0 1-18 0c0-4 2-6 4-8 0 3 1 5 3 5-1-5 0-9 2-13z" fill="#ffb938"/><path d="M16 17c2 2 4 3 4 6a4 4 0 0 1-8 0c0-2 2-4 4-6z" fill="#fff2d6"/></svg>`,
-  star: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3l3.6 8 8.4.8-6.3 5.7 1.9 8.5L16 21.6 8.4 26l1.9-8.5L4 11.8l8.4-.8z" fill="${c || "#7c5cff"}"/></svg>`,
-  ring: f => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#e5ebee" stroke-width="5"/><circle cx="16" cy="16" r="12" fill="none" stroke="#11a3a0" stroke-width="5" stroke-dasharray="${(75.4 * Math.min(1, f)).toFixed(1)} 76" stroke-linecap="round" transform="rotate(-90 16 16)"/></svg>`,
+  heart: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 27C7 21 3 16 3 11a6.5 6.5 0 0 1 13-2 6.5 6.5 0 0 1 13 2c0 5-4 10-13 16z" fill="${c || "#89b5e1"}"/></svg>`,
+  flame: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c2 6 9 8 9 16a9 9 0 0 1-18 0c0-4 2-6 4-8 0 3 1 5 3 5-1-5 0-9 2-13z" fill="#609bd7"/><path d="M16 17c2 2 4 3 4 6a4 4 0 0 1-8 0c0-2 2-4 4-6z" fill="#dcebf9"/></svg>`,
+  star: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3l3.6 8 8.4.8-6.3 5.7 1.9 8.5L16 21.6 8.4 26l1.9-8.5L4 11.8l8.4-.8z" fill="${c || "#7dadde"}"/></svg>`,
+  ring: f => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#e5ebee" stroke-width="5"/><circle cx="16" cy="16" r="12" fill="none" stroke="#245a90" stroke-width="5" stroke-dasharray="${(75.4 * Math.min(1, f)).toFixed(1)} 76" stroke-linecap="round" transform="rotate(-90 16 16)"/></svg>`,
   check: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 17l5 5 11-12" fill="none" stroke="${c || "#fff"}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   cross: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 10l12 12M22 10L10 22" fill="none" stroke="${c || "#fff"}" stroke-width="4.5" stroke-linecap="round"/></svg>`,
   cam: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="9" width="20" height="15" rx="4" fill="${c}"/><path d="M23 14l6-4v13l-6-4z" fill="${c}"/></svg>`,
   quiz: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="${c}"/><path d="M12 12a4 4 0 1 1 6 3c-1.5 1-2 2-2 3.5M16 23v.5" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
   hand: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 26V12c0-2 3-2 3 0v6V8c0-2 3-2 3 0v10V7c0-2 3-2 3 0v11V9c0-2 3-2 3 0v12c0 4-3 6-6 6h-1c-3 0-5-2-6-5l-3-6c-1-2 2-3 3-1z" fill="${c}"/></svg>`,
-  bulb: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4a9 9 0 0 0-5 16.5V24h10v-3.5A9 9 0 0 0 16 4z" fill="#e6951a"/><path d="M13 14l3 3 3-3" fill="none" stroke="#fff2d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="11.5" y="25.5" width="9" height="3" rx="1.5" fill="#a8771e"/></svg>`,
+  bulb: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4a9 9 0 0 0-5 16.5V24h10v-3.5A9 9 0 0 0 16 4z" fill="#3480cc"/><path d="M13 14l3 3 3-3" fill="none" stroke="#dcebf9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="11.5" y="25.5" width="9" height="3" rx="1.5" fill="#28639e"/></svg>`,
   lock: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="13" width="16" height="13" rx="3" fill="#b4c1c7"/><path d="M11 13V10a5 5 0 0 1 10 0v3" fill="none" stroke="#b4c1c7" stroke-width="3"/></svg>`,
 };
 // One picture per routine, used on the lesson bubbles and badges.
@@ -98,10 +98,10 @@ function mitt(size = 112, mood = "happy") {
     : `<path d="M48 96c5 5 11 5 16 0" fill="none" stroke="#20313a" stroke-width="3.2" stroke-linecap="round"/>`;
   return `<svg class="mitt" width="${size}" height="${Math.round(size * 130 / 112)}" viewBox="0 0 112 130" aria-hidden="true">
     <ellipse cx="56" cy="122" rx="34" ry="6" fill="#000" opacity=".08"/>
-    <path d="M30 70V34c0-7 10-7 10 0v26V22c0-7 10-7 10 0v36V18c0-7 10-7 10 0v40V24c0-7 10-7 10 0v46l8-12c4-6 13-1 9 6L82 96c-5 13-14 22-30 22h-2c-12 0-20-8-20-22z" fill="#ffb938" stroke="#e6951a" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M30 70V34c0-7 10-7 10 0v26V22c0-7 10-7 10 0v36V18c0-7 10-7 10 0v40V24c0-7 10-7 10 0v46l8-12c4-6 13-1 9 6L82 96c-5 13-14 22-30 22h-2c-12 0-20-8-20-22z" fill="#609bd7" stroke="#3480cc" stroke-width="3" stroke-linejoin="round"/>
     <circle cx="47" cy="84" r="5" fill="#20313a"/><circle cx="65" cy="84" r="5" fill="#20313a"/>
     <circle cx="48.5" cy="82.5" r="1.6" fill="#fff"/><circle cx="66.5" cy="82.5" r="1.6" fill="#fff"/>${mouth}
-    <circle cx="40" cy="95" r="4" fill="#ff7a6b" opacity=".5"/><circle cx="72" cy="95" r="4" fill="#ff7a6b" opacity=".5"/></svg>`;
+    <circle cx="40" cy="95" r="4" fill="#89b5e1" opacity=".5"/><circle cx="72" cy="95" r="4" fill="#89b5e1" opacity=".5"/></svg>`;
 }
 
 /* ---------- Shared pieces ---------- */
@@ -171,7 +171,7 @@ function routineCard(r, current) {
   const lessons = unitLessons(r), c = UNIT_COLOR[r.id], all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length;
   const rows = lessons.map((l, i) => {
     const key = r.id + ":" + i, st = lessonState(l), now = key === current;
-    const tag = st === "done" ? `<span class="lstate done">${ICON.check("#2f8f5b")}Done</span>`
+    const tag = st === "done" ? `<span class="lstate done">${ICON.check("#2f5f8f")}Done</span>`
       : now ? `<span class="lstate now">${st === "started" ? "Keep going" : "Start"}</span>`
       : st === "started" ? `<span class="lstate">Keep going</span>` : `<span class="lstate">Start</span>`;
     return `<li><button class="lrow ${now ? "now" : ""} ${st}" data-lesson="${key}" aria-label="${esc(r.name)} lesson ${i + 1}: ${esc(l.map(s => s.w).join(", "))}${st === "done" ? ", done" : ""}">
@@ -187,66 +187,132 @@ function routineCard(r, current) {
   </section>`;
 }
 
-/* ---------- Learn dashboard ---------- */
-let mapSel = null;   // routine picked in the learning path (null = the one with the current lesson)
+/* ---------- Learn: the learning map, then dashboard cards ---------- */
+let mapSel = null;   // routine picked on the map (null = the one with the current lesson)
 // A ring that fills with a share (0 to 1), with a label in the middle.
 function donut(f, label) {
   const c = 2 * Math.PI * 52, on = Math.max(0, Math.min(1, f)) * c;
-  return `<div class="donut"><svg viewBox="0 0 128 128" aria-hidden="true"><circle cx="64" cy="64" r="52" fill="none" stroke="#fbe3cf" stroke-width="16"/>
+  return `<div class="donut"><svg viewBox="0 0 128 128" aria-hidden="true"><circle cx="64" cy="64" r="52" fill="none" stroke="#d3e5f7" stroke-width="16"/>
     <circle cx="64" cy="64" r="52" fill="none" stroke="#3b6e98" stroke-width="16" stroke-dasharray="${on.toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 64 64)"/>
-    ${f > 0 && f < 1 ? `<circle cx="64" cy="64" r="52" fill="none" stroke="#e98b5d" stroke-width="16" stroke-dasharray="${Math.min(14, c - on).toFixed(1)} ${c.toFixed(1)}" stroke-dashoffset="${(-on).toFixed(1)}" transform="rotate(-90 64 64)"/>` : ""}</svg><b>${label}</b></div>`;
+    ${f > 0 && f < 1 ? `<circle cx="64" cy="64" r="52" fill="none" stroke="#6ca3da" stroke-width="16" stroke-dasharray="${Math.min(14, c - on).toFixed(1)} ${c.toFixed(1)}" stroke-dashoffset="${(-on).toFixed(1)}" transform="rotate(-90 64 64)"/>` : ""}</svg><b>${label}</b></div>`;
 }
+/* The routines are stops on a trail up a mountain. Two layouts of the same scene:
+   wide for laptops and tall for phones. Points are in each SVG's own units. */
+const MAP = {
+  wide: { W: 1000, H: 440, peak: [700, 60], stops: [[120, 378, "r"], [268, 338, "r"], [390, 280, "r"], [492, 222, "l"], [585, 160, "l"], [650, 106, "l"]] },
+  tall: { W: 400, H: 620, peak: [262, 78], stops: [[90, 560, "r"], [262, 494, "l"], [120, 420, "r"], [270, 344, "l"], [128, 268, "r"], [236, 186, "l"]] },
+};
+// A smooth line through the points (Catmull-Rom turned into Bezier curves).
+function smooth(pts) {
+  let d = `M${pts[0][0]},${pts[0][1]}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+    d += ` C${(p1[0] + (p2[0] - p0[0]) / 6).toFixed(1)},${(p1[1] + (p2[1] - p0[1]) / 6).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) / 6).toFixed(1)},${(p2[1] - (p3[1] - p1[1]) / 6).toFixed(1)} ${p2[0]},${p2[1]}`;
+  }
+  return d;
+}
+// k keeps the SVG ids unique, because both layouts are in the page at once.
+function mapScene(m, walked, k) {
+  const { W, H } = m, [px, py] = m.peak, X = f => (f * W).toFixed(1), Y = f => (f * H).toFixed(1);
+  const poly = pts => pts.map(([x, y]) => `${typeof x === "string" ? x : X(x)},${typeof y === "string" ? y : Y(y)}`).join(" ");
+  const P = (dx, y) => [((px / W + dx) * W).toFixed(1), y === "peak" ? String(py) : Y(y)];
+  const tree = (x, y, sc) => `<use href="#tree-${k}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${sc})"/>`;
+  const trees = [];
+  for (let i = 0; i < 9; i++) trees.push(tree(W * (0.01 + i * 0.026), H * (0.93 + (i % 3) * 0.025), 0.75 + (i % 4) * 0.18));
+  for (let i = 0; i < 9; i++) trees.push(tree(W * (0.78 + i * 0.026), H * (0.9 + ((i + 1) % 3) * 0.03), 0.75 + ((i + 2) % 4) * 0.18));
+  const pts = [...m.stops.map(s => [s[0], s[1]]), m.peak];
+  const route = smooth(pts), done = smooth(pts.slice(0, walked + 1));
+  return `<svg class="mapsvg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6faff"/><stop offset="1" stop-color="#e4eefa"/></linearGradient>
+      <linearGradient id="mt-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fc0e4"/><stop offset="1" stop-color="#d5e5f6"/></linearGradient>
+      <linearGradient id="mtd-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ea6d3"/><stop offset="1" stop-color="#c2d8ef"/></linearGradient>
+      <linearGradient id="mist-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".95"/></linearGradient>
+      <symbol id="tree-${k}" overflow="visible"><path d="M0-34L9-16H5L12-4H3V2h-6V-4h-9L-5-16h-4z" fill="#86a9d2"/></symbol>
+      <symbol id="cloud-${k}" overflow="visible"><path d="M-70 0a26 26 0 0 1 30-24a36 36 0 0 1 66-6a24 24 0 0 1 44 30z" fill="#fff"/></symbol>
+    </defs>
+    <rect width="${W}" height="${H}" fill="url(#sky-${k})"/>
+    <use href="#cloud-${k}" transform="translate(${X(.2)} ${Y(.3)}) scale(1.1)" opacity=".85"/>
+    <use href="#cloud-${k}" transform="translate(${X(.88)} ${Y(.22)}) scale(.9)" opacity=".85"/>
+    <polygon points="${poly([[0, 1], [0, .58], [.1, .44], [.18, .52], [.27, .6], [.42, 1]])}" fill="#d2e2f4"/>
+    <polygon points="${poly([[.62, 1], [.84, .36], [.92, .46], [1, .42], [1, 1]])}" fill="#cddff3"/>
+    <polygon points="${poly([P(-.56, 1), P(-.33, .64), P(-.24, .56), P(-.13, .36), P(-.05, .2), P(0, "peak"), P(.05, .22), P(.1, .31), P(.18, .45), P(.27, .52), P(.4, .72), P(.56, 1)])}" fill="url(#mt-${k})"/>
+    <polygon points="${poly([P(0, "peak"), P(.05, .22), P(.1, .31), P(.18, .45), P(.27, .52), P(.4, .72), P(.56, 1), P(.1, 1), P(.03, .62), P(.035, .36)])}" fill="url(#mtd-${k})" opacity=".75"/>
+    <polygon points="${poly([P(0, "peak"), P(.035, .2), P(.018, .235), P(-.006, .21), P(-.026, .245), P(-.04, .215)])}" fill="#fff" opacity=".92"/>
+    <path d="M0 ${Y(.8)} C${X(.2)} ${Y(.72)} ${X(.35)} ${Y(.86)} ${X(.55)} ${Y(.8)} S${X(.85)} ${Y(.74)} ${W} ${Y(.8)} V${H} H0z" fill="#e2edf9"/>
+    <rect y="${Y(.7)}" width="${W}" height="${Y(.3)}" fill="url(#mist-${k})"/>
+    <use href="#cloud-${k}" transform="translate(${X(.1)} ${Y(.9)}) scale(1.3)"/><use href="#cloud-${k}" transform="translate(${X(.9)} ${Y(.86)}) scale(1.5)"/>
+    ${trees.join("")}
+    <path d="${route}" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" opacity=".95"/>
+    <path d="${route}" fill="none" stroke="#b5cfeb" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"/>
+    ${walked > 0 ? `<path d="${done}" fill="none" stroke="#3b6e98" stroke-width="5" stroke-linecap="round"/>` : ""}
+    <g transform="translate(${px} ${py})"><path d="M0 0V-46" stroke="#2f5b80" stroke-width="3" stroke-linecap="round"/><path d="M1-46h30l-8 9 8 9H1z" fill="#3b6e98"/></g>
+  </svg>`;
+}
+function learningMap(current) {
+  const cur = current ? current.split(":")[0] : null;
+  const info = ROUTINES.map(r => {
+    const all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length, started = all.some(s => card(s.id));
+    return { r, k, n: all.length, st: k === all.length ? "done" : r.id === cur ? "now" : started ? "started" : "new" };
+  });
+  // The solid line goes up to the routine you're on (or to the top when everything is done).
+  const walked = cur ? ROUTINES.findIndex(r => r.id === cur) : ROUTINES.length;
+  const sel = mapSel || cur || ROUTINES[0].id, total = SIGNS.length, known = SIGNS.filter(s => isKnown(s.id)).length;
+  const layer = key => { const m = MAP[key];
+    const stops = info.map((x, i) => { const [sx, sy, side] = m.stops[i];
+      const dot = x.st === "done" ? ICON.check("#fff") : x.st === "now" ? UNIT_ICON[x.r.id]("#3b6e98") : `<span>${i + 1}</span>`;
+      return `<button class="stop ${x.st} ${side} ${x.r.id === sel ? "sel" : ""}" style="left:${(sx / m.W * 100).toFixed(2)}%;top:${(sy / m.H * 100).toFixed(2)}%"
+        data-mapsel="${x.r.id}" aria-pressed="${x.r.id === sel}" aria-label="${esc(x.r.name)}: ${x.k} of ${x.n} signs${x.st === "now" ? ", you are here" : ""}">
+        <i class="dot" style="--p:${Math.round(x.k / x.n * 100)}%">${dot}</i>
+        <span class="tag">${x.st === "now" ? "<em>You're here</em>" : ""}<b>${esc(x.r.name)}</b><small>${x.k}/${x.n} signs</small></span></button>`; }).join("");
+    const [fx, fy] = m.peak;
+    return `<div class="maplayer ${key}" style="aspect-ratio:${m.W}/${m.H}">${mapScene(m, walked, key)}${stops}
+      <div class="summit" style="left:${(fx / m.W * 100).toFixed(2)}%;top:${(fy / m.H * 100).toFixed(2)}%"><b>All ${total} signs</b><small>${known}/${total} · ${Math.round(known / total * 100)}%</small></div></div>`; };
+  return `<div class="mapwrap">${layer("wide")}${layer("tall")}</div>`;
+}
+
 function viewLearn() {
   const current = currentLesson(), g = goalToday(), fresh = !Object.keys(S.cards).length;
   const cur = current ? current.split(":")[0] : null, sel = ROUTINES.find(r => r.id === (mapSel || cur)) || ROUTINES[0];
-  const total = SIGNS.length, known = SIGNS.filter(s => isKnown(s.id)).length;
-  let next = `<button class="btn teal" data-go="practice">Practice</button>`, nextWords = [];
+  let next, nextWords = [];
   if (current) {
     const [rid, ci] = current.split(":"), r = ROUTINES.find(x => x.id === rid), l = unitLessons(r)[+ci];
     nextWords = l;
-    next = `<div class="bnext"><small>Up next · ${esc(r.name)}</small><b>${l.map(s => esc(s.w)).join(", ")}</b></div>
-      <button class="btn teal" data-lesson="${current}">${lessonState(l) === "started" ? "Keep going" : "Start lesson"}</button>`;
+    next = `<div class="mapnext"><div><small>Up next · ${esc(r.name)}</small><b>${l.map(s => esc(s.w)).join(", ")}</b></div>
+      <button class="btn teal" data-lesson="${current}">${lessonState(l) === "started" ? "Keep going" : "Start lesson"}</button></div>`;
+  } else {
+    next = `<div class="mapnext"><div><small>You reached the top</small><b>Every sign learned</b></div><button class="btn teal" data-go="practice">Practice</button></div>`;
   }
-  // Banner
-  const banner = `<section class="welcome"><div class="welcome-text"><h2>${fresh ? "Welcome!" : "Welcome back!"}</h2>
-      <p>${fresh ? "Ready to learn your first signs?" : "Ready to sign with your child?"}</p>
-      <div class="row welcome-act">${next}<span class="lpill">${ICON.flame()}${streak()} day streak</span></div></div>
-    <div class="welcome-art">${mitt(118)}</div></section>`;
+  const head = `<header class="lhead"><div><h1>${fresh ? "Welcome!" : "Welcome back!"}</h1>
+      <p>${fresh ? "Start your climb with signs for everyday moments." : "Continue your climb, one sign at a time."}</p></div>
+    <div class="lpills"><span class="lpill">${ICON.flame()}${streak()} day streak</span><span class="lpill">${ICON.ring(g / GOAL)}${Math.min(g, GOAL)}/${GOAL} today</span></div></header>`;
+  const map = `<section class="mapcard" aria-labelledby="map-t">
+    <div class="maphead"><div class="maptitle"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3a9 9 0 0 0-9 9c0 7 9 17 9 17s9-10 9-17a9 9 0 0 0-9-9z" fill="#3b6e98"/><circle cx="16" cy="12" r="3.5" fill="#fff"/></svg>
+      <div><h2 id="map-t">Your learning map</h2><p>Each routine is a stop on the way up. Tap one to see its lessons.</p></div></div>${next}</div>
+    ${learningMap(current)}</section>`;
   // Daily goal
   const goal = `<section class="dcard goal"><h3>Daily goal</h3>${donut(g / GOAL, Math.round(Math.min(1, g / GOAL) * 100) + "%")}
     <p class="center">Goal: <b>${GOAL} signs</b> a day<br>Done today: <b>${Math.min(g, GOAL)} sign${Math.min(g, GOAL) === 1 ? "" : "s"}</b></p>
-    <p class="note center">${g >= GOAL ? "Goal reached. Nice work today!" : `${GOAL - g} more to reach today's goal.`}</p>
     <button class="btn teal block" data-go="practice">Start practice session</button></section>`;
-  // Sign of the day (today's real moment)
+  // Today's real moment (sign of the day)
   const m = todayMission(), mdone = S.used.some(u => u.id === m.id && dayKey(u.t) === dayKey());
   const day = `<section class="dcard sotd"><h3>Today's real moment</h3>
     <div class="sotd-word">${SIGN_PHOTOS[m.id] ? `<img src="${photoSrc(SIGN_PHOTOS[m.id].file)}" alt="" onerror="this.remove()">` : ""}<span>${esc(m.w)}</span></div>
-    <b class="center">Sign ${esc(m.w)} with your child</b><p class="note center">${esc(m.say)}</p>
-    <div class="row center-row">${mdone ? `<span class="pill good">${ICON.check("#3f9a6b")} Done today</span>` : `<button class="btn teal" data-used="${m.id}">We did it</button>`}
+    <p class="note center">${esc(m.say)}</p>
+    <div class="row center-row">${mdone ? `<span class="pill good">${ICON.check("#3b6e98")} Done today</span>` : `<button class="btn teal" data-used="${m.id}">We did it</button>`}
       <button class="btn ghost" data-open="${m.r}">How to sign</button></div></section>`;
-  // Learning path: every routine as a module; pick one to see its lessons
-  const mods = ROUTINES.map(r => {
-    const all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length, started = all.some(s => card(s.id));
-    const st = k === all.length ? "done" : r.id === cur ? "now" : started ? "started" : "new";
-    const label = st === "done" ? "Done" : st === "now" ? "In progress" : st === "started" ? `${k} of ${all.length} signs` : "Not started";
-    return `<button class="mod ${st} ${r.id === sel.id ? "sel" : ""}" data-mapsel="${r.id}" aria-pressed="${r.id === sel.id}">
-      <b>${esc(r.name)}</b><span>${st === "done" ? ICON.check("#3f9a6b") : ""}${label}</span></button>`;
-  }).join("");
-  const path = `<section class="dcard path"><h3>Learning path</h3><div class="mods">${mods}</div>
-    <div class="pathbar"><b>${Math.round(known / total * 100)}%</b><div class="pbar teal"><i style="width:${known / total * 100}%"></i></div><span class="note">${known} of ${total} signs</span></div></section>`;
   // Milestones (badges)
   const bs = badges(), got = bs.filter(b => b.have >= b.need), nextB = bs.filter(b => b.have < b.need).sort((a, b) => b.have / b.need - a.have / a.need)[0];
   const miles = `<section class="dcard miles"><h3>Milestones</h3>
-    ${got.length ? `<ul class="mlist">${got.slice(0, 3).map(b => `<li>${ICON.check("#3f9a6b")}<div><b>${esc(b.name)}</b><span>Achieved</span></div></li>`).join("")}</ul>`
+    ${got.length ? `<ul class="mlist">${got.slice(0, 3).map(b => `<li>${ICON.check("#3b6e98")}<div><b>${esc(b.name)}</b><span>Achieved</span></div></li>`).join("")}</ul>`
       : `<p class="note">No badges yet. Your first one comes after your first real moment.</p>`}
     ${nextB ? `<div class="mnext"><small>Next milestone</small><b>${esc(nextB.name)}</b><div class="pbar thin teal"><i style="width:${Math.round(nextB.have / nextB.need * 100)}%"></i></div><span class="note">${nextB.have}/${nextB.need} · ${esc(nextB.how)}</span></div>` : ""}
     <button class="link" data-go="rewards">View all badges</button></section>`;
   // Quick access: the signs in the next lesson
-  const tones = ["qa-blue", "qa-green", "qa-peach"];
   const quick = nextWords.length ? `<section class="quick"><h3>Quick access <span class="muted">signs in your next lesson</span></h3><div class="qtiles">
-    ${nextWords.map((s, i) => `<button class="qtile ${tones[i % 3]}" data-open="${s.r}" aria-label="How to sign ${esc(s.w)}"><span>${esc(s.w)}</span><small>${isKnown(s.id) ? "Learned" : card(s.id) ? "Practicing" : "New"}</small></button>`).join("")}</div></section>` : "";
-  return `${sampleBanner()}<h1 class="ptitle">Learn</h1>${banner}
-    <div class="dash"><div class="dash-l">${goal}${day}${quick}</div><div class="dash-r">${path}<div class="dcol">${routineCard(sel, current)}</div>${miles}</div></div>`;
+    ${nextWords.map(s => `<button class="qtile" data-open="${s.r}" aria-label="How to sign ${esc(s.w)}"><span>${esc(s.w)}</span><small>${isKnown(s.id) ? "Learned" : card(s.id) ? "Practicing" : "New"}</small></button>`).join("")}</div></section>` : "";
+  return `${sampleBanner()}${head}${map}
+    <div class="dash"><div class="dash-l"><div class="dcol">${routineCard(sel, current)}</div>${quick}</div><div class="dash-r">${goal}${day}${miles}</div></div>`;
 }
 
 /* ---------- Practice hub ---------- */
@@ -374,7 +440,7 @@ function watchFrame(s) {
 const paneLabel = (t, live) => `<div class="plabel">${live ? "<i></i>" : ""}${t}</div>`;
 const lbtn = (cls, data, text) => `<button class="lbtn ${cls}" ${data}>${text}</button>`;
 const resultRow = (ok, title, text) => `<div class="lresult ${ok ? "ok" : "no"}" role="status">
-    <span class="lcheck">${ok ? ICON.check("#3f8a70") : ICON.cross("#b46262")}</span><div><b>${esc(title)}</b><p>${esc(text)}</p></div></div>`;
+    <span class="lcheck">${ok ? ICON.check("#3f648a") : ICON.cross("#b46262")}</span><div><b>${esc(title)}</b><p>${esc(text)}</p></div></div>`;
 
 function viewLesson() {
   if (!P) { setTimeout(() => go("learn")); return ""; }
@@ -533,7 +599,7 @@ function viewProfile() {
   const tile = (icon, n, label) => `<div class="stattile"><span class="tile-ic">${icon}</span><div><b>${n}</b><span>${label}</span></div></div>`;
   return `${statBar()}${sampleBanner()}
   <div class="profilehead"><div class="avatar">${mitt(70)}</div><div><h1>Your family</h1><p class="muted">Learning since ${since} · ${started} signs started</p></div></div>
-  <div class="tiles4">${tile(ICON.flame(), streak(), "day streak")}${tile(ICON.star(), xp(), "total XP")}${tile(ICON.check("#11a3a0"), known, "signs known")}${tile(ICON.heart(), S.used.length, "real moments")}</div>
+  <div class="tiles4">${tile(ICON.flame(), streak(), "day streak")}${tile(ICON.star(), xp(), "total XP")}${tile(ICON.check("#245a90"), known, "signs known")}${tile(ICON.heart(), S.used.length, "real moments")}</div>
   <section class="panelcard"><h4>This week</h4><div class="week">${weekDots()}</div></section>
   <section class="panel"><h2>By routine</h2>
     ${ROUTINES.map(r => { const l = SIGNS.filter(s => s.r === r.id); const k = l.filter(s => isKnown(s.id)).length;
