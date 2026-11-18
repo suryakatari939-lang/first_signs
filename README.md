@@ -82,7 +82,4 @@ miss correct signs. The "It was right, count it" button lets the parent overrule
 
 ## Picture credits
 
-The app shows line drawings of handshapes, not photos of people.
-
-- Letter handshapes (A, C, K, S, T, W, Y) use the public-domain drawn manual alphabet on [Wikimedia Commons](https://commons.wikimedia.org/) ("Sign language A.svg" and so on, originally from wpclipart.com). They load from Commons, so they need an internet connection.
-- The other handshapes (5, claw, flat, flat-O, index, I-love-you) were drawn for this app in the same style and are stored in `img/hands/`, so they always show.
+The app shows line drawings of handshapes, not photos of people. They come from the public-domain drawn manual alphabet on [Wikimedia Commons](https://commons.wikimedia.org/) ("Sign language A.svg", "Sign language B.svg" and so on, originally from wpclipart.com) and load from Commons, so they need an internet connection. Used: A, B (for the flat hand), C, K, S, T, W, Y.

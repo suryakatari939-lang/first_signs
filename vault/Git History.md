@@ -34,7 +34,7 @@ Repo: `suryakatari939-lang/TSA_softwaredev_surya-Anish` · default branch `main`
 | 2026-11-03 | suryakatari939-lang | App-style redesign: Learn path, full-screen lessons with hearts (removed 2026-11-16), Practice, Rewards, Profile, Mitt mascot |
 | 2026-11-03 | suryakatari939-lang | Better claw handshape detection; Hint buttons replace the links to another site |
 | 2026-11-17 | suryakatari939-lang | Calm dashboard design for the whole app (sidebar on laptops, tab bar on phones), Learn dashboard, minimal lesson screens without hearts, camera checks show how often each one matched; old UI code, fonts and screen notes removed |
-| 2026-11-18 | suryakatari939-lang | Blue and white colors, mountain map home screen, login page merged in from main, handshape line drawings replace all photos of people |
+| 2026-11-18 | suryakatari939-lang | Blue and white colors, mountain map home screen, login page merged in from main, handshape line drawings from Commons replace all photos of people |
 
 Feature work happens on short-lived branches merged into `main` through pull requests.
 

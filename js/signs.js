@@ -137,24 +137,19 @@ const CHECKS = {
   shoes:   { hands:2, shape:["fist"], at:"body", ref:"center", move:["repeat"] },
 };
 
-/* Line drawings of each handshape (no photos of people).
-   Letter handshapes (A, C, K, S, T, W, Y) use the public-domain drawn manual alphabet from Wikimedia Commons,
-   loaded from Commons, so they only show when the computer is online (credits in README.md).
-   The other handshapes are drawn for this app in the same style and stored in img/hands, so they always show. */
+/* Line drawings of handshapes (no photos of people), from the public-domain drawn manual alphabet
+   on Wikimedia Commons ("Sign language A.svg" and so on). They load from Commons, so they only show
+   when the computer is online (credits in README.md). Only handshapes that match a letter have a drawing:
+   that series has no drawing of 5, claw, flat-O, I-love-you or the index finger, so those show the written steps only. */
 const COMMONS = "https://commons.wikimedia.org/wiki/";
-const photoSrc = file => file.startsWith("img/") ? file : COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_"));
+const photoSrc = file => COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_"));
 const HANDSHAPE_DRAWINGS = {
-  "Flat-O": "img/hands/flat-o.svg",
-  "C": "Sign language C.svg",
-  "5 (open)": "img/hands/five.svg",
   "A": "Sign language A.svg",
-  "S": "Sign language S.svg",
-  "Claw": "img/hands/claw.svg",
-  "Y": "Sign language Y.svg",
+  "C": "Sign language C.svg",
   "K": "Sign language K.svg",
-  "ILY": "img/hands/ily.svg",
-  "Index": "img/hands/index.svg",
-  "W": "Sign language W.svg",
+  "S": "Sign language S.svg",
   "T": "Sign language T.svg",
-  "Flat": "img/hands/flat.svg",
+  "W": "Sign language W.svg",
+  "Y": "Sign language Y.svg",
+  "Flat": "Sign language B.svg",   // the B hand; a flat hand is the same with the thumb alongside
 };
