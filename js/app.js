@@ -348,11 +348,23 @@ function viewRoutine(id) {
     <div class="pagehead-mitt">${mitt(92)}</div></section>
   <div class="signlist">${list.map(signCard).join("")}</div>
   <section class="phrases"><h2>Put them together</h2><p class="muted">ASL glosses are written in capitals. Yes/no questions use raised eyebrows.</p>
-  ${(PHRASES[id] || []).map(([g, e]) => `<div class="phrase"><span class="g">${esc(g)}</span><span class="muted">${esc(e)}</span></div>`).join("")}</section>`;
+  ${(PHRASES[id] || []).map(([g, e]) => `<div class="phrase">${phraseStrip(g)}<span class="g">${esc(g)}</span><span class="muted">${esc(e)}</span></div>`).join("")}</section>`;
 }
 
-// A handshape drawing. If it can't load (a Commons drawing while offline), it removes itself. Credits are in README.md.
-const drawingFor = s => HANDSHAPE_DRAWINGS[signShapes(s)[0]];
+// The pictures for each word of a phrase, in order (words without a picture are skipped).
+function phraseStrip(gloss) {
+  let rest = gloss.toUpperCase().replace(/[^A-Z ]/g, " ").replace(/\s+/g, " ").trim(), ids = [];
+  const byWord = Object.fromEntries(SIGNS.map(s => [s.w, s.id]).concat(PHRASE_PICS));
+  const words = Object.keys(byWord).sort((a, b) => b.length - a.length);
+  while (rest) {
+    const w = words.find(w => rest === w || rest.startsWith(w + " "));
+    if (w) { ids.push(byWord[w]); rest = rest.slice(w.length).trim(); }
+    else rest = rest.replace(/^\S+\s*/, "");
+  }
+  return ids.length ? `<div class="pstrip" aria-hidden="true">${ids.map(id => `<img src="${signPic(id)}" alt="" loading="lazy">`).join("")}</div>` : "";
+}
+// A line drawing of a sign, letter, number or handshape. If it can't load, it removes itself. Credits are in README.md.
+const drawingFor = s => signPic(s.id);
 function photo(file, caption, cls = "photo") {
   cls += " drawing";
   return `<figure class="${cls}"><img src="${photoSrc(file)}" alt="${esc(caption)}" loading="lazy" onerror="this.closest('figure').remove()"></figure>`;
@@ -396,7 +408,7 @@ function signCard(s) {
   const st = !c ? `<span class="status">New</span>` : isKnown(s.id) ? `<span class="status k">Known</span>` : `<span class="status l">Learning</span>`;
   return `<article class="sign" id="sign-${s.id}">
     <div class="sign-head"><span class="gloss">${esc(s.w)}</span>${st}</div>
-    ${drawingFor(s) ? photo(drawingFor(s), signShapes(s)[0] + " handshape") : ""}
+    ${photo(drawingFor(s), "How to sign " + s.w)}
     ${stepsDl(s)}
     <p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p>
     <p class="say">${esc(s.say)}</p>
@@ -438,7 +450,7 @@ function lessonTop() {
     <div class="lprog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${P.i}"><i style="width:${P.i / n * 100}%"></i></div>
     <span class="lcount">${P.i >= n ? n : at} of ${n}</span></div>`;
 }
-// The "Watch" picture: a drawing of the sign's handshape, else the word itself.
+// The "Watch" picture: a drawing of the sign (the word sits behind it in case it can't load).
 function watchFrame(s) {
   const file = drawingFor(s);
   return `<div class="lframe"><span class="lgloss">${esc(s.w)}</span>

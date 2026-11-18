@@ -521,3 +521,9 @@ body.loginpage { background: linear-gradient(180deg, var(--teal-l) 0, var(--page
 .chip.known { background: var(--gold-l); border-color: #ecd08e; color: var(--gold-d); display: inline-flex; align-items: center; gap: 4px; }
 .chip.known svg { width: 14px; height: 14px; }
 .badge.got > i { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--gold); }
+
+/* sign, letter and number drawings */
+.pstrip { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.pstrip img { width: 52px; height: 52px; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+.pstrip.big-strip img { width: 72px; height: 72px; }
+.abcpic { display: block; width: 170px; height: 170px; object-fit: contain; margin: 0 auto; background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 10px; }

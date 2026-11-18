@@ -53,6 +53,7 @@ function abcCardHtml(x) {
   const st = !c ? `<span class="status">New</span>` : abcKnown(x.id) ? `<span class="status k">Known</span>` : `<span class="status l">Learning</span>`;
   return `<article class="sign" id="abc-${x.id}">
     <div class="sign-head"><span class="gloss">${esc(x.ch)}</span>${st}</div>
+    <figure class="photo drawing"><img src="${abcPic(x)}" alt="How to sign ${esc(x.ch)}" loading="lazy" onerror="this.closest('figure').remove()"></figure>
     ${abcSteps(x)}
     <p class="hook"><b>Remember it:</b> ${esc(x.hook)}</p>
     <div class="row">
@@ -138,7 +139,7 @@ function abcSpell() {
       `<button class="tile ${k === SP.i ? "on" : k < SP.i ? "done" : ""}" data-abc="at" data-val="${k}" aria-label="Letter ${k + 1}, ${l.ch}">${l.ch}</button>`).join("")}</div>
     <section class="card pop">
       <span class="eyebrow" style="text-align:center">Letter ${SP.i + 1} of ${ls.length}</span>
-      <div class="big">${x.ch}</div>
+      <div class="big">${x.ch}</div><img class="abcpic" src="${abcPic(x)}" alt="How to sign ${esc(x.ch)}" onerror="this.remove()">
       ${abcSteps(x)}
       <p class="hook"><b>Remember it:</b> ${esc(x.hook)}</p>
       ${dbl ? `<p class="note"><b>Double letter:</b> bounce your hand slightly, or slide it a little to the side, instead of forming the letter again.</p>` : ""}
@@ -186,7 +187,7 @@ function abcPractice() {
     return `${head}<section class="card pop">${dots}
       <span class="eyebrow" style="text-align:center">Make this ${noun}</span>
       <div class="big">${esc(x.ch)}</div>
-      ${AP.revealed ? `${abcSteps(x)}<p class="hook"><b>Remember it:</b> ${esc(x.hook)}</p>
+      ${AP.revealed ? `<img class="abcpic" src="${abcPic(x)}" alt="How to sign ${esc(x.ch)}" onerror="this.remove()">${abcSteps(x)}<p class="hook"><b>Remember it:</b> ${esc(x.hook)}</p>
         <p class="muted" style="text-align:center">Did your hand match?</p>
         <div class="options"><button class="btn bad" data-abc="rate" data-val="0">Not yet</button><button class="btn good" data-abc="rate" data-val="1">Got it</button></div>`
       : `<p class="muted" style="text-align:center">Make it with your hand, then check.</p>
@@ -257,7 +258,7 @@ function abcWordPractice() {
   return `${back}<section class="card pop">${dots}
     <span class="eyebrow" style="text-align:center">Spell this word</span>
     <div class="big">${w}</div>${signFor(w) ? `<p class="note" style="text-align:center">Has its own sign: use the sign in real life.</p>` : ""}
-    ${WP.revealed ? `<dl class="steps">${ls.map(l => `<dt>${l.ch}</dt><dd>${esc(l.hand)}${l.move ? " " + esc(l.move) : ""}</dd>`).join("")}</dl>
+    ${WP.revealed ? `<div class="pstrip big-strip" aria-hidden="true">${ls.map(x => `<img src="${abcPic(x)}" alt="">`).join("")}</div><dl class="steps">${ls.map(l => `<dt>${l.ch}</dt><dd>${esc(l.hand)}${l.move ? " " + esc(l.move) : ""}</dd>`).join("")}</dl>
         ${dbl ? `<p class="note"><b>Double letter:</b> bounce your hand slightly, or slide it a little to the side.</p>` : ""}
         <p class="muted" style="text-align:center">Did your spelling match?</p>
         <div class="options"><button class="btn bad" data-abc="wrate" data-val="0">Not yet</button><button class="btn good" data-abc="wrate" data-val="1">Got it</button></div>`
@@ -322,7 +323,7 @@ function lcPaint() {
   }
   const x = ls[LC.i], dbl = LC.i > 0 && ls[LC.i - 1].ch === x.ch;
   b.innerHTML = `<span class="eyebrow" style="text-align:center">${ls.length > 1 ? `Letter ${LC.i + 1} of ${ls.length}` : "Make this letter"}</span>
-    <div class="big">${esc(x.ch)}</div>${abcSteps(x)}
+    <div class="big">${esc(x.ch)}</div><img class="abcpic" src="${abcPic(x)}" alt="How to sign ${esc(x.ch)}" onerror="this.remove()">${abcSteps(x)}
     ${dbl ? `<p class="note"><b>Double letter:</b> let go of the letter, then bounce your hand slightly and make it again.</p>` : ""}
     ${LC_TRICKY.has(x.ch) ? lcTrickyNote(x.ch) : ""}
     ${LC_MOTION.has(x.ch) ? `<p class="note"><b>${x.ch} moves.</b> One camera frame can't show movement, so tap "I did it" when you have signed it.</p>` : ""}

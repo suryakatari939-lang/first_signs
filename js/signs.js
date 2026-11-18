@@ -137,19 +137,19 @@ const CHECKS = {
   shoes:   { hands:2, shape:["fist"], at:"body", ref:"center", move:["repeat"] },
 };
 
-/* Line drawings of handshapes (no photos of people), from the public-domain drawn manual alphabet
-   on Wikimedia Commons ("Sign language A.svg" and so on). They load from Commons, so they only show
-   when the computer is online (credits in README.md). Only handshapes that match a letter have a drawing:
-   that series has no drawing of 5, claw, flat-O, I-love-you or the index finger, so those show the written steps only. */
-const COMMONS = "https://commons.wikimedia.org/wiki/";
-const photoSrc = file => COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_"));
+/* Line drawings, all in one style and stored in the app (img/), so they work offline:
+   img/signs/<sign id>.svg for every sign (plus FINISH = ALL DONE, YOU, HOME and SOON used in the phrases),
+   img/abc/<letter id>.svg for A to Z and img/abc/n1.svg ... n10.svg for the numbers.
+   Source: the team's ASL Sign Illustration Collection, traced to SVG (see README.md). */
+const photoSrc = file => file;
+const signPic = id => "img/signs/" + id + ".svg";
+const abcPic = x => "img/abc/" + x.id + ".svg";
+// Handshape pictures for the cheat sheet and hints: the matching letter or number, or a sign that is the shape.
 const HANDSHAPE_DRAWINGS = {
-  "A": "Sign language A.svg",
-  "C": "Sign language C.svg",
-  "K": "Sign language K.svg",
-  "S": "Sign language S.svg",
-  "T": "Sign language T.svg",
-  "W": "Sign language W.svg",
-  "Y": "Sign language Y.svg",
-  "Flat": "Sign language B.svg",   // the B hand; a flat hand is the same with the thumb alongside
+  "A": "img/abc/a.svg", "C": "img/abc/c.svg", "K": "img/abc/k.svg", "S": "img/abc/s.svg",
+  "T": "img/abc/t.svg", "W": "img/abc/w.svg", "Y": "img/abc/y.svg",
+  "Flat": "img/abc/b.svg", "5 (open)": "img/abc/n5.svg", "Index": "img/abc/n1.svg", "ILY": "img/signs/ily.svg",
 };
+// Words in the phrases that have a picture, longest first so "THANK YOU" wins over "YOU".
+const PHRASE_PICS = [["BRUSH TEETH", "brush"], ["I LOVE YOU", "ily"], ["THANK YOU", "thanks"], ["ALL DONE", "finish"], ["FINISH", "finish"],
+  ["YOU", "you"], ["HOME", "home"], ["SOON", "soon"]];
