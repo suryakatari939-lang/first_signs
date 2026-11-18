@@ -35,6 +35,6 @@ If no card exists, creates `{box:1, due: now + 1 day, seen:1}` and marks the day
 4. Result = `[...due.slice(0,5), ...fresh.slice(0,newCount)].slice(0,6)` → between 2 and 6 items; always includes ≥2 new signs while any remain.
 
 ## Session behaviour
-`startPractice(mode)` uses `todaysSet()`; if fewer than 4 items, falls back to 5 random signs. It calls `learn()` on every item up front (so merely starting a session starts those signs), then shuffles. Details: [[Practice Screen]].
+`startPractice(mode)` uses `todaysSet()`; if fewer than 4 items, falls back to 5 random signs. It calls `learn()` on every item up front (so merely starting a session starts those signs), then shuffles. Details: [[App Layout and Screens]].
 
-Related: [[Data Model and Storage]], [[Today Screen]].
+Related: [[Data Model and Storage]], [[App Layout and Screens]].

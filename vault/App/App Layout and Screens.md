@@ -4,30 +4,37 @@ tags: [app, screens, layout]
 ---
 # App Layout and Screens
 
-**App-style redesign (2026-11-03).** The app moved from a website-like layout (photo banners, long pages) to an app layout modeled on learning apps such as Duolingo, without copying them. Replaces [[Today Screen]], [[Routines Screen]], [[Practice Screen]] and [[Progress Screen]]; the camera coach now runs inside a lesson ([[Camera Coach Screen]] logic is unchanged).
+**Current design (2026-11-17):** a calm dashboard look, see [[Design System]]. Older designs were removed from the code and these notes.
 
 ## Shell (`index.html`)
-- `nav.tabs`: **Learn, Practice, ABC, Rewards, Profile**. A bottom tab bar on phones; a left sidebar with the logo on screens ≥900px.
-- `main#app`: the current page.
-- `aside#rail` (screens ≥1240px): stats, [[#Today's real moment]], daily goal and the two closest badges. Below that width the same stats show as a bar at the top of each page (`statBar()`) and the real-moment card appears on Learn.
-- During a lesson `body.lesson-mode` hides the nav and rail so the lesson fills the screen.
+- `nav.tabs`: **Learn, Practice, ABC, Rewards, Profile**. A bottom tab bar on phones; a white sidebar on screens ≥900px with the logo at the top and Profile at the bottom.
+- **Sign-in page** (`login.html`, `js/login.js`, added by Anish 2026-11-18): a mock sign-in / create account / continue as guest. Nothing is sent anywhere; the user is saved in `localStorage["firstsigns.user"]`, and `index.html` sends you to `login.html` until one exists. Profile shows the name and email and has **Sign out**; Learn says "Welcome back, <first name>!".
+- `main#app`: the current page. Pages other than Learn start with the stats pills (`statBar()`) and a peach banner (`hero()` / `.pagehead`).
+- During a lesson `body.lesson-mode` hides the nav so the lesson fills the screen.
 
 ## Mitt, the mascot
-`mitt(size, mood)` in `js/app.js` draws an original open-hand character (inline SVG). Used in the logo, page headers, next to the current lesson, in lesson cards and on the end screen (sad face when out of hearts).
+`mitt(size, mood)` in `js/app.js` draws an original open-hand character (inline SVG). Used in the logo, the Learn welcome banner, page banners and the sample-progress notice.
 
 ## Learn (`#learn`, default; `#today` still works)
-- One **unit per routine** (`ROUTINES` order), each with a colored bar (`UNIT_COLOR`) and a **Sign guide** button that opens the routine's sign cards (`#routines.<id>`, [[Routine Detail Screen]]).
-- Each unit's signs are split into **lessons of 3** (`unitLessons()`, `LESSON_SIZE`). Each lesson is a bubble on a zig-zag path (`ZIG` offsets). States: done (all known, gold check), started (gold), new (grey), and **current** = first lesson in path order not fully known (unit color, ring, bobbing START bubble, Mitt beside it).
-- A green chest at the end of each unit starts a **unit review** (every sign as read-and-pick, plus 2 sign-it-yourself).
+**Learning map + dashboard cards (2026-11-18).**
+- Header: "Welcome back!" (or "Welcome!" with no progress), a day-streak pill and a daily-goal pill.
+- **Map card** (`learningMap()`, `mapScene()`): an SVG mountain in blues and white with a winding trail. The 6 routines are stops in `ROUTINES` order, with a flag at the summit ("All 43 signs", known count and %). Stop states: done (filled check), now (routine of the current lesson: big ring, "You're here", pulsing halo), started (progress ring), new (number). The trail is solid up to the current routine. Two layouts in `MAP`: `wide` (1000×440) and `tall` (400×620, under 700px); SVG ids get a `-wide`/`-tall` suffix because both are in the page. The map header has the **Up next** box with Start lesson / Keep going.
+- Tapping a stop (`data-mapsel`, sets `mapSel`) shows that routine's lesson card (`routineCard()`: numbered checklist, Review all, Sign guide) under the map. Default: the routine with the current lesson (`currentLesson()`).
+- Cards under the map: the routine card and **Quick access** (tiles for the 3 signs in the next lesson → their Sign guide) on the left; **Daily goal** (donut, "Start practice session"), **Today's real moment** (We did it / How to sign) and **Milestones** (earned badges, next milestone, View all badges) on the right.
 
 ## Lessons (`#lesson`)
-`startLesson(title, steps, back, cam)` sets `P` and goes to `#lesson`. Steps:
-- `teach`: meet a new sign (photo or Mitt, steps, hook). "Got it" calls `learn()` and counts toward the daily goal.
-- `pick`: read the description, tap one of 4 signs. Instant feedback bar (green / coral) with the hook, then Continue.
+`startLesson(title, steps, back, cam)` sets `P` and goes to `#lesson`.
+
+**Minimal lesson screen (2026-11-16).** Lessons use the soft blue page with white panels (restyled 2026-11-17) (see [[Design System]]): an exit X, a thin progress bar and "N of M" on top (`lessonTop()`), then two columns on screens ≥900px (`.lgrid`, one column on phones): **Watch** on the left (photo or word in `watchFrame()`, sign name, handshape, Hint) and **Your turn** on the right. Buttons sit in a sticky footer (`.lfoot`, helpers `lbtn()`). Feedback uses one row, `resultRow(ok, title, text)`, with a check or cross.
+
+Steps:
+- `teach`: meet a new sign (Watch: photo + hint; Your turn: steps, hook). "Continue" calls `learn()` and counts toward the daily goal.
+- `pick`: read the description, tap one of 4 signs. Result row ("Correct" / "Not quite. It's X.") with the hook, then Continue.
 - `recall`: see the word, make the sign; "Show me the steps" then Got it / Not yet, or **Check with camera** (camera coach inside the lesson).
 - Lesson from the path (`lessonFromSigns`): teach steps for signs not started yet, then a pick for every sign, then one recall.
-- **Hearts:** 5 per lesson, a wrong answer (or camera Skip) costs one. At 0 the last feedback still shows, then an "Out of hearts" screen with Try again.
-- End screen: XP earned (+10 per right answer), accuracy, hearts left, and the reminder to use a sign with your child.
+- **No hearts.** A wrong answer just shows the result row and the lesson continues.
+- Camera step: live camera in the Your turn column. After recording, a result row ("Great match" / "Almost there", "N of 3 checks passed") and the three check marks (Handshape, Location, Movement), each with "Matched N% of the time" or Detected / Not seen. See [[Evaluation and Scoring]].
+- End screen: "Lesson complete" row with signs practiced, % correct and XP (+10 per right answer), and the reminder to use a sign with your child.
 
 ## Practice (`#practice`)
 Mode cards: **Today's 5 minutes** (mixed lesson from `todaysSet()`), **Read & pick**, **Sign it yourself**, **Camera coach**. Below them, the [[Handshape Cheat Sheet]] (moved here from the old Routines tab).
@@ -39,7 +46,7 @@ Mode cards: **Today's 5 minutes** (mixed lesson from `todaysSet()`), **Read & pi
 Header with Mitt, four stat tiles (streak, XP, signs known, real moments), this week's practice days (Mon–Sun dots from `S.days`), progress by routine, `abcProgress()`, signs used with your child, Why this matters, and a two-step **Reset my progress**.
 
 ## Today's real moment
-`todayMission()` picks one sign from the routine that fits the time of day (same rule as before). "We did it" pushes to `S.used` (real moments), "How to sign" opens the routine's sign guide.
+Card on the Learn dashboard. `todayMission()` picks one sign from the routine that fits the time of day. "We did it" pushes to `S.used` (real moments), "How to sign" opens the routine's sign guide.
 
 ## Stats
 - **Streak**: `streak()` (unchanged).

@@ -30,7 +30,7 @@ S.abc = { cards: { [id]: { box, due, seen } } }   // ids: "a".."z", "n1".."n10",
 Created lazily by `abcCards()`; older saved states without it work unchanged; "Start fresh" wipes it (it replaces all of `S`). Same Leitner scheme as signs ([[Spaced Repetition]]); kept separate so the 43-sign counts are unaffected. `markDay()` is shared, so ABC practice counts toward the streak.
 
 ## Not persisted
-`P` (the current practice session: mode, item list, index, score, reveal/answer state, `cam` flag, quiz options) is in-memory only, and so are `AP` (ABC practice session), `WP` (easy-word practice session) and `SP` (spell-a-word state). Refreshing the page loses an in-progress session. See [[Practice Screen]].
+`P` (the current practice session: mode, item list, index, score, reveal/answer state, `cam` flag, quiz options) is in-memory only, and so are `AP` (ABC practice session), `WP` (easy-word practice session) and `SP` (spell-a-word state). Refreshing the page loses an in-progress session. See [[App Layout and Screens]].
 
 ## Sample ("example progress") state
 On first visit (no saved state) `sampleState()` seeds:
@@ -40,7 +40,7 @@ On first visit (no saved state) `sampleState()` seeds:
 - `used`: MORE, ALL DONE (`finish`) yesterday, I LOVE YOU (`ily`) two days ago.
 - `sample: true`.
 
-While `sample` is true, [[Today Screen]] and [[Progress Screen]] show a banner ("You're looking at example progress…") with a **Start fresh** button (`#reset`) which replaces `S` with an empty state (`sample:false`), clears `P`, saves, toasts "Fresh start. Welcome!". Note `sample` stays true through normal use until the user clicks it — real activity mixes into the sample data ([[Known Issues and Quirks]]).
+While `sample` is true, [[App Layout and Screens]] and [[App Layout and Screens]] show a banner ("You're looking at example progress…") with a **Start fresh** button (`#reset`) which replaces `S` with an empty state (`sample:false`), clears `P`, saves, toasts "Fresh start. Welcome!". Note `sample` stays true through normal use until the user clicks it — real activity mixes into the sample data ([[Known Issues and Quirks]]).
 
 ## Clearing data manually
 `localStorage.removeItem("firstsigns.v1")` in the console resets to sample state on next load.
@@ -49,4 +49,4 @@ While `sample` is true, [[Today Screen]] and [[Progress Screen]] show a banner (
 ## Added in the app-style redesign (2026-11-03)
 - `S.goal` counts signs practiced today (`bumpGoal()`); sample state starts it at 2 of 5.
 - XP is not stored: `xp()` works it out from `seen` counts and `S.used`.
-- Lesson state `P` (steps, hearts, score) is in memory only. See [[App Layout and Screens]].
+- Lesson state `P` (steps, score, XP) is in memory only. See [[App Layout and Screens]].

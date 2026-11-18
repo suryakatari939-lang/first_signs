@@ -172,7 +172,7 @@ function abcPractice() {
     return `${head}<section class="card pop"><span class="eyebrow">Session done</span>
       <h1>${AP.right} of ${AP.items.length} ${AP.mode === "pick" ? "right" : "felt solid"}</h1>
       <p>${AP.scope === "letters" ? "Now put them to work: spell your child's name for them." : "Use a number today: count the crackers or the stairs out loud and on your hands."}</p>
-      <div class="row"><button class="btn sun" data-abc="again">Practice again</button><button class="btn ghost" data-go="abc.spell">Spell a word</button><button class="btn ghost" data-go="learn">Back to the path</button></div></section>`;
+      <div class="row"><button class="btn sun" data-abc="again">Practice again</button><button class="btn ghost" data-go="abc.spell">Spell a word</button><button class="btn ghost" data-go="learn">Back to Learn</button></div></section>`;
   }
   const x = abcById(AP.items[AP.i]);
   if (AP.mode === "recall") {

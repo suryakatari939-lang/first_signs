@@ -289,7 +289,8 @@ const Coach = (() => {
       const saw = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0] || null;
       const places = {}; t.forEach(x => { const z = whereIs(x.p, x.B); places[z] = (places[z] || 0) + 1; });
       const at = Object.keys(places).sort((a, b) => places[b] - places[a])[0];
-      return { shapeOk: shapeHits >= 0.35, zoneOk: zoneHits >= 0.3, moveOk: check.move.some(m => mv[m]), saw, at };
+      // shapePct / zonePct: share of the recording where the hand matched (shown to the learner as a score).
+      return { shapeOk: shapeHits >= 0.35, zoneOk: zoneHits >= 0.3, moveOk: check.move.some(m => mv[m]), saw, at, shapePct: shapeHits, zonePct: zoneHits };
     };
 
     let res;
@@ -301,7 +302,8 @@ const Coach = (() => {
       }
       const pair = both.map(f => dist2(f.hands[0].ref.center, f.hands[1].ref.center));
       const a = scoreTrack(tracks[0], pair), b = scoreTrack(tracks[1], pair);
-      res = { shapeOk: a.shapeOk && b.shapeOk, zoneOk: a.zoneOk || b.zoneOk, moveOk: a.moveOk || b.moveOk, saw: (a.shapeOk ? b : a).saw, at: a.at, handsSeen: 2 };
+      res = { shapeOk: a.shapeOk && b.shapeOk, zoneOk: a.zoneOk || b.zoneOk, moveOk: a.moveOk || b.moveOk, saw: (a.shapeOk ? b : a).saw, at: a.at, handsSeen: 2,
+        shapePct: Math.min(a.shapePct, b.shapePct), zonePct: Math.max(a.zonePct, b.zonePct) };
     } else {
       const scored = seen.map(t => scoreTrack(t));
       res = scored.sort((x, y) => (y.shapeOk + y.zoneOk + y.moveOk) - (x.shapeOk + x.zoneOk + x.moveOk))[0];

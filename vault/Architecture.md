@@ -34,7 +34,7 @@ Script load order matters (classic scripts, shared global scope): `holistic.js` 
 - Session-only practice state lives in module variable `P` (not persisted). Persistent state is `S` ([[Data Model and Storage]]).
 
 ## Data flow for the camera coach
-`Practice screen` → `mountCamera()` → `Coach.setTarget(CHECKS[id])` + `Coach.start(video, canvas, onFrame, status)` → per-frame `onResults` builds `{body, hands, live}` → live label updates → user hits **Record** → `Coach.record(3000)` collects frames → `Coach.evaluate(frames, check)` → result rows rendered → `data-rate` records progress via `rate()`. Details: [[Camera Coach Screen]], [[Evaluation and Scoring]].
+`Practice screen` → `mountCamera()` → `Coach.setTarget(CHECKS[id])` + `Coach.start(video, canvas, onFrame, status)` → per-frame `onResults` builds `{body, hands, live}` → live label updates → user hits **Record** → `Coach.record(3000)` collects frames → `Coach.evaluate(frames, check)` → result rows rendered → `data-rate` records progress via `rate()`. Details: [[App Layout and Screens]], [[Evaluation and Scoring]].
 
 ## External dependencies
 - **Google Fonts** (Fredoka, Atkinson Hyperlegible) via `<link>` in `index.html` — the only network dependency besides optional outbound links.

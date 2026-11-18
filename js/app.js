@@ -70,18 +70,16 @@ function learn(id) { if (!S.cards[id]) { S.cards[id] = { box: 1, due: Date.now()
 
 /* ---------- Icons and Mitt, the mascot (an open hand) ---------- */
 const ICON = {
-  heart: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 27C7 21 3 16 3 11a6.5 6.5 0 0 1 13-2 6.5 6.5 0 0 1 13 2c0 5-4 10-13 16z" fill="${c || "#ff7a6b"}"/></svg>`,
-  flame: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c2 6 9 8 9 16a9 9 0 0 1-18 0c0-4 2-6 4-8 0 3 1 5 3 5-1-5 0-9 2-13z" fill="#ffb938"/><path d="M16 17c2 2 4 3 4 6a4 4 0 0 1-8 0c0-2 2-4 4-6z" fill="#fff2d6"/></svg>`,
-  star: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3l3.6 8 8.4.8-6.3 5.7 1.9 8.5L16 21.6 8.4 26l1.9-8.5L4 11.8l8.4-.8z" fill="${c || "#7c5cff"}"/></svg>`,
-  ring: f => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#e5ebee" stroke-width="5"/><circle cx="16" cy="16" r="12" fill="none" stroke="#11a3a0" stroke-width="5" stroke-dasharray="${(75.4 * Math.min(1, f)).toFixed(1)} 76" stroke-linecap="round" transform="rotate(-90 16 16)"/></svg>`,
+  heart: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 27C7 21 3 16 3 11a6.5 6.5 0 0 1 13-2 6.5 6.5 0 0 1 13 2c0 5-4 10-13 16z" fill="${c || "#89b5e1"}"/></svg>`,
+  flame: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c2 6 9 8 9 16a9 9 0 0 1-18 0c0-4 2-6 4-8 0 3 1 5 3 5-1-5 0-9 2-13z" fill="#609bd7"/><path d="M16 17c2 2 4 3 4 6a4 4 0 0 1-8 0c0-2 2-4 4-6z" fill="#dcebf9"/></svg>`,
+  star: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3l3.6 8 8.4.8-6.3 5.7 1.9 8.5L16 21.6 8.4 26l1.9-8.5L4 11.8l8.4-.8z" fill="${c || "#7dadde"}"/></svg>`,
+  ring: f => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#e5ebee" stroke-width="5"/><circle cx="16" cy="16" r="12" fill="none" stroke="#245a90" stroke-width="5" stroke-dasharray="${(75.4 * Math.min(1, f)).toFixed(1)} 76" stroke-linecap="round" transform="rotate(-90 16 16)"/></svg>`,
   check: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 17l5 5 11-12" fill="none" stroke="${c || "#fff"}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   cross: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 10l12 12M22 10L10 22" fill="none" stroke="${c || "#fff"}" stroke-width="4.5" stroke-linecap="round"/></svg>`,
-  chest: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="11" width="22" height="15" rx="3" fill="#fff"/><path d="M5 15h22" stroke="#2fa85a" stroke-width="3"/><rect x="14" y="13" width="4" height="6" rx="1" fill="#ffb938"/></svg>`,
-  book: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 7c4-1 7 0 10 2v17c-3-2-6-3-10-2zM26 7c-4-1-7 0-10 2v17c3-2 6-3 10-2z" fill="none" stroke="${c || "#fff"}" stroke-width="2.6" stroke-linejoin="round"/></svg>`,
   cam: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="9" width="20" height="15" rx="4" fill="${c}"/><path d="M23 14l6-4v13l-6-4z" fill="${c}"/></svg>`,
   quiz: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="${c}"/><path d="M12 12a4 4 0 1 1 6 3c-1.5 1-2 2-2 3.5M16 23v.5" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
   hand: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 26V12c0-2 3-2 3 0v6V8c0-2 3-2 3 0v10V7c0-2 3-2 3 0v11V9c0-2 3-2 3 0v12c0 4-3 6-6 6h-1c-3 0-5-2-6-5l-3-6c-1-2 2-3 3-1z" fill="${c}"/></svg>`,
-  bulb: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4a9 9 0 0 0-5 16.5V24h10v-3.5A9 9 0 0 0 16 4z" fill="#e6951a"/><path d="M13 14l3 3 3-3" fill="none" stroke="#fff2d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="11.5" y="25.5" width="9" height="3" rx="1.5" fill="#a8771e"/></svg>`,
+  bulb: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4a9 9 0 0 0-5 16.5V24h10v-3.5A9 9 0 0 0 16 4z" fill="#3480cc"/><path d="M13 14l3 3 3-3" fill="none" stroke="#dcebf9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="11.5" y="25.5" width="9" height="3" rx="1.5" fill="#28639e"/></svg>`,
   lock: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="13" width="16" height="13" rx="3" fill="#b4c1c7"/><path d="M11 13V10a5 5 0 0 1 10 0v3" fill="none" stroke="#b4c1c7" stroke-width="3"/></svg>`,
 };
 // One picture per routine, used on the lesson bubbles and badges.
@@ -100,10 +98,10 @@ function mitt(size = 112, mood = "happy") {
     : `<path d="M48 96c5 5 11 5 16 0" fill="none" stroke="#20313a" stroke-width="3.2" stroke-linecap="round"/>`;
   return `<svg class="mitt" width="${size}" height="${Math.round(size * 130 / 112)}" viewBox="0 0 112 130" aria-hidden="true">
     <ellipse cx="56" cy="122" rx="34" ry="6" fill="#000" opacity=".08"/>
-    <path d="M30 70V34c0-7 10-7 10 0v26V22c0-7 10-7 10 0v36V18c0-7 10-7 10 0v40V24c0-7 10-7 10 0v46l8-12c4-6 13-1 9 6L82 96c-5 13-14 22-30 22h-2c-12 0-20-8-20-22z" fill="#ffb938" stroke="#e6951a" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M30 70V34c0-7 10-7 10 0v26V22c0-7 10-7 10 0v36V18c0-7 10-7 10 0v40V24c0-7 10-7 10 0v46l8-12c4-6 13-1 9 6L82 96c-5 13-14 22-30 22h-2c-12 0-20-8-20-22z" fill="#609bd7" stroke="#3480cc" stroke-width="3" stroke-linejoin="round"/>
     <circle cx="47" cy="84" r="5" fill="#20313a"/><circle cx="65" cy="84" r="5" fill="#20313a"/>
     <circle cx="48.5" cy="82.5" r="1.6" fill="#fff"/><circle cx="66.5" cy="82.5" r="1.6" fill="#fff"/>${mouth}
-    <circle cx="40" cy="95" r="4" fill="#ff7a6b" opacity=".5"/><circle cx="72" cy="95" r="4" fill="#ff7a6b" opacity=".5"/></svg>`;
+    <circle cx="40" cy="95" r="4" fill="#89b5e1" opacity=".5"/><circle cx="72" cy="95" r="4" fill="#89b5e1" opacity=".5"/></svg>`;
 }
 
 /* ---------- Shared pieces ---------- */
@@ -136,23 +134,6 @@ function todayMission() {
   S.mission = { id: pick.id, day: dayKey() };
   return pick;
 }
-function momentCard() {
-  const s = todayMission();
-  const done = S.used.some(u => u.id === s.id && dayKey(u.t) === dayKey());
-  return `<section class="panelcard"><h4>Today's real moment</h4>
-    <div class="moment"><div class="moment-ic">${ICON.heart()}</div>
-      <div><b>Sign ${esc(s.w)} with your child</b><span>${esc(s.say)}</span></div></div>
-    <div class="row">${done ? `<span class="pill good">${ICON.check("#2fa85a")} Done today</span>`
-      : `<button class="btn coral sm" data-used="${s.id}">We did it</button>`}
-      <button class="btn ghost sm" data-open="${s.r}">How to sign</button></div></section>`;
-}
-function goalCard() {
-  const g = goalToday(), left = Math.max(0, GOAL - g);
-  return `<section class="panelcard"><h4>Daily goal <span class="muted">${Math.min(g, GOAL)} of ${GOAL} signs</span></h4>
-    <div class="pbar teal"><i style="width:${Math.min(100, g / GOAL * 100)}%"></i></div>
-    <p class="note">${left ? `${left} more sign${left > 1 ? "s" : ""} to reach today's goal.` : "Goal reached. Nice work today!"}</p></section>`;
-}
-
 /* ---------- Badges ---------- */
 function badges() {
   const unit = r => { const l = SIGNS.filter(s => s.r === r.id); return { id: "u-" + r.id, name: r.name, icon: UNIT_ICON[r.id]("#fff"), color: UNIT_COLOR[r.id], have: l.filter(s => isKnown(s.id)).length, need: l.length, how: "Know every sign in " + r.name }; };
@@ -162,8 +143,8 @@ function badges() {
     { id: "ten", name: "10 moments", icon: ICON.heart("#fff"), color: "coral", have: Math.min(10, S.used.length), need: 10, how: "Use signs with your child 10 times" },
     { id: "week", name: "7-day streak", icon: `<svg viewBox="0 0 32 32"><path d="M16 3c2 6 9 8 9 16a9 9 0 0 1-18 0c0-4 2-6 4-8 0 3 1 5 3 5-1-5 0-9 2-13z" fill="#fff"/></svg>`, color: "sun", have: Math.min(7, streak()), need: 7, how: "Practice 7 days in a row" },
     ...ROUTINES.map(unit),
-    { id: "abc", name: "Alphabet Ace", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="14" fill="#fff">ABC</text></svg>`, color: "teal", have: abcK(LETTERS), need: LETTERS.length, how: "Know every letter" },
-    { id: "num", name: "Counting Pro", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="15" fill="#fff">123</text></svg>`, color: "leaf", have: abcK(NUMBERS), need: NUMBERS.length, how: "Know the numbers 1 to 10" },
+    { id: "abc", name: "Alphabet Ace", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="12" fill="#fff">ABC</text></svg>`, color: "teal", have: abcK(LETTERS), need: LETTERS.length, how: "Know every letter" },
+    { id: "num", name: "Counting Pro", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="13" fill="#fff">123</text></svg>`, color: "leaf", have: abcK(NUMBERS), need: NUMBERS.length, how: "Know the numbers 1 to 10" },
   ];
 }
 function badgeTile(b) {
@@ -172,15 +153,7 @@ function badgeTile(b) {
     <i class="${got ? "c-" + b.color : ""}">${got ? b.icon : ICON.lock()}</i><b>${esc(b.name)}</b>
     ${got ? `<span>Earned</span>` : `<div class="pbar thin"><i style="width:${Math.round(b.have / b.need * 100)}%"></i></div><span>${b.have}/${b.need}</span>`}</div>`;
 }
-function badgeCard() {
-  const close = badges().filter(b => b.have < b.need).sort((a, b) => b.have / b.need - a.have / a.need).slice(0, 2);
-  return `<section class="panelcard"><h4>Badges in progress <button class="link" data-go="rewards">View all</button></h4>
-    ${close.map(b => `<div class="brow"><i class="c-${b.color}">${b.icon}</i><div><b>${esc(b.name)}</b>
-      <div class="pbar thin c-${b.color}"><i style="width:${Math.round(b.have / b.need * 100)}%"></i></div></div><span class="muted">${b.have}/${b.need}</span></div>`).join("")}</section>`;
-}
-function rail() { return `${statBar()}${momentCard()}${goalCard()}${badgeCard()}`; }
-
-/* ---------- Learn: one path of lessons, a unit per routine ---------- */
+/* ---------- Learn: lessons of three signs, one set per routine ---------- */
 const LESSON_SIZE = 3;
 function unitLessons(r) {
   const l = SIGNS.filter(s => s.r === r.id), out = [];
@@ -188,32 +161,159 @@ function unitLessons(r) {
   return out;
 }
 const lessonState = list => list.every(s => isKnown(s.id)) ? "done" : list.some(s => card(s.id)) ? "started" : "new";
-const ZIG = [0, -70, -105, -70, 0, 70, 105, 70];
-function viewLearn() {
-  // The current lesson is the first one, in path order, that isn't fully known yet.
-  let current = null;
-  for (const r of ROUTINES) { unitLessons(r).forEach((l, i) => { if (!current && lessonState(l) !== "done") current = r.id + ":" + i; }); }
-  let k = 0;
-  const units = ROUTINES.map((r, ui) => {
-    const lessons = unitLessons(r), c = UNIT_COLOR[r.id];
-    const nodes = lessons.map((l, i) => {
-      const key = r.id + ":" + i, st = lessonState(l), now = key === current, x = ZIG[k++ % ZIG.length];
-      const cls = now ? "now c-" + c : st === "done" ? "done" : st === "started" ? "started" : "new";
-      const icon = st === "done" ? ICON.check() : UNIT_ICON[r.id](st === "new" && !now ? "#b4c1c7" : "#fff");
-      const words = l.map(s => s.w).join(", ");
-      return `<div class="step" style="--x:${x}px">
-        ${now ? `<span class="startbubble">START</span>` : ""}
-        <button class="node ${cls}" data-lesson="${key}" aria-label="Lesson ${i + 1}: ${esc(words)}${st === "done" ? ", done" : ""}">${icon}</button>
-        ${now ? `<div class="pathmitt" style="--side:${x > 0 ? -1 : 1}">${mitt(96)}</div>` : ""}
-        <span class="nodelabel">${esc(words)}</span></div>`;
-    }).join("");
-    const review = `<div class="step" style="--x:${ZIG[k++ % ZIG.length]}px"><button class="node chest" data-review="${r.id}" aria-label="${esc(r.name)} review">${ICON.chest()}</button><span class="nodelabel">Unit review</span></div>`;
-    return `<section class="unit" aria-labelledby="u-${r.id}">
-      <header class="unitbar c-${c}"><div><small>Unit ${ui + 1} · ${esc(r.time)}</small><b id="u-${r.id}">${esc(r.name)}</b></div>
-        <button class="guide" data-open="${r.id}">${ICON.book()}<span>Sign guide</span></button></header>
-      <div class="path">${nodes}${review}</div></section>`;
+// The current lesson is the first one, in routine order, that isn't fully known yet.
+function currentLesson() {
+  for (const r of ROUTINES) { const ls = unitLessons(r); for (let i = 0; i < ls.length; i++) if (lessonState(ls[i]) !== "done") return r.id + ":" + i; }
+  return null;
+}
+// One routine as a card: icon, progress, and its lessons as a numbered checklist.
+function routineCard(r, current) {
+  const lessons = unitLessons(r), c = UNIT_COLOR[r.id], all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length;
+  const rows = lessons.map((l, i) => {
+    const key = r.id + ":" + i, st = lessonState(l), now = key === current;
+    const tag = st === "done" ? `<span class="lstate done">${ICON.check("#2f5f8f")}Done</span>`
+      : now ? `<span class="lstate now">${st === "started" ? "Keep going" : "Start"}</span>`
+      : st === "started" ? `<span class="lstate">Keep going</span>` : `<span class="lstate">Start</span>`;
+    return `<li><button class="lrow ${now ? "now" : ""} ${st}" data-lesson="${key}" aria-label="${esc(r.name)} lesson ${i + 1}: ${esc(l.map(s => s.w).join(", "))}${st === "done" ? ", done" : ""}">
+      <span class="lnum">${i + 1}</span><span class="lwords">${l.map(s => esc(s.w)).join(" · ")}</span>${tag}</button></li>`;
   }).join("");
-  return `${statBar()}${sampleBanner()}<div class="rail-dup">${momentCard()}</div>${units}`;
+  return `<section class="rcard t-${c}" aria-labelledby="r-${r.id}">
+    <header class="rhead"><i class="ric">${UNIT_ICON[r.id]("currentColor")}</i>
+      <div><b id="r-${r.id}">${esc(r.name)}</b><small>${esc(r.time)}</small></div>
+      <span class="rcount">${k}/${all.length} signs</span></header>
+    <div class="rbar"><i style="width:${Math.round(k / all.length * 100)}%"></i></div>
+    <ol class="lrows">${rows}</ol>
+    <footer class="rfoot"><button class="textbtn" data-review="${r.id}">Review all ${all.length}</button><button class="textbtn" data-open="${r.id}">Sign guide</button></footer>
+  </section>`;
+}
+
+/* ---------- Learn: the learning map, then dashboard cards ---------- */
+let mapSel = null;   // routine picked on the map (null = the one with the current lesson)
+// A ring that fills with a share (0 to 1), with a label in the middle.
+function donut(f, label) {
+  const c = 2 * Math.PI * 52, on = Math.max(0, Math.min(1, f)) * c;
+  return `<div class="donut"><svg viewBox="0 0 128 128" aria-hidden="true"><circle cx="64" cy="64" r="52" fill="none" stroke="#d3e5f7" stroke-width="16"/>
+    <circle cx="64" cy="64" r="52" fill="none" stroke="#3b6e98" stroke-width="16" stroke-dasharray="${on.toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 64 64)"/>
+    ${f > 0 && f < 1 ? `<circle cx="64" cy="64" r="52" fill="none" stroke="#6ca3da" stroke-width="16" stroke-dasharray="${Math.min(14, c - on).toFixed(1)} ${c.toFixed(1)}" stroke-dashoffset="${(-on).toFixed(1)}" transform="rotate(-90 64 64)"/>` : ""}</svg><b>${label}</b></div>`;
+}
+/* The routines are stops on a trail up a mountain. Two layouts of the same scene:
+   wide for laptops and tall for phones. Points are in each SVG's own units. */
+const MAP = {
+  wide: { W: 1000, H: 440, peak: [700, 60], stops: [[120, 378, "r"], [268, 338, "r"], [390, 280, "r"], [492, 222, "l"], [585, 160, "l"], [650, 106, "l"]] },
+  tall: { W: 400, H: 620, peak: [262, 78], stops: [[90, 560, "r"], [262, 494, "l"], [120, 420, "r"], [270, 344, "l"], [128, 268, "r"], [236, 186, "l"]] },
+};
+// A smooth line through the points (Catmull-Rom turned into Bezier curves).
+function smooth(pts) {
+  let d = `M${pts[0][0]},${pts[0][1]}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+    d += ` C${(p1[0] + (p2[0] - p0[0]) / 6).toFixed(1)},${(p1[1] + (p2[1] - p0[1]) / 6).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) / 6).toFixed(1)},${(p2[1] - (p3[1] - p1[1]) / 6).toFixed(1)} ${p2[0]},${p2[1]}`;
+  }
+  return d;
+}
+// k keeps the SVG ids unique, because both layouts are in the page at once.
+function mapScene(m, walked, k) {
+  const { W, H } = m, [px, py] = m.peak, X = f => (f * W).toFixed(1), Y = f => (f * H).toFixed(1);
+  const poly = pts => pts.map(([x, y]) => `${typeof x === "string" ? x : X(x)},${typeof y === "string" ? y : Y(y)}`).join(" ");
+  const P = (dx, y) => [((px / W + dx) * W).toFixed(1), y === "peak" ? String(py) : Y(y)];
+  const tree = (x, y, sc) => `<use href="#tree-${k}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${sc})"/>`;
+  const trees = [];
+  for (let i = 0; i < 9; i++) trees.push(tree(W * (0.01 + i * 0.026), H * (0.93 + (i % 3) * 0.025), 0.75 + (i % 4) * 0.18));
+  for (let i = 0; i < 9; i++) trees.push(tree(W * (0.78 + i * 0.026), H * (0.9 + ((i + 1) % 3) * 0.03), 0.75 + ((i + 2) % 4) * 0.18));
+  const pts = [...m.stops.map(s => [s[0], s[1]]), m.peak];
+  const route = smooth(pts), done = smooth(pts.slice(0, walked + 1));
+  return `<svg class="mapsvg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6faff"/><stop offset="1" stop-color="#e4eefa"/></linearGradient>
+      <linearGradient id="mt-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fc0e4"/><stop offset="1" stop-color="#d5e5f6"/></linearGradient>
+      <linearGradient id="mtd-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ea6d3"/><stop offset="1" stop-color="#c2d8ef"/></linearGradient>
+      <linearGradient id="mist-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".95"/></linearGradient>
+      <symbol id="tree-${k}" overflow="visible"><path d="M0-34L9-16H5L12-4H3V2h-6V-4h-9L-5-16h-4z" fill="#86a9d2"/></symbol>
+      <symbol id="cloud-${k}" overflow="visible"><path d="M-70 0a26 26 0 0 1 30-24a36 36 0 0 1 66-6a24 24 0 0 1 44 30z" fill="#fff"/></symbol>
+    </defs>
+    <rect width="${W}" height="${H}" fill="url(#sky-${k})"/>
+    <use href="#cloud-${k}" transform="translate(${X(.2)} ${Y(.3)}) scale(1.1)" opacity=".85"/>
+    <use href="#cloud-${k}" transform="translate(${X(.88)} ${Y(.22)}) scale(.9)" opacity=".85"/>
+    <polygon points="${poly([[0, 1], [0, .58], [.1, .44], [.18, .52], [.27, .6], [.42, 1]])}" fill="#d2e2f4"/>
+    <polygon points="${poly([[.62, 1], [.84, .36], [.92, .46], [1, .42], [1, 1]])}" fill="#cddff3"/>
+    <polygon points="${poly([P(-.56, 1), P(-.33, .64), P(-.24, .56), P(-.13, .36), P(-.05, .2), P(0, "peak"), P(.05, .22), P(.1, .31), P(.18, .45), P(.27, .52), P(.4, .72), P(.56, 1)])}" fill="url(#mt-${k})"/>
+    <polygon points="${poly([P(0, "peak"), P(.05, .22), P(.1, .31), P(.18, .45), P(.27, .52), P(.4, .72), P(.56, 1), P(.1, 1), P(.03, .62), P(.035, .36)])}" fill="url(#mtd-${k})" opacity=".75"/>
+    <polygon points="${poly([P(0, "peak"), P(.035, .2), P(.018, .235), P(-.006, .21), P(-.026, .245), P(-.04, .215)])}" fill="#fff" opacity=".92"/>
+    <path d="M0 ${Y(.8)} C${X(.2)} ${Y(.72)} ${X(.35)} ${Y(.86)} ${X(.55)} ${Y(.8)} S${X(.85)} ${Y(.74)} ${W} ${Y(.8)} V${H} H0z" fill="#e2edf9"/>
+    <rect y="${Y(.7)}" width="${W}" height="${Y(.3)}" fill="url(#mist-${k})"/>
+    <use href="#cloud-${k}" transform="translate(${X(.1)} ${Y(.9)}) scale(1.3)"/><use href="#cloud-${k}" transform="translate(${X(.9)} ${Y(.86)}) scale(1.5)"/>
+    ${trees.join("")}
+    <path d="${route}" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" opacity=".95"/>
+    <path d="${route}" fill="none" stroke="#b5cfeb" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"/>
+    ${walked > 0 ? `<path d="${done}" fill="none" stroke="#3b6e98" stroke-width="5" stroke-linecap="round"/>` : ""}
+    <g transform="translate(${px} ${py})"><path d="M0 0V-46" stroke="#2f5b80" stroke-width="3" stroke-linecap="round"/><path d="M1-46h30l-8 9 8 9H1z" fill="#3b6e98"/></g>
+  </svg>`;
+}
+function learningMap(current) {
+  const cur = current ? current.split(":")[0] : null;
+  const info = ROUTINES.map(r => {
+    const all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length, started = all.some(s => card(s.id));
+    return { r, k, n: all.length, st: k === all.length ? "done" : r.id === cur ? "now" : started ? "started" : "new" };
+  });
+  // The solid line goes up to the routine you're on (or to the top when everything is done).
+  const walked = cur ? ROUTINES.findIndex(r => r.id === cur) : ROUTINES.length;
+  const sel = mapSel || cur || ROUTINES[0].id, total = SIGNS.length, known = SIGNS.filter(s => isKnown(s.id)).length;
+  const layer = key => { const m = MAP[key];
+    const stops = info.map((x, i) => { const [sx, sy, side] = m.stops[i];
+      const dot = x.st === "done" ? ICON.check("#fff") : x.st === "now" ? UNIT_ICON[x.r.id]("#3b6e98") : `<span>${i + 1}</span>`;
+      return `<button class="stop ${x.st} ${side} ${x.r.id === sel ? "sel" : ""}" style="left:${(sx / m.W * 100).toFixed(2)}%;top:${(sy / m.H * 100).toFixed(2)}%"
+        data-mapsel="${x.r.id}" aria-pressed="${x.r.id === sel}" aria-label="${esc(x.r.name)}: ${x.k} of ${x.n} signs${x.st === "now" ? ", you are here" : ""}">
+        <i class="dot" style="--p:${Math.round(x.k / x.n * 100)}%">${dot}</i>
+        <span class="tag">${x.st === "now" ? "<em>You're here</em>" : ""}<b>${esc(x.r.name)}</b><small>${x.k}/${x.n} signs</small></span></button>`; }).join("");
+    const [fx, fy] = m.peak;
+    return `<div class="maplayer ${key}" style="aspect-ratio:${m.W}/${m.H}">${mapScene(m, walked, key)}${stops}
+      <div class="summit" style="left:${(fx / m.W * 100).toFixed(2)}%;top:${(fy / m.H * 100).toFixed(2)}%"><b>All ${total} signs</b><small>${known}/${total} · ${Math.round(known / total * 100)}%</small></div></div>`; };
+  return `<div class="mapwrap">${layer("wide")}${layer("tall")}</div>`;
+}
+
+function viewLearn() {
+  const current = currentLesson(), g = goalToday(), fresh = !Object.keys(S.cards).length;
+  const cur = current ? current.split(":")[0] : null, sel = ROUTINES.find(r => r.id === (mapSel || cur)) || ROUTINES[0];
+  let next, nextWords = [];
+  if (current) {
+    const [rid, ci] = current.split(":"), r = ROUTINES.find(x => x.id === rid), l = unitLessons(r)[+ci];
+    nextWords = l;
+    next = `<div class="mapnext"><div><small>Up next · ${esc(r.name)}</small><b>${l.map(s => esc(s.w)).join(", ")}</b></div>
+      <button class="btn teal" data-lesson="${current}">${lessonState(l) === "started" ? "Keep going" : "Start lesson"}</button></div>`;
+  } else {
+    next = `<div class="mapnext"><div><small>You reached the top</small><b>Every sign learned</b></div><button class="btn teal" data-go="practice">Practice</button></div>`;
+  }
+  const user = currentUser(), who = user && !user.guest && user.name ? ", " + esc(user.name.split(" ")[0]) : "";
+  const head = `<header class="lhead"><div><h1>${fresh ? "Welcome" : "Welcome back"}${who}!</h1>
+      <p>${fresh ? "Start your climb with signs for everyday moments." : "Continue your climb, one sign at a time."}</p></div>
+    <div class="lpills"><span class="lpill">${ICON.flame()}${streak()} day streak</span><span class="lpill">${ICON.ring(g / GOAL)}${Math.min(g, GOAL)}/${GOAL} today</span></div></header>`;
+  const map = `<section class="mapcard" aria-labelledby="map-t">
+    <div class="maphead"><div class="maptitle"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3a9 9 0 0 0-9 9c0 7 9 17 9 17s9-10 9-17a9 9 0 0 0-9-9z" fill="#3b6e98"/><circle cx="16" cy="12" r="3.5" fill="#fff"/></svg>
+      <div><h2 id="map-t">Your learning map</h2><p>Each routine is a stop on the way up. Tap one to see its lessons.</p></div></div>${next}</div>
+    ${learningMap(current)}</section>`;
+  // Daily goal
+  const goal = `<section class="dcard goal"><h3>Daily goal</h3>${donut(g / GOAL, Math.round(Math.min(1, g / GOAL) * 100) + "%")}
+    <p class="center">Goal: <b>${GOAL} signs</b> a day<br>Done today: <b>${Math.min(g, GOAL)} sign${Math.min(g, GOAL) === 1 ? "" : "s"}</b></p>
+    <button class="btn teal block" data-go="practice">Start practice session</button></section>`;
+  // Today's real moment (sign of the day)
+  const m = todayMission(), mdone = S.used.some(u => u.id === m.id && dayKey(u.t) === dayKey());
+  const day = `<section class="dcard sotd"><h3>Today's real moment</h3>
+    <div class="sotd-word">${SIGN_PHOTOS[m.id] ? `<img src="${photoSrc(SIGN_PHOTOS[m.id].file)}" alt="" onerror="this.remove()">` : ""}<span>${esc(m.w)}</span></div>
+    <p class="note center">${esc(m.say)}</p>
+    <div class="row center-row">${mdone ? `<span class="pill good">${ICON.check("#3b6e98")} Done today</span>` : `<button class="btn teal" data-used="${m.id}">We did it</button>`}
+      <button class="btn ghost" data-open="${m.r}">How to sign</button></div></section>`;
+  // Milestones (badges)
+  const bs = badges(), got = bs.filter(b => b.have >= b.need), nextB = bs.filter(b => b.have < b.need).sort((a, b) => b.have / b.need - a.have / a.need)[0];
+  const miles = `<section class="dcard miles"><h3>Milestones</h3>
+    ${got.length ? `<ul class="mlist">${got.slice(0, 3).map(b => `<li>${ICON.check("#3b6e98")}<div><b>${esc(b.name)}</b><span>Achieved</span></div></li>`).join("")}</ul>`
+      : `<p class="note">No badges yet. Your first one comes after your first real moment.</p>`}
+    ${nextB ? `<div class="mnext"><small>Next milestone</small><b>${esc(nextB.name)}</b><div class="pbar thin teal"><i style="width:${Math.round(nextB.have / nextB.need * 100)}%"></i></div><span class="note">${nextB.have}/${nextB.need} · ${esc(nextB.how)}</span></div>` : ""}
+    <button class="link" data-go="rewards">View all badges</button></section>`;
+  // Quick access: the signs in the next lesson
+  const quick = nextWords.length ? `<section class="quick"><h3>Quick access <span class="muted">signs in your next lesson</span></h3><div class="qtiles">
+    ${nextWords.map(s => `<button class="qtile" data-open="${s.r}" aria-label="How to sign ${esc(s.w)}"><span>${esc(s.w)}</span><small>${isKnown(s.id) ? "Learned" : card(s.id) ? "Practicing" : "New"}</small></button>`).join("")}</div></section>` : "";
+  return `${sampleBanner()}${head}${map}
+    <div class="dash"><div class="dash-l"><div class="dcol">${routineCard(sel, current)}</div>${quick}</div><div class="dash-r">${goal}${day}${miles}</div></div>`;
 }
 
 /* ---------- Practice hub ---------- */
@@ -237,7 +337,7 @@ function viewPractice() {
 function viewRoutine(id) {
   const r = ROUTINES.find(x => x.id === id); if (!r) return viewLearn();
   const list = SIGNS.filter(s => s.r === id);
-  return `<button class="back" data-go="learn">← Back to the path</button>
+  return `<button class="back" data-go="learn">← Back to Learn</button>
   <section class="pagehead c-${UNIT_COLOR[id]}"><div class="pagehead-text"><small>Sign guide · ${esc(r.time)}</small><h1>${esc(r.name)}</h1>
     <p>"One hand" means your dominant hand. Keep signs in front of your chest and face, where your child is already looking.</p></div>
     <div class="pagehead-mitt">${mitt(92)}</div></section>
@@ -303,10 +403,10 @@ function signCard(s) {
 
 /* ---------- Lessons: full screen, one step at a time ----------
    A lesson is a list of steps: "teach" (meet a new sign), "pick" (read the description, pick the sign)
-   and "recall" (see the word, make the sign, check yourself or with the camera). Wrong answers cost a heart. */
+   and "recall" (see the word, make the sign, check yourself or with the camera). */
 let P = null;
 function startLesson(title, steps, back = "learn", cam = false) {
-  P = { title, steps, back, i: 0, right: 0, scored: 0, hearts: 5, answered: null, opts: null, revealed: false, cam, xp: 0 };
+  P = { title, steps, back, i: 0, right: 0, scored: 0, answered: null, opts: null, revealed: false, cam, xp: 0 };
   go("lesson");
 }
 function lessonFromSigns(title, list, back) {
@@ -324,65 +424,73 @@ function startMode(key) {
     shuffle(set).map(s => ({ t: key === "pick" ? "pick" : "recall", id: s.id })), "practice", key === "cam");
 }
 
-const HEART_ROW = () => `<span class="hearts" aria-label="${P.hearts} hearts left">${ICON.heart()}${P.hearts}</span>`;
+/* Lesson screens: a calm, two-column layout ("Watch" | "Your turn") on a muted dark background,
+   with a thin progress bar and one main button at the bottom. */
 function lessonTop() {
-  return `<div class="ltop"><button class="x" data-exit="1" aria-label="Leave lesson">✕</button>
-    <div class="pbar big" role="progressbar" aria-valuemin="0" aria-valuemax="${P.steps.length}" aria-valuenow="${P.i}"><i style="width:${P.i / P.steps.length * 100}%"></i></div>${HEART_ROW()}</div>`;
+  const n = P.steps.length, at = Math.min(P.i + 1, n);
+  return `<div class="ltop"><button class="x" data-exit="1" aria-label="Leave lesson"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <div class="lprog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${P.i}"><i style="width:${P.i / n * 100}%"></i></div>
+    <span class="lcount">${P.i >= n ? n : at} of ${n}</span></div>`;
 }
+// The "Watch" picture: the sign's photo, else its handshape's photo, else the word itself.
+function watchFrame(s) {
+  const file = SIGN_PHOTOS[s.id] ? SIGN_PHOTOS[s.id].file : HANDSHAPE_PHOTOS[signShapes(s)[0]];
+  return `<div class="lframe"><span class="lgloss">${esc(s.w)}</span>
+    ${file ? `<img src="${photoSrc(file)}" alt="${esc(s.w)}" loading="lazy" onerror="this.remove()">` : ""}</div>`;
+}
+const paneLabel = (t, live) => `<div class="plabel">${live ? "<i></i>" : ""}${t}</div>`;
+const lbtn = (cls, data, text) => `<button class="lbtn ${cls}" ${data}>${text}</button>`;
+const resultRow = (ok, title, text) => `<div class="lresult ${ok ? "ok" : "no"}" role="status">
+    <span class="lcheck">${ok ? ICON.check("#3f648a") : ICON.cross("#b46262")}</span><div><b>${esc(title)}</b><p>${esc(text)}</p></div></div>`;
+
 function viewLesson() {
   if (!P) { setTimeout(() => go("learn")); return ""; }
-  if (P.hearts <= 0 && !P.answered) return lessonEnd(true);   // show the last answer's feedback first
-  if (P.i >= P.steps.length) return lessonEnd(false);
+  if (P.i >= P.steps.length) return lessonEnd();
   const st = P.steps[P.i], s = byId(st.id);
-  if (st.t === "teach") return `${lessonTop()}<div class="lbody">
-      <div class="qtype c-text-leaf">${ICON.star("#48c774")}New sign · ${esc(P.title)}</div><h1 class="q">Meet <span class="hl">${esc(s.w)}</span></h1>
-      <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s, false)}</div>
-      <div class="signcard">${SIGN_PHOTOS[s.id] ? photo(SIGN_PHOTOS[s.id].file, SIGN_PHOTOS[s.id].caption) : `<div class="handpic">${mitt(110)}</div>`}
-        <div class="stack">${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p><p class="say">${esc(s.say)}</p></div></div></div>
-    <footer class="lfoot"><span class="ask">Try it with your hands.</span><button class="btn green wide" data-taught="1">Got it</button></footer>`;
+  if (st.t === "teach") return `${lessonTop()}<div class="lgrid">
+      <section class="pane">${paneLabel("Watch")}${watchFrame(s)}
+        <h1 class="lname">${esc(s.w)}</h1><p class="ldesc">${esc(s.hand)}</p>
+        <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s, false)}</div></section>
+      <section class="pane">${paneLabel("Your turn")}
+        <div class="lcard"><p class="lnew">New sign</p>${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p><p class="say">${esc(s.say)}</p></div>
+        <p class="lnote">Try it with your hands now. Mirror it if you're left-handed.</p></section></div>
+    <footer class="lfoot">${lbtn("main", 'data-taught="1"', "Continue")}</footer>`;
   if (st.t === "pick") {
     if (!P.opts) P.opts = shuffle([s, ...shuffle(SIGNS.filter(x => x.id !== s.id)).slice(0, 3)]).map(x => x.id);
     const ok = P.answered === s.id;
-    return `${lessonTop()}<div class="lbody">
-      <div class="qtype c-text-plum">${ICON.quiz("#7c5cff")}Read &amp; pick · ${esc(P.title)}</div><h1 class="q">Which sign is this?</h1>
-      ${P.answered ? "" : `<div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>`}
-      <div class="signcard"><div class="handpic">${mitt(100)}</div>${stepsDl(s)}</div>
-      <div class="opts">${P.opts.map(id => {
-        const cls = P.answered ? (id === s.id ? "right" : id === P.answered ? "wrong" : "dim") : "";
-        return `<button class="opt ${cls}" data-pick="${id}" ${P.answered ? "disabled" : ""}>${esc(byId(id).w)}</button>`;
-      }).join("")}</div></div>
-    ${P.answered ? feedbackBar(ok, ok ? "Nice signing!" : "Not quite.", (ok ? "" : "The answer is " + s.w + ". ") + s.hook)
-      : `<footer class="lfoot"><span class="ask">Tap the sign that matches the description.</span></footer>`}`;
+    return `${lessonTop()}<div class="lgrid">
+      <section class="pane">${paneLabel("Read")}
+        <div class="lcard">${stepsDl(s)}</div>
+        ${P.answered ? "" : `<div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>`}</section>
+      <section class="pane">${paneLabel("Which sign is this?")}
+        <div class="lopts">${P.opts.map(id => {
+          const cls = P.answered ? (id === s.id ? "right" : id === P.answered ? "wrong" : "dim") : "";
+          return `<button class="lopt ${cls}" data-pick="${id}" ${P.answered ? "disabled" : ""}>${esc(byId(id).w)}</button>`;
+        }).join("")}</div>
+        ${P.answered ? resultRow(ok, ok ? "Correct" : "Not quite. It's " + s.w + ".", s.hook) : ""}</section></div>
+    <footer class="lfoot">${P.answered ? lbtn("main", 'data-next="1"', "Continue") : `<span class="lnote">Tap the sign that matches.</span>`}</footer>`;
   }
-  // recall
+  // recall: see the word, make the sign
   if (P.cam && Coach.supported()) return `${lessonTop()}${viewCamera(s)}`;
-  return `${lessonTop()}<div class="lbody">
-    <div class="qtype c-text-teal">${ICON.hand("#11a3a0")}Sign it yourself · ${esc(P.title)}</div><h1 class="q">Sign <span class="hl">${esc(s.w)}</span></h1>
-    <p class="situation">${esc(s.say)}</p>
-    ${P.revealed ? "" : `<div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>`}
-    ${P.revealed ? `<div class="signcard">${SIGN_PHOTOS[s.id] ? photo(SIGN_PHOTOS[s.id].file, SIGN_PHOTOS[s.id].caption) : `<div class="handpic">${mitt(100)}</div>`}
-        <div class="stack">${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p></div></div>`
-      : `<div class="bigword">${esc(s.w)}<span>Make the sign with your hands, then check.</span></div>
-        <p class="note" id="camhelp" hidden>${esc(CAM_HELP[Coach.whyNot()] || "")}</p>`}</div>
-  ${P.revealed ? `<footer class="lfoot"><span class="ask">Did your sign match?</span><div class="row"><button class="btn ghost" data-rate="0">Not yet</button><button class="btn green wide" data-rate="1">Got it</button></div></footer>`
-    : `<footer class="lfoot"><button class="btn ghost" data-reveal="1">Show me the steps</button>
-      ${Coach.supported() ? `<button class="btn teal wide" data-camon="1">Check with camera</button>` : `<button class="btn ghost" data-camhelp="1">Check with camera</button>`}</footer>`}`;
+  return `${lessonTop()}<div class="lgrid">
+    <section class="pane">${paneLabel("Sign this")}
+      <div class="lframe"><span class="lbig">${esc(s.w)}</span></div>
+      <p class="ldesc">${esc(s.say)}</p>
+      ${P.revealed ? "" : `<div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>`}</section>
+    <section class="pane">${paneLabel("Your turn")}
+      ${P.revealed ? `<div class="lcard">${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p></div><p class="lnote">Did your sign match?</p>`
+        : `<div class="lcard center"><p>Make the sign with your hands, then check it.</p>
+            ${Coach.supported() ? lbtn("main", 'data-camon="1"', "Check with camera") : lbtn("ghost", 'data-camhelp="1"', "Check with camera")}
+            <p class="lnote" id="camhelp" hidden>${esc(CAM_HELP[Coach.whyNot()] || "")}</p></div>`}</section></div>
+  <footer class="lfoot">${P.revealed ? `${lbtn("plain", 'data-rate="0"', "Not yet")}${lbtn("main", 'data-rate="1"', "Got it")}`
+    : lbtn("plain", 'data-reveal="1"', "Show me the steps")}</footer>`;
 }
-function feedbackBar(ok, title, text) {
-  return `<footer class="lfoot ${ok ? "good" : "bad"}" role="status">
-    <div class="yay"><span class="tick">${ok ? ICON.check("#2fa85a") : ICON.cross("#e2584a")}</span><div><b>${esc(title)}</b><span>${esc(text)}</span></div></div>
-    <button class="btn ${ok ? "green" : "coral"} wide" data-next="1">Continue</button></footer>`;
-}
-function lessonEnd(outOfHearts) {
+function lessonEnd() {
   const acc = P.scored ? Math.round(P.right / P.scored * 100) : 100;
-  if (outOfHearts) return `<div class="lbody end">${mitt(150, "sad")}<h1 class="q">Out of hearts</h1>
-      <p class="muted">That's OK. Look over the steps for these signs, then try again. Mistakes help you remember.</p></div>
-    <footer class="lfoot"><button class="btn ghost" data-exit="1">Back</button><button class="btn teal wide" data-retry="1">Try again</button></footer>`;
-  return `<div class="lbody end">${mitt(150)}<h1 class="q">Lesson complete!</h1>
-      <div class="endstats"><div class="c-sun"><small>XP earned</small><b>${ICON.star("#fff")}+${P.xp}</b></div>
-        <div class="c-leaf"><small>Accuracy</small><b>${acc}%</b></div><div class="c-coral"><small>Hearts left</small><b>${ICON.heart("#fff")}${P.hearts}</b></div></div>
-      <p class="muted">Now the important part: use one of these with your child today. Real conversations are what build language.</p></div>
-    <footer class="lfoot"><span></span><button class="btn green wide" data-exit="1">Continue</button></footer>`;
+  const done = new Set(P.steps.map(x => x.id)).size;
+  return `<div class="lend">${resultRow(true, "Lesson complete", `${done} sign${done > 1 ? "s" : ""} practiced · ${acc}% correct · +${P.xp} XP`)}
+      <p class="ldesc">Now the important part: use one of these with your child today. Real conversations are what build language.</p></div>
+    <footer class="lfoot">${lbtn("main", 'data-exit="1"', "Continue")}</footer>`;
 }
 
 /* ---------- Camera coach (inside a lesson) ---------- */
@@ -392,24 +500,21 @@ const CAM_HELP = {
   browser: "This browser doesn't allow camera access here. Open the app in Chrome or Edge at localhost:8000.",
 };
 function viewCamera(s) {
-  return `<div class="lbody wide">
-    <div class="qtype c-text-teal">${ICON.cam("#11a3a0")}Camera coach · ${esc(P.title)}</div><h1 class="q">Sign <span class="hl">${esc(s.w)}</span></h1>
-    <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div>
-    <div class="camgrid">
+  return `<div class="lgrid">
+    <section class="pane">${paneLabel("Watch")}${watchFrame(s)}
+      <h1 class="lname">${esc(s.w)}</h1><p class="ldesc">${esc(s.hand)}</p>
+      <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div></section>
+    <section class="pane">${paneLabel("Your turn", true)}
       <div class="cam-stage" id="cam-stage">
         <video id="cam-video" playsinline muted></video><canvas id="cam-canvas"></canvas>
         <div class="cam-count" id="cam-count" hidden></div>
         <div class="cam-status" id="cam-status">Starting camera…</div>
       </div>
-      <div class="livecard"><b>Live check</b>
-        <p class="cam-live" aria-live="off"><span id="live-hand">Looking for your hand…</span></p>
-        <p class="note">The dashed outline shows where this sign happens. Sit so your face and chest are in view.</p>
-        <div id="cam-result" class="cam-result" role="status"></div>
-        <details class="howto"><summary>How to sign ${esc(s.w)}</summary>${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p></details>
-        <button class="link" data-camoff="1">Turn camera off</button>
-      </div>
-    </div></div>
-  <footer class="lfoot"><div class="row" id="cam-actions"><button class="btn ghost" data-camskip="1">Skip</button><button class="btn teal wide" data-record="1">Record my sign</button></div></footer>`;
+      <p class="cam-live" aria-live="off"><span id="live-hand">Looking for your hand…</span></p>
+      <div id="cam-result" class="cam-result" role="status"></div>
+      <button class="lbtn plain small" data-camoff="1">Turn camera off</button>
+    </section></div>
+  <footer class="lfoot"><div class="row" id="cam-actions">${lbtn("plain", 'data-camskip="1"', "Skip")}${lbtn("main", 'data-record="1"', "Record my sign")}</div></footer>`;
 }
 function mountCamera() {
   const s = byId(P.steps[P.i].id);
@@ -443,8 +548,8 @@ async function recordSign() {
   const res = Coach.evaluate(frames, check);
   acts.hidden = false;
   if (res.error) {
-    out.innerHTML = `<p class="cam-verdict no">${esc(res.error)}</p>`;
-    acts.innerHTML = `<button class="btn ghost" data-camskip="1">Skip</button><button class="btn teal wide" data-record="1">Try again</button>`;
+    out.innerHTML = resultRow(false, "Let's try that again", res.error);
+    acts.innerHTML = `${lbtn("plain", 'data-camskip="1"', "Skip")}${lbtn("main", 'data-record="1"', "Try again")}`;
     return;
   }
   const want = check.shape.map(x => Coach.SHAPE_NAMES[x]).slice(0, 2).join(" or ");
@@ -456,11 +561,16 @@ async function recordSign() {
     [res.moveOk, "Movement", res.moveOk ? "Movement looks right." : `Try to ${Coach.MOVE_HINTS[check.move[0]]}.`],
   ];
   const all = rows.every(r => r[0]);
-  out.innerHTML = `<p class="cam-verdict ${all ? "ok" : "no"}">${all ? "That matches!" : "Close. Here's what to fix:"}</p>
-    <ul class="checks">${rows.map(([ok, k, t]) => `<li class="${ok ? "ok" : "no"}"><span class="mark" aria-hidden="true">${ok ? "✓" : "✕"}</span><b>${k}</b><span>${esc(t)}</span></li>`).join("")}</ul>`;
+  // How much of the recording matched each part. Movement is a yes/no check.
+  const pct = [res.shapePct, res.zonePct, null].map(v => v == null ? null : Math.round(v * 100));
+  const passed = rows.filter(r => r[0]).length;
+  out.innerHTML = `${resultRow(all, all ? "Great match" : "Almost there", `${passed} of 3 checks passed${all ? "" : ". Here's what to fix."}`)}
+    <ul class="checks">${rows.map(([ok, k, t], n) => `<li class="${ok ? "ok" : "no"}"><span class="mark" aria-hidden="true">${ok ? "✓" : "✕"}</span>
+      <div><b>${k}</b><span>${esc(t)}</span></div>
+      <em>${pct[n] == null ? (ok ? "Detected" : "Not seen") : `Matched ${pct[n]}% of the time`}</em></li>`).join("")}</ul>`;
   acts.innerHTML = all
-    ? `<button class="btn ghost" data-record="1">Record again</button><button class="btn green wide" data-rate="1">Next sign</button>`
-    : `<button class="btn ghost" data-rate="1">It was right, count it</button><button class="btn teal wide" data-record="1">Try again</button>`;
+    ? `${lbtn("plain", 'data-record="1"', "Record again")}${lbtn("main", 'data-rate="1"', "Next sign")}`
+    : `${lbtn("plain", 'data-rate="1"', "It was right, count it")}${lbtn("main", 'data-record="1"', "Try again")}`;
 }
 
 /* ---------- Rewards and profile ---------- */
@@ -492,7 +602,7 @@ function viewProfile() {
   const tile = (icon, n, label) => `<div class="stattile"><span class="tile-ic">${icon}</span><div><b>${n}</b><span>${label}</span></div></div>`;
   return `${statBar()}${sampleBanner()}
   <div class="profilehead"><div class="avatar">${mitt(70)}</div><div><h1>${user && !user.guest ? esc(user.name) + "'s family" : "Your family"}</h1><p class="muted">${user && user.email ? esc(user.email) + " · " : ""}Learning since ${since} · ${started} signs started</p></div></div>
-  <div class="tiles4">${tile(ICON.flame(), streak(), "day streak")}${tile(ICON.star(), xp(), "total XP")}${tile(ICON.check("#11a3a0"), known, "signs known")}${tile(ICON.heart(), S.used.length, "real moments")}</div>
+  <div class="tiles4">${tile(ICON.flame(), streak(), "day streak")}${tile(ICON.star(), xp(), "total XP")}${tile(ICON.check("#245a90"), known, "signs known")}${tile(ICON.heart(), S.used.length, "real moments")}</div>
   <section class="panelcard"><h4>This week</h4><div class="week">${weekDots()}</div></section>
   <section class="panel"><h2>By routine</h2>
     ${ROUTINES.map(r => { const l = SIGNS.filter(s => s.r === r.id); const k = l.filter(s => isKnown(s.id)).length;
@@ -537,8 +647,7 @@ function route() {
   const inLesson = tab === "lesson";
   document.body.classList.toggle("lesson-mode", inLesson);
   app.innerHTML = html;
-  const r = $("#rail"); if (r) r.innerHTML = inLesson ? "" : rail();
-  const camOn = inLesson && P && P.cam && P.i < P.steps.length && P.hearts > 0 && P.steps[P.i].t === "recall" && Coach.supported();
+  const camOn = inLesson && P && P.cam && P.i < P.steps.length && P.steps[P.i].t === "recall" && Coach.supported();
   if (camOn) mountCamera(); else Coach.stop();
   const active = tab === "routines" ? "learn" : tab;
   document.querySelectorAll("nav.tabs a").forEach(a => {
@@ -548,7 +657,7 @@ function route() {
 }
 function go(hash) { if (location.hash === "#" + hash) route(); else location.hash = hash; window.scrollTo(0, 0); }
 
-function score(id, ok) { rate(id, ok); P.scored++; if (ok) { P.right++; P.xp += 10; } else P.hearts--; }
+function score(id, ok) { rate(id, ok); P.scored++; if (ok) { P.right++; P.xp += 10; } }
 function onClick(e) {
   const b = e.target.closest("button"); if (!b) return;
   const d = b.dataset;
@@ -559,6 +668,7 @@ function onClick(e) {
   if (d.askreset) { const n = $("#resetconfirm"); if (n) n.hidden = false; }
   else if (d.go) go(d.go);
   else if (d.open) go("routines." + d.open);
+  else if (d.mapsel) { mapSel = d.mapsel; route(); }
   else if (d.learn) { learn(d.learn); toast(byId(d.learn).w + " added to your practice"); route(); }
   else if (d.used) { S.used.push({ id: d.used, t: Date.now() }); learn(d.used); markDay(); save(); toast("Nice! That's real language for your child."); route(); }
   else if (d.lesson) { const [rid, i] = d.lesson.split(":"); const r = ROUTINES.find(x => x.id === rid); lessonFromSigns(r.name, unitLessons(r)[+i], "learn"); }
@@ -566,7 +676,6 @@ function onClick(e) {
     l.forEach(s => learn(s.id)); startLesson(r.name + " review", [...shuffle(l).map(s => ({ t: "pick", id: s.id })), ...shuffle(l).slice(0, 2).map(s => ({ t: "recall", id: s.id }))], "learn"); }
   else if (d.start) startMode(d.start);
   else if (d.exit) { const back = P ? P.back : "learn"; P = null; Coach.stop(); go(back); }
-  else if (d.retry) { P = Object.assign(P, { i: 0, right: 0, scored: 0, hearts: 5, answered: null, opts: null, revealed: false, xp: 0 }); route(); }
   else if (d.taught) { learn(P.steps[P.i].id); bumpGoal(); P.i++; route(); }
   else if (d.reveal) { P.revealed = true; route(); }
   else if (d.rate) { score(P.steps[P.i].id, d.rate === "1"); P.i++; P.revealed = false; route(); }
@@ -580,6 +689,5 @@ function onClick(e) {
   else if (d.camsign) { learn(d.camsign); startLesson("Camera coach", [{ t: "recall", id: d.camsign }], location.hash.slice(1) || "learn", true); }
 }
 app.addEventListener("click", onClick);
-document.getElementById("rail").addEventListener("click", onClick);
 window.addEventListener("hashchange", route);
 route();
