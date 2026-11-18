@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sign in · First Signs</title>
+<link rel="stylesheet" href="styles.css?v=8">
+</head>
+<body class="loginpage">
+<main class="login">
+  <div class="login-card">
+    <div class="login-mitt">
+      <svg width="84" height="98" viewBox="0 0 112 130" aria-hidden="true"><ellipse cx="56" cy="122" rx="34" ry="6" fill="#000" opacity=".08"/><path d="M30 70V34c0-7 10-7 10 0v26V22c0-7 10-7 10 0v36V18c0-7 10-7 10 0v40V24c0-7 10-7 10 0v46l8-12c4-6 13-1 9 6L82 96c-5 13-14 22-30 22h-2c-12 0-20-8-20-22z" fill="#ffb938" stroke="#e6951a" stroke-width="3" stroke-linejoin="round"/><circle cx="47" cy="84" r="5" fill="#20313a"/><circle cx="65" cy="84" r="5" fill="#20313a"/><path d="M48 96c5 5 11 5 16 0" fill="none" stroke="#20313a" stroke-width="3.2" stroke-linecap="round"/></svg>
+    </div>
+    <h1 id="title">Welcome back</h1>
+    <p class="muted" id="sub">Sign in to pick up your signs where you left off.</p>
+
+    <div class="seg" role="tablist" aria-label="Sign in or create account">
+      <button type="button" role="tab" id="tab-in" aria-selected="true" data-mode="in">Sign in</button>
+      <button type="button" role="tab" id="tab-up" aria-selected="false" data-mode="up">Create account</button>
+    </div>
+
+    <form id="form" novalidate>
+      <label class="lfield" id="name-row" hidden>
+        <span>Your name</span>
+        <input id="name" type="text" autocomplete="name" placeholder="Alex">
+      </label>
+      <label class="lfield">
+        <span>Email</span>
+        <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+      </label>
+      <label class="lfield">
+        <span>Password</span>
+        <input id="pass" type="password" autocomplete="current-password" placeholder="At least 6 characters" required>
+      </label>
+      <p class="form-error" id="error" role="alert" hidden></p>
+      <button class="btn teal block" id="submit" type="submit">Sign in</button>
+    </form>
+
+    <div class="or"><span>or</span></div>
+    <button class="btn ghost block" id="guest" type="button">Continue as guest</button>
+    <p class="note login-note">Demo sign-in: nothing is sent anywhere. Any email and a 6+ character password will work, and your details stay in this browser.</p>
+  </div>
+</main>
+<script src="js/login.js"></script>
+</body>
+</html>
