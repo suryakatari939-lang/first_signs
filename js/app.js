@@ -648,7 +648,7 @@ function route() {
   document.body.classList.toggle("lesson-mode", inLesson);
   app.innerHTML = html;
   const camOn = inLesson && P && P.cam && P.i < P.steps.length && P.steps[P.i].t === "recall" && Coach.supported();
-  if (camOn) mountCamera(); else Coach.stop();
+  if (camOn) mountCamera(); else if (tab === "abc" && sub === "try" && LC) mountLetterCamera(); else Coach.stop();
   const active = tab === "routines" ? "learn" : tab;
   document.querySelectorAll("nav.tabs a").forEach(a => {
     if (a.dataset.tab === active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");

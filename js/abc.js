@@ -15,6 +15,10 @@ const ALL_WORDS = [...new Set(WORD_LESSONS.flatMap(l => l.words))];
 const lessonById = id => WORD_LESSONS.find(l => l.id === id);
 const signFor = w => SIGNS.find(s => s.w === w);    // words that already have a real sign in the app
 
+// Camera buttons only appear where the camera can run (localhost or https, Chrome/Edge).
+const camSupported = () => typeof Coach !== "undefined" && Coach.supported();
+const camNote = () => camSupported() ? "" : `<p class="note"><b>Camera check:</b> ${esc((typeof CAM_HELP !== "undefined" && CAM_HELP[Coach.whyNot()]) || "")}</p>`;
+
 function abcLearn(id) { if (!abcCards()[id]) { abcCards()[id] = { box: 1, due: Date.now() + DAY, seen: 1 }; markDay(); save(); } }
 function abcRate(id, got) {   // same Leitner rules as rate() in app.js
   const c = abcCards()[id] || { box: 0, due: 0, seen: 0 };
@@ -54,6 +58,7 @@ function abcCardHtml(x) {
     <div class="row">
       ${c ? "" : `<button class="btn" data-abc="learn" data-val="${x.id}">Add to my practice</button>`}
       ${hintButton("hint-abc-" + x.id)}
+      ${LETTERS.includes(x) && camSupported() ? `<button class="btn ghost" data-abc="cam" data-val="${x.id}">Check with camera</button>` : ""}
     </div>${abcHint(x)}</article>`;
 }
 // Hint for a letter or number: its group's tip and the look-alikes that are easy to mix up.
@@ -78,6 +83,7 @@ function viewAbc(sub) {
   if (sub === "practice") return abcPractice();
   if (sub === "lessons") return abcLessons();
   if (sub === "wordpractice") return abcWordPractice();
+  if (sub === "try") return abcTry();
   if (sub && sub.startsWith("lesson-")) return abcLesson(sub.slice(7));
   return abcHub();
 }
@@ -102,7 +108,7 @@ function abcHub() {
 function abcLetters() {
   return `${abcBack}
   <div class="stack"><h1>The alphabet</h1>
-  <p class="muted">Learn one group at a time. Letters in a group look alike, so comparing them side by side helps.</p>${handNote}</div>
+  <p class="muted">Learn one group at a time. Letters in a group look alike, so comparing them side by side helps.</p>${handNote}${camNote()}</div>
   ${ABC_GROUPS.map(g => `<section class="stack" aria-labelledby="g-${g.id}">
     <h2 id="g-${g.id}">${esc(g.name)}</h2><p class="muted">${esc(g.tip)}</p>
     <div class="signlist">${LETTERS.filter(l => l.g === g.id).map(abcCardHtml).join("")}</div></section>`).join("")}
@@ -139,6 +145,7 @@ function abcSpell() {
       ${last ? `<p class="muted" style="text-align:center">That's the last letter. Now spell <b>${esc(w)}</b> from the start in one smooth motion, hand near your shoulder.</p>` : ""}
       <div class="options"><button class="btn ghost" data-abc="prev" ${SP.i ? "" : "disabled"}>Back</button>
       <button class="btn ${last ? "" : "sun"}" data-abc="next">${last ? "Start over" : "Next letter"}</button></div>
+      ${camSupported() ? `<div class="options"><button class="btn ghost" data-abc="camword" data-val="${esc(w)}">Spell it with the camera</button></div>` : ""}
     </section>`;
   }
   return `${abcBack}
@@ -255,8 +262,144 @@ function abcWordPractice() {
         <p class="muted" style="text-align:center">Did your spelling match?</p>
         <div class="options"><button class="btn bad" data-abc="wrate" data-val="0">Not yet</button><button class="btn good" data-abc="wrate" data-val="1">Got it</button></div>`
     : `<p class="muted" style="text-align:center">Spell it with your hand, one letter after another, then check.</p>
-        <div class="options"><button class="btn" data-abc="wreveal">Show the handshapes</button></div>`}
+        <div class="options"><button class="btn" data-abc="wreveal">Show the handshapes</button>${camSupported() ? `<button class="btn sun" data-abc="wcam">Check with camera</button>` : ""}</div>`}
   </section>`;
+}
+
+/* ---------- Camera check for letters and spelled words (experimental) ----------
+   Uses the learned letter model (js/letters.js) on the live hand points from Coach.
+   Two modes. "letter": one letter, matched live (the guess must be the target and hold 0.7 s).
+   "word": you spell the whole word; each steady hold is captured, then the WHOLE word is judged at the end:
+   every letter must be among the model's top 3 guesses and the word's average confidence must reach 0.15
+   (ml/replay_spelling.js: this accepts a right word ~84% of the time and a one-letter typo ~2%, on photos).
+   LC = { mode, word, ids, i, done, slots, seen, pass, off, finished, back, wp }. In memory only. */
+let LC = null, lcDet = { sm: {}, since: 0, released: true, hold: null, acc: null, n: 0, last: null };
+const LC_MOTION = new Set(["J", "Z"]);   // these two move; one still frame can't show it
+const LC_TRICKY = new Set(["D", "G", "H", "M"]);   // the camera often confuses these (D, G, H, M scored 0-66% on photos from datasets it never saw: vault/Camera Coach/Accuracy Test.md)
+const lcTrickyNote = ch => `<p class="note"><b>${ch} is a tricky one for the camera.</b> It often mixes ${ch} up with another letter even when your hand is right. Check the steps above, and if it says no, tap "I did it".</p>`;
+const LC_CAPTURE = 0.2;                 // a hold is captured when the top guess has at least this smoothed probability
+const LC_PASS = 0.15;                    // average (geometric) probability the word must reach
+const lcLetters = () => LC.ids.map(id => LETTERS.find(l => l.id === id));
+const lcFresh = () => ({ sm: {}, since: 0, released: true, hold: null, acc: null, n: 0, last: null });
+function lcStart(mode, word, ids, back, wp) {
+  LC = { mode, word, ids, i: 0, done: ids.map(() => false), slots: [], seen: [], pass: false, off: [], finished: false, back, wp: !!wp };
+  lcDet = lcFresh();
+  go("abc.try");
+}
+const lcIds = w => [...w].map(c => LETTERS.find(l => l.ch === c).id);
+const lcTop = (p, n) => Object.keys(p).sort((a, b) => p[b] - p[a]).slice(0, n);
+function abcTry() {
+  if (!LC) return abcLetters();
+  const x = lcLetters()[0], word = LC.mode === "word";
+  return `<button class="back" data-abc="camback">← Back</button>
+  <div class="stack"><span class="eyebrow">Experimental</span><h1>${word ? "Spell " + esc(LC.word) : "Check the letter " + esc(x.ch)}</h1>
+  <p class="muted">Sit back so your face and shoulders are in view, then hold ${word ? "each letter steady for a moment, near your shoulder. Let go or bounce your hand between letters. We judge the whole word at the end." : "the letter up near your shoulder."} It guesses what it sees. We have only tested it on photos from research datasets, never on a live webcam, and on those photos it was right between 2 and 4 times in 5, so trust your own eyes if it disagrees. Use the handshape steps below to check yourself.</p>${word && [...LC.word].some(c => LC_TRICKY.has(c)) ? `<p class="note"><b>Tricky letters in this word:</b> ${[...new Set([...LC.word].filter(c => LC_TRICKY.has(c)))].join(", ")}. The camera often mixes these up with other letters, so use "I did it" if it keeps saying no.</p>` : ""}</div>
+  <section class="card pop">
+    <div id="lc-tiles"></div>
+    <div class="cam-stage" id="cam-stage"><video id="cam-video" playsinline muted></video><canvas id="cam-canvas"></canvas><div class="cam-status" id="cam-status">Starting camera…</div></div>
+    <p class="cam-live" id="lc-live" aria-live="polite">Looking for your hand…</p>
+    <div id="lc-body"></div>
+  </section>`;
+}
+function lcPaint() {
+  const t = $("#lc-tiles"), b = $("#lc-body"); if (!t || !b || !LC) return;
+  const ls = lcLetters(), word = LC.mode === "word";
+  const cls = k => LC.finished ? (word ? (LC.off[k] ? "off" : "done") : (LC.done[k] ? "done" : "")) : k === LC.i ? "on" : k < LC.i ? (word ? "got" : LC.done[k] ? "done" : "") : "";
+  t.innerHTML = ls.length > 1 ? `<div class="tiles" role="group" aria-label="Letters">${ls.map((l, k) => `<span class="tile ${cls(k)}">${l.ch}</span>`).join("")}</div>` : "";
+  if (LC.finished) {
+    let head, sub;
+    if (word) {
+      const bad = ls.map((l, k) => LC.off[k] ? `letter ${k + 1} (${l.ch}) looked more like ${LC.seen[k] || "nothing I could read"}` : null).filter(Boolean);
+      head = LC.pass ? "Looks like " + esc(LC.word) + " ✓" : "Not quite yet";
+      sub = LC.pass ? "Nice spelling. The camera can be wrong, so trust your own eyes too." : (bad.length ? "Check " + esc(bad.join(", ")) + ". Compare it with the steps, then try again." : "Try again, holding each letter steady.");
+    } else {
+      const n = LC.done.filter(Boolean).length; head = n + " of " + ls.length + " letters matched"; sub = n === ls.length ? "Nice." : "Try it again.";
+    }
+    b.innerHTML = `<h2 style="text-align:center">${head}</h2><p class="muted" style="text-align:center">${sub}</p>
+      <div class="options">${LC.wp ? `<button class="btn bad" data-abc="camfinish" data-val="0">Not yet</button><button class="btn good" data-abc="camfinish" data-val="1">Got it</button>`
+        : `<button class="btn ghost" data-abc="camagain">Try again</button><button class="btn sun" data-abc="camfinish" data-val="1">Done</button>`}</div>`;
+    return;
+  }
+  const x = ls[LC.i], dbl = LC.i > 0 && ls[LC.i - 1].ch === x.ch;
+  b.innerHTML = `<span class="eyebrow" style="text-align:center">${ls.length > 1 ? `Letter ${LC.i + 1} of ${ls.length}` : "Make this letter"}</span>
+    <div class="big">${esc(x.ch)}</div>${abcSteps(x)}
+    ${dbl ? `<p class="note"><b>Double letter:</b> let go of the letter, then bounce your hand slightly and make it again.</p>` : ""}
+    ${LC_TRICKY.has(x.ch) ? lcTrickyNote(x.ch) : ""}
+    ${LC_MOTION.has(x.ch) ? `<p class="note"><b>${x.ch} moves.</b> One camera frame can't show movement, so tap "I did it" when you have signed it.</p>` : ""}
+    <div class="options"><button class="btn ghost" data-abc="camskip">Skip letter</button><button class="btn" data-abc="camyes">I did it</button></div>`;
+}
+// Word mode: the judgement. slots[k] = the letter-probabilities captured for letter k (or null if skipped).
+function lcJudge() {
+  const ls = [...LC.word]; let used = 0, sumLog = 0, ok = true; LC.off = ls.map(() => false);
+  ls.forEach((c, k) => {
+    if (LC_MOTION.has(c)) return;                       // J and Z are not judged from one frame
+    const p = LC.slots[k]; used++;
+    if (!p) { LC.off[k] = true; ok = false; return; }
+    const pc = p[c] || 0; sumLog += Math.log(pc + 1e-6);
+    if (!lcTop(p, 3).includes(c)) { LC.off[k] = true; ok = false; }
+  });
+  LC.pass = ok && (used === 0 || Math.exp(sumLog / used) >= LC_PASS);
+  if (!LC.pass && !LC.off.some(Boolean)) {                // average too low but no single letter stands out: flag the weakest
+    let w = -1, wp = 2; ls.forEach((c, k) => { const p = LC.slots[k]; if (!LC_MOTION.has(c) && p && (p[c] || 0) < wp) { wp = p[c] || 0; w = k; } });
+    if (w >= 0) LC.off[w] = true;
+  }
+  LC.finished = true;
+}
+function lcAdvance(manualYes) {            // manualYes: true = "I did it", false = "Skip letter"
+  if (!LC || LC.finished) return;
+  const here = lcLetters()[LC.i];
+  if (LC.mode === "word") {
+    LC.slots.push(manualYes ? { [here.ch]: 1 } : null); LC.seen.push(manualYes ? here.ch : null);
+  } else LC.done[LC.i] = !!manualYes;
+  LC.i++;
+  const next = lcLetters()[LC.i];
+  lcDet = lcFresh(); lcDet.last = here.ch; lcDet.released = !(next && next.ch === here.ch);   // a double letter needs the hand to let go first
+  if (!next) { if (LC.mode === "word") lcJudge(); else LC.finished = true; }
+  lcPaint();
+}
+function lcFrame(f) {
+  const live = $("#lc-live"); if (!live || !LC || LC.finished) return;
+  const h = f.hands.filter(Boolean).sort((a, b) => b.palm - a.palm)[0], D = lcDet;
+  if (!h) {
+    D.sm = {}; D.since = 0; D.released = true; D.hold = null; D.acc = null; D.n = 0;
+    live.textContent = f.live && !f.live.face ? "Sit back so your face and shoulders are in the picture, then hold your hand up near your shoulder." : "Looking for your hand…"; return;
+  }
+  const sm = D.sm, raw = {};
+  LetterModel.predict(h.pts, 1, 1, 26).forEach(r => { raw[r.letter] = r.p; sm[r.letter] = sm[r.letter] === undefined ? r.p : 0.65 * sm[r.letter] + 0.35 * r.p; });
+  const top = lcTop(sm, 1)[0], x = lcLetters()[LC.i], want = x.ch;
+  if (D.last && sm[D.last] !== undefined && sm[D.last] < 0.35) D.released = true;
+  if (LC.mode === "letter") {
+    live.textContent = top === want ? `Looks like ${want}. Hold it…` : `Looks like ${top}. You need ${want}.`;
+    if (!LC_MOTION.has(want) && top === want && sm[want] > 0.5 && D.released) { if (!D.since) D.since = f.t; else if (f.t - D.since >= 700) lcAdvance(true); }
+    else D.since = 0;
+    return;
+  }
+  // word mode: capture whatever the hand holds steadily, judge at the end
+  if (!D.released || sm[top] < LC_CAPTURE) { D.hold = null; D.acc = null; D.n = 0; D.since = 0; live.textContent = D.released ? "Hold the letter steady…" : "Let go or bounce your hand, then the next letter."; return; }
+  if (D.hold !== top) { D.hold = top; D.since = f.t; D.acc = {}; D.n = 0; }
+  for (const k in raw) D.acc[k] = (D.acc[k] || 0) + raw[k]; D.n++;
+  live.textContent = `Looks like ${top}. Hold it…`;
+  if (f.t - D.since >= 700) {
+    const avg = {}; for (const k in D.acc) avg[k] = D.acc[k] / D.n;
+    LC.slots.push(avg); LC.seen.push(D.hold); LC.i++;
+    D.last = D.hold; D.released = false; D.hold = null; D.acc = null; D.n = 0; D.since = 0; D.sm = {};
+    if (LC.i >= LC.ids.length) lcJudge();
+    lcPaint();
+    live.textContent = LC.finished ? "" : `Got letter ${LC.i}. Let go, then the next one.`;
+  }
+}
+async function mountLetterCamera() {
+  lcPaint();
+  const status = m => { const el = $("#cam-status"); if (el) { el.textContent = m; el.hidden = !m; } };
+  const video = $("#cam-video"), canvas = $("#cam-canvas");
+  video.addEventListener("loadedmetadata", () => { const st = $("#cam-stage"); if (st) st.style.aspectRatio = video.videoWidth + " / " + video.videoHeight; });
+  try { await LetterModel.load(); } catch (e) { status("The letter model could not load."); return; }
+  Coach.setTarget(null);
+  Coach.start(video, canvas, lcFrame, status).catch(err => {
+    status(err && err.name === "NotAllowedError"
+      ? "Camera access is blocked. Allow the camera in your browser's address bar, then try again."
+      : "The camera couldn't start. Check that no other app is using it.");
+  });
 }
 
 // Progress panel, inserted into viewProgress().
@@ -290,6 +433,17 @@ function abcClick(b) {
   else if (a === "wagain") { abcWordStart(WP.lesson); route(); }
   else if (a === "wreveal") { WP.revealed = true; route(); }
   else if (a === "wrate") { abcRate(wordId(WP.items[WP.i]), v === "1"); if (v === "1") WP.right++; WP.i++; WP.revealed = false; route(); }
+  else if (a === "cam") lcStart("letter", null, [v], location.hash.slice(1));
+  else if (a === "camword") lcStart("word", v, lcIds(v), location.hash.slice(1));
+  else if (a === "wcam") lcStart("word", WP.items[WP.i], lcIds(WP.items[WP.i]), "abc.wordpractice", true);
+  else if (a === "camback") go(LC ? LC.back : "abc");
+  else if (a === "camskip") lcAdvance(false);
+  else if (a === "camyes") lcAdvance(true);
+  else if (a === "camagain") lcStart(LC.mode, LC.word, LC.ids, LC.back, LC.wp);
+  else if (a === "camfinish") {
+    if (LC.wp && WP) { const ok = v === "1"; abcRate(wordId(WP.items[WP.i]), ok); if (ok) WP.right++; WP.i++; WP.revealed = false; go("abc.wordpractice"); }
+    else go(LC.back);
+  }
   return true;
 }
 document.getElementById("app").addEventListener("submit", e => {

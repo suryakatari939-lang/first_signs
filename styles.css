@@ -425,6 +425,9 @@ button.chip:hover { border-color: #9fc1df; background: var(--soft); }
 .tiles { display: flex; flex-wrap: wrap; gap: 8px; }
 .tile { font-weight: 900; font-size: 1.3rem; min-width: 46px; min-height: 50px; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); }
 .tile.done { border-color: #9fb7d0; background: var(--leaf-l); color: var(--leaf-d); }
+span.tile { display: inline-grid; place-items: center; }
+.tile.got { border-color: var(--teal); color: var(--teal-d); }
+.tile.off { border-color: var(--coral-d); color: var(--coral-d); }
 .tile.on { background: var(--teal); border-color: var(--teal); color: #fff; }
 .wordrow { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
