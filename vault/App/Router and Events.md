@@ -15,12 +15,12 @@ tags: [app, router, events]
 | `#rewards` | `viewRewards()` |
 | `#profile`, also `#progress` | `viewProfile()` |
 
-`route()` then: toggles `body.lesson-mode` for `#lesson`; sets `#app.innerHTML`; fills `#rail` (empty during lessons); starts the camera (`mountCamera()`) when the current lesson step is a camera recall, else `Coach.stop()`; sets `aria-current` on the nav link (`#routines.*` highlights Learn); `save()`.
+`route()` then: toggles `body.lesson-mode` for `#lesson`; sets `#app.innerHTML`; starts the camera (`mountCamera()`) when the current lesson step is a camera recall, else `Coach.stop()`; sets `aria-current` on the nav link (`#routines.*` highlights Learn); `save()`.
 
 `go(hash)`: if the hash already matches, calls `route()`; else sets `location.hash` (the `hashchange` event calls `route()`); scrolls to top.
 
 ## Click handling
-`onClick` listens on both `#app` and `#rail`. ABC buttons (`data-abc`) go to `abcClick()` first.
+`onClick` listens on `#app`. ABC buttons (`data-abc`) go to `abcClick()` first.
 
 | data attr | Effect |
 |---|---|
@@ -32,6 +32,7 @@ tags: [app, router, events]
 | `data-used="id"` | add a real moment to `S.used`, `learn`, `markDay`, toast |
 | `data-lesson="routineId:index"` | start that path lesson (`lessonFromSigns`) |
 | `data-review="routineId"` | start the unit review |
+| `data-mapsel="routineId"` | pick a routine in the Learn path; its lesson card shows below |
 | `data-start` (`mix`, `pick`, `recall`, `cam`) | start a practice mode (`startMode`) |
 | `data-exit` | leave the lesson, back to `P.back` |
 | `data-taught` | finish a teach step (`learn`, daily goal +1) |

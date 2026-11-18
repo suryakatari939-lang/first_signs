@@ -13,7 +13,7 @@ The 5th tab ("Aa" icon, between Routines and Practice). Teaches the ASL alphabet
 | `#abc.letters` | `abcLetters()` | 26 sign-style cards in 6 groups (closed fists, round, pointing, two-finger, fingers up, little finger/thumb), each group with a tip; link to Spell a word |
 | `#abc.numbers` | `abcNumbers()` | 10 cards + `NUMBER_TIP` (6–9: thumb moves along the fingers) |
 | `#abc.spell` | `abcSpell()` | type a word/name → tiles + one-letter-at-a-time stepper; suggested words; 5 fingerspelling tips |
-| `#abc.practice` | `abcPractice()` | Letters / Numbers scope switch + Try it yourself / Read & pick, same flow as [[Practice Screen]] |
+| `#abc.practice` | `abcPractice()` | Letters / Numbers scope switch + Try it yourself / Read & pick, same flow as [[App Layout and Screens]] |
 | `#abc.lessons` | `abcLessons()` | the 9 easy-word lessons as tiles with progress; the first unfinished one is marked "Next up" |
 | `#abc.lesson-<id>` (e.g. `#abc.lesson-l1`) | `abcLesson(id)` | one lesson: (1) cards for its new letters, (2) its words as tappable chips with New/Learning/Known pills, (3) "Practice these words". Unknown id falls back to the list |
 | `#abc.wordpractice` | `abcWordPractice()` | spell-it-yourself practice for one lesson; with no session in memory it falls back to the lessons list |
@@ -42,7 +42,7 @@ Each card (`abcCardHtml`) = big character, New/Learning/Known pill, Hand (+ Move
 - No camera check for letters/numbers.
 
 ## Progress
-`abcProgress()` adds a "Letters & numbers" panel (known/total bars for Alphabet and Numbers) to [[Progress Screen]] — "signs known/started" tiles there still count only the 43 signs.
+`abcProgress()` adds a "Letters & numbers" panel (known/total bars for Alphabet and Numbers) to [[App Layout and Screens]] — "signs known/started" tiles there still count only the 43 signs.
 
 ## Hooks in `js/app.js` (all that was touched)
 1. `route()`: `else if (tab === "abc") html = viewAbc(sub);` and `"abc"` added to the active-tab list.

@@ -8,12 +8,12 @@ Found by reading the code at commit `e3c743a` (2026-10-28). Nothing here has bee
 
 ## Content / copy mismatches
 1. ✔ **42 vs 43 signs.** `README.md` says "teaches 42 everyday signs"; `SIGNS` has **43** (Mealtime 8, Bath 6, Feelings 7, Family 6, Play 9, Safety 7). Either fix the README/plan or the data. ([[Signs Index]])
-2. ✔ **"Known after two separate days" is not what the code does.** `learn()` puts a sign in box 1 and one correct rating moves it to box 2 = `isKnown`. A sign can be *Known* after one correct answer in a single session, but the Progress screen note says two separate days. ([[Spaced Repetition]], [[Progress Screen]])
+2. ✔ **"Known after two separate days" is not what the code does.** `learn()` puts a sign in box 1 and one correct rating moves it to box 2 = `isKnown`. A sign can be *Known* after one correct answer in a single session, but the Progress screen note says two separate days. ([[Spaced Repetition]], [[App Layout and Screens]])
 3. Stats in "Why this matters" (90%+, ≤40%, 70%) carry source attributions in the UI; I did not verify them. Check before presenting to judges. ([[Project Overview]])
 
 ## Logic quirks
-4. ✔ **Switching practice mode re-rolls the set and silently "starts" more signs.** `startPractice` calls `learn()` on all 5–6 items; since those are no longer "new", toggling mode (or "Practice again") pulls different new signs and starts them too. Over a few toggles you can start many signs without practising them. ([[Practice Screen]])
-5. ✔ **Mission eyebrow can name the wrong routine.** The mission sign is frozen for the day, but the label uses the *current* time-of-day routine (`<10` meal, `<17` play, else bed). ([[Today Screen]])
+4. ✔ **Switching practice mode re-rolls the set and silently "starts" more signs.** `startPractice` calls `learn()` on all 5–6 items; since those are no longer "new", toggling mode (or "Practice again") pulls different new signs and starts them too. Over a few toggles you can start many signs without practising them. ([[App Layout and Screens]])
+5. ✔ **Mission eyebrow can name the wrong routine.** The mission sign is frozen for the day, but the label uses the *current* time-of-day routine (`<10` meal, `<17` play, else bed). ([[App Layout and Screens]])
 6. ✔ **State mutated during render.** `viewToday()` assigns `S.mission` while building HTML (saved afterwards by `route()`).
 7. ✔ **Sample data never goes away on its own.** `S.sample` stays true until "Start fresh"; real activity mixes with the fake streak/log, and the banner keeps showing. ([[Data Model and Storage]])
 8. ✔ **A miss is due immediately** (`INTERVALS[0] = 0`), so a failed sign stays in the "due" list and will be in the next `todaysSet()` immediately; fine for learning but can make sessions repetitive.

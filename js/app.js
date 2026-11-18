@@ -76,8 +76,6 @@ const ICON = {
   ring: f => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#e5ebee" stroke-width="5"/><circle cx="16" cy="16" r="12" fill="none" stroke="#11a3a0" stroke-width="5" stroke-dasharray="${(75.4 * Math.min(1, f)).toFixed(1)} 76" stroke-linecap="round" transform="rotate(-90 16 16)"/></svg>`,
   check: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 17l5 5 11-12" fill="none" stroke="${c || "#fff"}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   cross: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 10l12 12M22 10L10 22" fill="none" stroke="${c || "#fff"}" stroke-width="4.5" stroke-linecap="round"/></svg>`,
-  chest: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="11" width="22" height="15" rx="3" fill="#fff"/><path d="M5 15h22" stroke="#2fa85a" stroke-width="3"/><rect x="14" y="13" width="4" height="6" rx="1" fill="#ffb938"/></svg>`,
-  book: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 7c4-1 7 0 10 2v17c-3-2-6-3-10-2zM26 7c-4-1-7 0-10 2v17c3-2 6-3 10-2z" fill="none" stroke="${c || "#fff"}" stroke-width="2.6" stroke-linejoin="round"/></svg>`,
   cam: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="9" width="20" height="15" rx="4" fill="${c}"/><path d="M23 14l6-4v13l-6-4z" fill="${c}"/></svg>`,
   quiz: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="${c}"/><path d="M12 12a4 4 0 1 1 6 3c-1.5 1-2 2-2 3.5M16 23v.5" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
   hand: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 26V12c0-2 3-2 3 0v6V8c0-2 3-2 3 0v10V7c0-2 3-2 3 0v11V9c0-2 3-2 3 0v12c0 4-3 6-6 6h-1c-3 0-5-2-6-5l-3-6c-1-2 2-3 3-1z" fill="${c}"/></svg>`,
@@ -136,23 +134,6 @@ function todayMission() {
   S.mission = { id: pick.id, day: dayKey() };
   return pick;
 }
-function momentCard() {
-  const s = todayMission();
-  const done = S.used.some(u => u.id === s.id && dayKey(u.t) === dayKey());
-  return `<section class="panelcard"><h4>Today's real moment</h4>
-    <div class="moment"><div class="moment-ic">${ICON.heart()}</div>
-      <div><b>Sign ${esc(s.w)} with your child</b><span>${esc(s.say)}</span></div></div>
-    <div class="row">${done ? `<span class="pill good">${ICON.check("#2fa85a")} Done today</span>`
-      : `<button class="btn coral sm" data-used="${s.id}">We did it</button>`}
-      <button class="btn ghost sm" data-open="${s.r}">How to sign</button></div></section>`;
-}
-function goalCard() {
-  const g = goalToday(), left = Math.max(0, GOAL - g);
-  return `<section class="panelcard"><h4>Daily goal <span class="muted">${Math.min(g, GOAL)} of ${GOAL} signs</span></h4>
-    <div class="pbar teal"><i style="width:${Math.min(100, g / GOAL * 100)}%"></i></div>
-    <p class="note">${left ? `${left} more sign${left > 1 ? "s" : ""} to reach today's goal.` : "Goal reached. Nice work today!"}</p></section>`;
-}
-
 /* ---------- Badges ---------- */
 function badges() {
   const unit = r => { const l = SIGNS.filter(s => s.r === r.id); return { id: "u-" + r.id, name: r.name, icon: UNIT_ICON[r.id]("#fff"), color: UNIT_COLOR[r.id], have: l.filter(s => isKnown(s.id)).length, need: l.length, how: "Know every sign in " + r.name }; };
@@ -162,8 +143,8 @@ function badges() {
     { id: "ten", name: "10 moments", icon: ICON.heart("#fff"), color: "coral", have: Math.min(10, S.used.length), need: 10, how: "Use signs with your child 10 times" },
     { id: "week", name: "7-day streak", icon: `<svg viewBox="0 0 32 32"><path d="M16 3c2 6 9 8 9 16a9 9 0 0 1-18 0c0-4 2-6 4-8 0 3 1 5 3 5-1-5 0-9 2-13z" fill="#fff"/></svg>`, color: "sun", have: Math.min(7, streak()), need: 7, how: "Practice 7 days in a row" },
     ...ROUTINES.map(unit),
-    { id: "abc", name: "Alphabet Ace", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="14" fill="#fff">ABC</text></svg>`, color: "teal", have: abcK(LETTERS), need: LETTERS.length, how: "Know every letter" },
-    { id: "num", name: "Counting Pro", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="15" fill="#fff">123</text></svg>`, color: "leaf", have: abcK(NUMBERS), need: NUMBERS.length, how: "Know the numbers 1 to 10" },
+    { id: "abc", name: "Alphabet Ace", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="12" fill="#fff">ABC</text></svg>`, color: "teal", have: abcK(LETTERS), need: LETTERS.length, how: "Know every letter" },
+    { id: "num", name: "Counting Pro", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="13" fill="#fff">123</text></svg>`, color: "leaf", have: abcK(NUMBERS), need: NUMBERS.length, how: "Know the numbers 1 to 10" },
   ];
 }
 function badgeTile(b) {
@@ -172,15 +153,7 @@ function badgeTile(b) {
     <i class="${got ? "c-" + b.color : ""}">${got ? b.icon : ICON.lock()}</i><b>${esc(b.name)}</b>
     ${got ? `<span>Earned</span>` : `<div class="pbar thin"><i style="width:${Math.round(b.have / b.need * 100)}%"></i></div><span>${b.have}/${b.need}</span>`}</div>`;
 }
-function badgeCard() {
-  const close = badges().filter(b => b.have < b.need).sort((a, b) => b.have / b.need - a.have / a.need).slice(0, 2);
-  return `<section class="panelcard"><h4>Badges in progress <button class="link" data-go="rewards">View all</button></h4>
-    ${close.map(b => `<div class="brow"><i class="c-${b.color}">${b.icon}</i><div><b>${esc(b.name)}</b>
-      <div class="pbar thin c-${b.color}"><i style="width:${Math.round(b.have / b.need * 100)}%"></i></div></div><span class="muted">${b.have}/${b.need}</span></div>`).join("")}</section>`;
-}
-function rail() { return `${statBar()}${momentCard()}${goalCard()}${badgeCard()}`; }
-
-/* ---------- Learn: one path of lessons, a unit per routine ---------- */
+/* ---------- Learn: lessons of three signs, one set per routine ---------- */
 const LESSON_SIZE = 3;
 function unitLessons(r) {
   const l = SIGNS.filter(s => s.r === r.id), out = [];
@@ -188,47 +161,92 @@ function unitLessons(r) {
   return out;
 }
 const lessonState = list => list.every(s => isKnown(s.id)) ? "done" : list.some(s => card(s.id)) ? "started" : "new";
-// Learn: "Up next" card, then one card per routine with its lessons as a short checklist.
-function viewLearn() {
-  // The current lesson is the first one, in routine order, that isn't fully known yet.
-  let current = null;
-  for (const r of ROUTINES) { unitLessons(r).forEach((l, i) => { if (!current && lessonState(l) !== "done") current = r.id + ":" + i; }); }
-  let upnext = "";
-  if (current) {
-    const [rid, ci] = current.split(":"), r = ROUTINES.find(x => x.id === rid), lessons = unitLessons(r), l = lessons[+ci];
-    upnext = `<section class="upnext" aria-labelledby="upnext-t">
-      <div class="upnext-text"><small>Up next · ${esc(r.name)}, lesson ${+ci + 1} of ${lessons.length}</small>
-        <h1 id="upnext-t">${l.map(s => esc(s.w)).join(", ")}</h1>
-        <p>${l.map(s => esc(s.say)).filter(Boolean)[0] || "Three signs you can use today."}</p></div>
-      <div class="upnext-words">${l.map(s => `<span class="${isKnown(s.id) ? "k" : ""}">${esc(s.w)}</span>`).join("")}</div>
-      <div class="row"><button class="btn calm" data-lesson="${current}">${lessonState(l) === "started" ? "Keep going" : "Start lesson"}</button>
-        <button class="btn ghost" data-open="${r.id}">Sign guide</button></div></section>`;
-  } else {
-    upnext = `<section class="upnext"><div class="upnext-text"><small>All lessons done</small><h1>You've learned every sign.</h1>
-      <p>Keep them fresh with Practice, and keep using them with your child.</p></div>
-      <div class="row"><button class="btn calm" data-go="practice">Practice</button></div></section>`;
-  }
-  const cards = ROUTINES.map(r => {
-    const lessons = unitLessons(r), c = UNIT_COLOR[r.id], all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length;
-    const rows = lessons.map((l, i) => {
-      const key = r.id + ":" + i, st = lessonState(l), now = key === current;
-      const tag = st === "done" ? `<span class="lstate done">${ICON.check("#2f8f5b")}Done</span>`
-        : now ? `<span class="lstate now">${st === "started" ? "Keep going" : "Start"}</span>`
-        : st === "started" ? `<span class="lstate">Keep going</span>` : `<span class="lstate">Start</span>`;
-      return `<li><button class="lrow ${now ? "now" : ""} ${st}" data-lesson="${key}" aria-label="${esc(r.name)} lesson ${i + 1}: ${esc(l.map(s => s.w).join(", "))}${st === "done" ? ", done" : ""}">
-        <span class="lnum">${i + 1}</span><span class="lwords">${l.map(s => esc(s.w)).join(" · ")}</span>${tag}</button></li>`;
-    }).join("");
-    return `<section class="rcard t-${c}" aria-labelledby="r-${r.id}">
-      <header class="rhead"><i class="ric">${UNIT_ICON[r.id]("currentColor")}</i>
-        <div><b id="r-${r.id}">${esc(r.name)}</b><small>${esc(r.time)}</small></div>
-        <span class="rcount">${k}/${all.length}</span></header>
-      <div class="rbar"><i style="width:${Math.round(k / all.length * 100)}%"></i></div>
-      <ol class="lrows">${rows}</ol>
-      <footer class="rfoot"><button class="textbtn" data-review="${r.id}">Review all ${all.length}</button><button class="textbtn" data-open="${r.id}">Sign guide</button></footer>
-    </section>`;
+// The current lesson is the first one, in routine order, that isn't fully known yet.
+function currentLesson() {
+  for (const r of ROUTINES) { const ls = unitLessons(r); for (let i = 0; i < ls.length; i++) if (lessonState(ls[i]) !== "done") return r.id + ":" + i; }
+  return null;
+}
+// One routine as a card: icon, progress, and its lessons as a numbered checklist.
+function routineCard(r, current) {
+  const lessons = unitLessons(r), c = UNIT_COLOR[r.id], all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length;
+  const rows = lessons.map((l, i) => {
+    const key = r.id + ":" + i, st = lessonState(l), now = key === current;
+    const tag = st === "done" ? `<span class="lstate done">${ICON.check("#2f8f5b")}Done</span>`
+      : now ? `<span class="lstate now">${st === "started" ? "Keep going" : "Start"}</span>`
+      : st === "started" ? `<span class="lstate">Keep going</span>` : `<span class="lstate">Start</span>`;
+    return `<li><button class="lrow ${now ? "now" : ""} ${st}" data-lesson="${key}" aria-label="${esc(r.name)} lesson ${i + 1}: ${esc(l.map(s => s.w).join(", "))}${st === "done" ? ", done" : ""}">
+      <span class="lnum">${i + 1}</span><span class="lwords">${l.map(s => esc(s.w)).join(" · ")}</span>${tag}</button></li>`;
   }).join("");
-  return `${statBar()}${sampleBanner()}${upnext}<div class="rail-dup">${momentCard()}</div>
-    <h2 class="learn-h">Your routines</h2><div class="rcards">${cards}</div>`;
+  return `<section class="rcard t-${c}" aria-labelledby="r-${r.id}">
+    <header class="rhead"><i class="ric">${UNIT_ICON[r.id]("currentColor")}</i>
+      <div><b id="r-${r.id}">${esc(r.name)}</b><small>${esc(r.time)}</small></div>
+      <span class="rcount">${k}/${all.length} signs</span></header>
+    <div class="rbar"><i style="width:${Math.round(k / all.length * 100)}%"></i></div>
+    <ol class="lrows">${rows}</ol>
+    <footer class="rfoot"><button class="textbtn" data-review="${r.id}">Review all ${all.length}</button><button class="textbtn" data-open="${r.id}">Sign guide</button></footer>
+  </section>`;
+}
+
+/* ---------- Learn dashboard ---------- */
+let mapSel = null;   // routine picked in the learning path (null = the one with the current lesson)
+// A ring that fills with a share (0 to 1), with a label in the middle.
+function donut(f, label) {
+  const c = 2 * Math.PI * 52, on = Math.max(0, Math.min(1, f)) * c;
+  return `<div class="donut"><svg viewBox="0 0 128 128" aria-hidden="true"><circle cx="64" cy="64" r="52" fill="none" stroke="#fbe3cf" stroke-width="16"/>
+    <circle cx="64" cy="64" r="52" fill="none" stroke="#3b6e98" stroke-width="16" stroke-dasharray="${on.toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 64 64)"/>
+    ${f > 0 && f < 1 ? `<circle cx="64" cy="64" r="52" fill="none" stroke="#e98b5d" stroke-width="16" stroke-dasharray="${Math.min(14, c - on).toFixed(1)} ${c.toFixed(1)}" stroke-dashoffset="${(-on).toFixed(1)}" transform="rotate(-90 64 64)"/>` : ""}</svg><b>${label}</b></div>`;
+}
+function viewLearn() {
+  const current = currentLesson(), g = goalToday(), fresh = !Object.keys(S.cards).length;
+  const cur = current ? current.split(":")[0] : null, sel = ROUTINES.find(r => r.id === (mapSel || cur)) || ROUTINES[0];
+  const total = SIGNS.length, known = SIGNS.filter(s => isKnown(s.id)).length;
+  let next = `<button class="btn teal" data-go="practice">Practice</button>`, nextWords = [];
+  if (current) {
+    const [rid, ci] = current.split(":"), r = ROUTINES.find(x => x.id === rid), l = unitLessons(r)[+ci];
+    nextWords = l;
+    next = `<div class="bnext"><small>Up next · ${esc(r.name)}</small><b>${l.map(s => esc(s.w)).join(", ")}</b></div>
+      <button class="btn teal" data-lesson="${current}">${lessonState(l) === "started" ? "Keep going" : "Start lesson"}</button>`;
+  }
+  // Banner
+  const banner = `<section class="welcome"><div class="welcome-text"><h2>${fresh ? "Welcome!" : "Welcome back!"}</h2>
+      <p>${fresh ? "Ready to learn your first signs?" : "Ready to sign with your child?"}</p>
+      <div class="row welcome-act">${next}<span class="lpill">${ICON.flame()}${streak()} day streak</span></div></div>
+    <div class="welcome-art">${mitt(118)}</div></section>`;
+  // Daily goal
+  const goal = `<section class="dcard goal"><h3>Daily goal</h3>${donut(g / GOAL, Math.round(Math.min(1, g / GOAL) * 100) + "%")}
+    <p class="center">Goal: <b>${GOAL} signs</b> a day<br>Done today: <b>${Math.min(g, GOAL)} sign${Math.min(g, GOAL) === 1 ? "" : "s"}</b></p>
+    <p class="note center">${g >= GOAL ? "Goal reached. Nice work today!" : `${GOAL - g} more to reach today's goal.`}</p>
+    <button class="btn teal block" data-go="practice">Start practice session</button></section>`;
+  // Sign of the day (today's real moment)
+  const m = todayMission(), mdone = S.used.some(u => u.id === m.id && dayKey(u.t) === dayKey());
+  const day = `<section class="dcard sotd"><h3>Today's real moment</h3>
+    <div class="sotd-word">${SIGN_PHOTOS[m.id] ? `<img src="${photoSrc(SIGN_PHOTOS[m.id].file)}" alt="" onerror="this.remove()">` : ""}<span>${esc(m.w)}</span></div>
+    <b class="center">Sign ${esc(m.w)} with your child</b><p class="note center">${esc(m.say)}</p>
+    <div class="row center-row">${mdone ? `<span class="pill good">${ICON.check("#3f9a6b")} Done today</span>` : `<button class="btn teal" data-used="${m.id}">We did it</button>`}
+      <button class="btn ghost" data-open="${m.r}">How to sign</button></div></section>`;
+  // Learning path: every routine as a module; pick one to see its lessons
+  const mods = ROUTINES.map(r => {
+    const all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length, started = all.some(s => card(s.id));
+    const st = k === all.length ? "done" : r.id === cur ? "now" : started ? "started" : "new";
+    const label = st === "done" ? "Done" : st === "now" ? "In progress" : st === "started" ? `${k} of ${all.length} signs` : "Not started";
+    return `<button class="mod ${st} ${r.id === sel.id ? "sel" : ""}" data-mapsel="${r.id}" aria-pressed="${r.id === sel.id}">
+      <b>${esc(r.name)}</b><span>${st === "done" ? ICON.check("#3f9a6b") : ""}${label}</span></button>`;
+  }).join("");
+  const path = `<section class="dcard path"><h3>Learning path</h3><div class="mods">${mods}</div>
+    <div class="pathbar"><b>${Math.round(known / total * 100)}%</b><div class="pbar teal"><i style="width:${known / total * 100}%"></i></div><span class="note">${known} of ${total} signs</span></div></section>`;
+  // Milestones (badges)
+  const bs = badges(), got = bs.filter(b => b.have >= b.need), nextB = bs.filter(b => b.have < b.need).sort((a, b) => b.have / b.need - a.have / a.need)[0];
+  const miles = `<section class="dcard miles"><h3>Milestones</h3>
+    ${got.length ? `<ul class="mlist">${got.slice(0, 3).map(b => `<li>${ICON.check("#3f9a6b")}<div><b>${esc(b.name)}</b><span>Achieved</span></div></li>`).join("")}</ul>`
+      : `<p class="note">No badges yet. Your first one comes after your first real moment.</p>`}
+    ${nextB ? `<div class="mnext"><small>Next milestone</small><b>${esc(nextB.name)}</b><div class="pbar thin teal"><i style="width:${Math.round(nextB.have / nextB.need * 100)}%"></i></div><span class="note">${nextB.have}/${nextB.need} · ${esc(nextB.how)}</span></div>` : ""}
+    <button class="link" data-go="rewards">View all badges</button></section>`;
+  // Quick access: the signs in the next lesson
+  const tones = ["qa-blue", "qa-green", "qa-peach"];
+  const quick = nextWords.length ? `<section class="quick"><h3>Quick access <span class="muted">signs in your next lesson</span></h3><div class="qtiles">
+    ${nextWords.map((s, i) => `<button class="qtile ${tones[i % 3]}" data-open="${s.r}" aria-label="How to sign ${esc(s.w)}"><span>${esc(s.w)}</span><small>${isKnown(s.id) ? "Learned" : card(s.id) ? "Practicing" : "New"}</small></button>`).join("")}</div></section>` : "";
+  return `${sampleBanner()}<h1 class="ptitle">Learn</h1>${banner}
+    <div class="dash"><div class="dash-l">${goal}${day}${quick}</div><div class="dash-r">${path}<div class="dcol">${routineCard(sel, current)}</div>${miles}</div></div>`;
 }
 
 /* ---------- Practice hub ---------- */
@@ -558,7 +576,6 @@ function route() {
   const inLesson = tab === "lesson";
   document.body.classList.toggle("lesson-mode", inLesson);
   app.innerHTML = html;
-  const r = $("#rail"); if (r) r.innerHTML = inLesson ? "" : rail();
   const camOn = inLesson && P && P.cam && P.i < P.steps.length && P.steps[P.i].t === "recall" && Coach.supported();
   if (camOn) mountCamera(); else Coach.stop();
   const active = tab === "routines" ? "learn" : tab;
@@ -579,6 +596,7 @@ function onClick(e) {
   if (d.askreset) { const n = $("#resetconfirm"); if (n) n.hidden = false; }
   else if (d.go) go(d.go);
   else if (d.open) go("routines." + d.open);
+  else if (d.mapsel) { mapSel = d.mapsel; route(); }
   else if (d.learn) { learn(d.learn); toast(byId(d.learn).w + " added to your practice"); route(); }
   else if (d.used) { S.used.push({ id: d.used, t: Date.now() }); learn(d.used); markDay(); save(); toast("Nice! That's real language for your child."); route(); }
   else if (d.lesson) { const [rid, i] = d.lesson.split(":"); const r = ROUTINES.find(x => x.id === rid); lessonFromSigns(r.name, unitLessons(r)[+i], "learn"); }
@@ -599,6 +617,5 @@ function onClick(e) {
   else if (d.camsign) { learn(d.camsign); startLesson("Camera coach", [{ t: "recall", id: d.camsign }], location.hash.slice(1) || "learn", true); }
 }
 app.addEventListener("click", onClick);
-document.getElementById("rail").addEventListener("click", onClick);
 window.addEventListener("hashchange", route);
 route();

@@ -24,7 +24,7 @@ Input: array of frames from a 3000 ms `Coach.record()` and the sign's `check` ([
 8. Return `{...res, handsNeeded: check.hands, check}`.
 
 ## Verdict (in `recordSign`, `js/app.js`)
-Three rows — Handshape (`shapeOk && handsSeen ≥ handsNeeded`), Location (`zoneOk`), Movement (`moveOk`). A result row shows "Great match" (all pass) or "Almost there", with "N of 3 checks passed". Each row has a check mark or cross, advice, and an accuracy note: `scoreTrack` also returns `shapePct` / `zonePct` (share of recorded frames that matched; two-handed signs use the lower shape and higher zone value), shown as "Matched N% of the time". Movement is pass/fail, shown as Detected / Not seen. These are not a total accuracy score: even perfect signing rarely reaches 100% because of transition frames. Parent can always press **It was right, count it**. See [[Camera Coach Screen]].
+Three rows — Handshape (`shapeOk && handsSeen ≥ handsNeeded`), Location (`zoneOk`), Movement (`moveOk`). A result row shows "Great match" (all pass) or "Almost there", with "N of 3 checks passed". Each row has a check mark or cross, advice, and an accuracy note: `scoreTrack` also returns `shapePct` / `zonePct` (share of recorded frames that matched; two-handed signs use the lower shape and higher zone value), shown as "Matched N% of the time". Movement is pass/fail, shown as Detected / Not seen. These are not a total accuracy score: even perfect signing rarely reaches 100% because of transition frames. Parent can always press **It was right, count it**. See [[App Layout and Screens]].
 
 ## Tuning knobs (if the coach is too strict/lenient)
 | Where | Value |

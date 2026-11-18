@@ -10,7 +10,7 @@ tags: [project, overview]
 - Project plan (idea, features, research): not in the repo yet, see [[Open Questions]].
 
 ## The problem (as stated in the app's own copy)
-From [[Progress Screen]] "Why this matters":
+From [[App Layout and Screens]] "Why this matters":
 - 90%+ of deaf children are born to hearing parents, most of whom don't know sign language.
 - ≤40% of these families sign at home (cites a 2010 Gallaudet University survey).
 - 70% of deaf children may miss out on language early on (cites Boston University researchers).
@@ -21,9 +21,9 @@ From [[Progress Screen]] "Why this matters":
 ## What it does
 1. **Teaches 43 everyday signs** grouped by *daily routine*, not by alphabet: mealtime, bath & bedtime, feelings, family, play & manners, safety & getting out. (README says 42; the data has 43 — [[Known Issues and Quirks]].) See [[Routines and Signs Overview]].
 2. **Spaced practice** — a daily "Today's 5 minutes" set of due + new signs, driven by Leitner boxes ([[Spaced Repetition]]).
-3. **"Use it with your child" daily goal** — one mission sign per day; "We used it" logs a real moment ([[Today Screen]]).
+3. **"Use it with your child" daily goal** — one mission sign per day; "We used it" logs a real moment ([[App Layout and Screens]]).
 4. **Camera coach** — in-browser hand/face/pose tracking (MediaPipe Holistic) checks handshape, location and movement of the parent's sign ([[Camera Coach Overview]]).
-5. **Progress** — known/started counts, per-routine bars, streak, log of real-life uses ([[Progress Screen]]).
+5. **Progress** — known/started counts, per-routine bars, streak, log of real-life uses ([[App Layout and Screens]]).
 6. **ABC tab** — the ASL alphabet (26 letters in 6 look-alike groups), numbers 1–10, a "Spell a word" stepper (type a name, see each handshape in order, with double-letter and smooth-spelling tips), and spaced practice for letters and numbers, and **9 easy-word lessons** (54 words, from 3-letter words to names) with spell-it-yourself practice ([[ABC Screens]], [[Alphabet and Numbers]], [[Easy Word Lessons]]). No camera check for these.
 7. Written sign descriptions (Hand / Where / Move), a memory hook, a "say it" real-life prompt, phrases ("Put them together"), a handshape cheat sheet, and a link out to Signing Savvy for video.
 
