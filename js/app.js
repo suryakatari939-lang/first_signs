@@ -539,7 +539,7 @@ function route() {
   app.innerHTML = html;
   const r = $("#rail"); if (r) r.innerHTML = inLesson ? "" : rail();
   const camOn = inLesson && P && P.cam && P.i < P.steps.length && P.hearts > 0 && P.steps[P.i].t === "recall" && Coach.supported();
-  if (camOn) mountCamera(); else Coach.stop();
+  if (camOn) mountCamera(); else if (tab === "abc" && sub === "try" && LC) mountLetterCamera(); else Coach.stop();
   const active = tab === "routines" ? "learn" : tab;
   document.querySelectorAll("nav.tabs a").forEach(a => {
     if (a.dataset.tab === active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");

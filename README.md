@@ -15,6 +15,14 @@ practice, a daily "use it with your child" goal, and a camera coach that checks 
 - **ABC:** the alphabet, numbers 1 to 10, fingerspelling and easy-word lessons.
 - **Rewards and Profile:** badges, streak, XP, daily goal, and the real moments you've signed with your child.
 
+## Camera letter check (experimental)
+
+The ABC tab can check a letter or a spelled word with the camera, using a small learned model
+(`models/letters.json`, run by `js/letters.js`). It was only tested on photos from research
+datasets (about 64-83% top-1), never on a live webcam, so the screen says so and every letter has
+"Skip" and "I did it" buttons. Details, accuracy numbers, thresholds and licences are in
+`ai-transfer/NOTES.md`. `models/candidates/numbers.json` (digits 1-9) is included but not wired in.
+
 ## Run it on your laptop
 
 The camera coach needs the app to be served from your computer (browsers block the camera and

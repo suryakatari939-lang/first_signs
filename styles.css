@@ -342,6 +342,9 @@ button.chip:hover { border-color: #9fe0dc; background: #f3fbfb; }
 .tiles { display: flex; flex-wrap: wrap; gap: 8px; }
 .tile { font-family: var(--display); font-weight: 700; font-size: 1.3rem; min-width: 46px; min-height: 50px; padding: 6px 10px; border-radius: 12px; border: 2px solid var(--line); background: var(--bg); box-shadow: 0 3px 0 var(--line); }
 .tile.done { border-color: #7fd99f; background: var(--leaf-l); color: var(--leaf-d); }
+span.tile { display: inline-grid; place-items: center; }
+.tile.got { border-color: var(--teal); color: var(--teal-d); }
+.tile.off { border-color: var(--coral-d); color: var(--coral-d); }
 .tile.on { background: var(--teal); border-color: var(--teal); color: #fff; box-shadow: 0 3px 0 var(--teal-d); }
 .wordrow { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .tips { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
