@@ -1,4 +1,4 @@
-/* ABC tab: the alphabet, numbers 1-10, spelling words, and practice for them.
+/* Basics tab (the #abc route): the alphabet, numbers 1-10, spelling words, and practice for them.
    Uses helpers and state from app.js (S, $, esc, shuffle, markDay, bumpGoal, save, toast, go, route, brand,
    hero, INTERVALS, DAY), which are only called at runtime, after app.js has loaded.
    Progress lives in S.abc.cards, separate from the 43 signs in S.cards. */
@@ -70,7 +70,7 @@ function abcHint(x) {
     ${alike.length ? `<p class="hint-tip"><b>Easy to mix up with:</b> ${alike.map(esc).join(", ")}</p>` : ""}
     <p class="note">Left-handed? Mirror it with your left hand.</p></div>`;
 }
-const abcBack = `<button class="back" data-go="abc">← Letters &amp; numbers</button>`;
+const abcBack = `<button class="back" data-go="abc">← Basics</button>`;
 const handNote = `<p class="note">Instructions are for a right-handed signer. The palm faces the person you are signing to, except G and H (turned sideways) and P and Q (pointing down). If you are left-handed, mirror them.</p>`;
 const sourcesPanel = () => `<details class="howto panel"><summary>Where these descriptions come from</summary>
   <p class="note">Written in our own words from these published guides and checked against each other. Guides differ in small ways, so tap "Hint" for look-alike letters and learn with Deaf adults whenever you can.</p>
@@ -93,7 +93,7 @@ function abcHub() {
     <span class="time">${esc(line)}</span><span class="name">${esc(name)}</span>
     ${list ? `<div class="bar" aria-hidden="true"><i style="width:${Math.round(abcStarted(list) / list.length * 100)}%"></i></div>
     <span class="count">${abcStarted(list)} of ${list.length} started</span>` : ""}</button>`;
-  return `${hero("abc", "Fingerspelling", "Letters &amp; numbers.", "Spell names and words that don't have their own sign, like your child's name, a street or a pet. Numbers 1 to 10 cover ages, counting and time.")}
+  return `${hero("abc", "Basics", "Letters &amp; numbers.", "Spell names and words that don't have their own sign, like your child's name, a street or a pet. Numbers 1 to 10 cover ages, counting and time.")}
   <div class="routines">
     ${tile("abc.letters", "The alphabet", "A to Z", LETTERS)}
     ${tile("abc.numbers", "Numbers", "1 to 10", NUMBERS)}

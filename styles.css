@@ -496,3 +496,28 @@ body.loginpage { background: linear-gradient(180deg, var(--teal-l) 0, var(--page
 .or { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: .85rem; }
 .or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .login-note { text-wrap: balance; }
+
+/* ---------- Basics rename and the mountain rewards ---------- */
+:root { --gold: #e6a93c; --gold-d: #8a5d0c; --gold-l: #fff3d4; }
+/* Learn and Rewards share one mountain: the browser keeps it still while the page around it changes. */
+.mapcard { view-transition-name: mountain; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .24s; }
+@media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
+.stop .medal { position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 2px #fff; display: grid; place-items: center; text-decoration: none; }
+.stop .medal svg { width: 11px; height: 11px; }
+.mapwrap.rewards .stop.done .dot { background: var(--gold); width: 44px; height: 44px; box-shadow: 0 0 0 3px #fff, 0 6px 14px -6px rgba(138,93,12,.6); }
+.mapwrap.rewards .stop.done .dot svg { width: 24px; height: 24px; }
+.mapwrap.rewards .stop.done .tag small { color: var(--gold-d); font-weight: 800; }
+.summit.got { background: var(--gold-l); }
+.summit.got b { color: var(--gold-d); }
+.camp { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--r); background: #fff; box-shadow: var(--shadow); }
+.campmedal { width: 64px; height: 64px; border-radius: 50%; background: var(--track); display: grid; place-items: center; flex: none; }
+.campmedal svg { width: 32px; height: 32px; }
+.camp.got { border-color: #ecd08e; background: linear-gradient(180deg, var(--gold-l), #fff 70%); }
+.camp.got .campmedal { background: var(--gold); box-shadow: 0 6px 14px -8px rgba(138,93,12,.7); }
+.camptext { flex: 1 1 260px; min-width: 0; display: grid; gap: 6px; }
+.camptext small { color: var(--muted); font-weight: 800; }
+.camptext .chips { margin-top: 2px; }
+.chip.known { background: var(--gold-l); border-color: #ecd08e; color: var(--gold-d); display: inline-flex; align-items: center; gap: 4px; }
+.chip.known svg { width: 14px; height: 14px; }
+.badge.got > i { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--gold); }

@@ -105,7 +105,7 @@ function mitt(size = 112, mood = "happy") {
 }
 
 /* ---------- Shared pieces ---------- */
-// `brand` and `hero()` are used by the ABC screens (js/abc.js).
+// `brand` and `hero()` are used by the Basics screens (js/abc.js).
 const brand = "";
 function hero(key, eyebrow, title, sub) {
   return `<section class="pagehead c-${key === "abc" ? "teal" : "plum"}">
@@ -136,15 +136,18 @@ function todayMission() {
 }
 /* ---------- Badges ---------- */
 function badges() {
-  const unit = r => { const l = SIGNS.filter(s => s.r === r.id); return { id: "u-" + r.id, name: r.name, icon: UNIT_ICON[r.id]("#fff"), color: UNIT_COLOR[r.id], have: l.filter(s => isKnown(s.id)).length, need: l.length, how: "Know every sign in " + r.name }; };
+  // Camp badges: each routine is a camp on the mountain, earned by knowing every sign in it.
+  const unit = r => { const l = SIGNS.filter(s => s.r === r.id); return { id: "u-" + r.id, camp: r.id, name: r.name + " camp", icon: UNIT_ICON[r.id]("#fff"), color: UNIT_COLOR[r.id], have: l.filter(s => isKnown(s.id)).length, need: l.length, how: "Know every sign in " + r.name + " to earn this camp" }; };
   const abcK = list => list.filter(x => abcKnown(x.id)).length;
+  const known = SIGNS.filter(s => isKnown(s.id)).length;
   return [
-    { id: "first", name: "First moment", icon: ICON.heart("#fff"), color: "coral", have: Math.min(1, S.used.length), need: 1, how: "Use a sign with your child" },
-    { id: "ten", name: "10 moments", icon: ICON.heart("#fff"), color: "coral", have: Math.min(10, S.used.length), need: 10, how: "Use signs with your child 10 times" },
-    { id: "week", name: "7-day streak", icon: `<svg viewBox="0 0 32 32"><path d="M16 3c2 6 9 8 9 16a9 9 0 0 1-18 0c0-4 2-6 4-8 0 3 1 5 3 5-1-5 0-9 2-13z" fill="#fff"/></svg>`, color: "sun", have: Math.min(7, streak()), need: 7, how: "Practice 7 days in a row" },
+    { id: "first", name: "First Footstep", icon: ICON.heart("#fff"), color: "coral", have: Math.min(1, S.used.length), need: 1, how: "Use a sign with your child for the first time" },
+    { id: "ten", name: "Trail Blazer", icon: ICON.heart("#fff"), color: "coral", have: Math.min(10, S.used.length), need: 10, how: "Use signs with your child 10 times" },
+    { id: "week", name: "Steady Climber", icon: `<svg viewBox="0 0 32 32"><path d="M16 3c2 6 9 8 9 16a9 9 0 0 1-18 0c0-4 2-6 4-8 0 3 1 5 3 5-1-5 0-9 2-13z" fill="#fff"/></svg>`, color: "sun", have: Math.min(7, streak()), need: 7, how: "Practice 7 days in a row" },
     ...ROUTINES.map(unit),
-    { id: "abc", name: "Alphabet Ace", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="12" fill="#fff">ABC</text></svg>`, color: "teal", have: abcK(LETTERS), need: LETTERS.length, how: "Know every letter" },
-    { id: "num", name: "Counting Pro", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="13" fill="#fff">123</text></svg>`, color: "leaf", have: abcK(NUMBERS), need: NUMBERS.length, how: "Know the numbers 1 to 10" },
+    { id: "abc", name: "Letter Lookout", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="12" fill="#fff">ABC</text></svg>`, color: "teal", have: abcK(LETTERS), need: LETTERS.length, how: "Know every letter in Basics" },
+    { id: "num", name: "Number Notch", icon: `<svg viewBox="0 0 32 32"><text x="16" y="22" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="13" fill="#fff">123</text></svg>`, color: "leaf", have: abcK(NUMBERS), need: NUMBERS.length, how: "Know the numbers 1 to 10 in Basics" },
+    { id: "summit", name: "Summit", icon: `<svg viewBox="0 0 32 32"><path d="M3 27L13 9l5 8 3-4 8 14z" fill="#fff"/><path d="M22 3v9M22 3h6l-2 2 2 2h-6" stroke="#fff" stroke-width="2" fill="#fff" stroke-linecap="round"/></svg>`, color: "sun", have: known, need: SIGNS.length, how: "Know all " + SIGNS.length + " signs and reach the top" },
   ];
 }
 function badgeTile(b) {
@@ -212,7 +215,7 @@ function smooth(pts) {
   return d;
 }
 // k keeps the SVG ids unique, because both layouts are in the page at once.
-function mapScene(m, walked, k) {
+function mapScene(m, walked, k, top) {
   const { W, H } = m, [px, py] = m.peak, X = f => (f * W).toFixed(1), Y = f => (f * H).toFixed(1);
   const poly = pts => pts.map(([x, y]) => `${typeof x === "string" ? x : X(x)},${typeof y === "string" ? y : Y(y)}`).join(" ");
   const P = (dx, y) => [((px / W + dx) * W).toFixed(1), y === "peak" ? String(py) : Y(y)];
@@ -246,10 +249,11 @@ function mapScene(m, walked, k) {
     <path d="${route}" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" opacity=".95"/>
     <path d="${route}" fill="none" stroke="#b5cfeb" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"/>
     ${walked > 0 ? `<path d="${done}" fill="none" stroke="#3b6e98" stroke-width="5" stroke-linecap="round"/>` : ""}
-    <g transform="translate(${px} ${py})"><path d="M0 0V-46" stroke="#2f5b80" stroke-width="3" stroke-linecap="round"/><path d="M1-46h30l-8 9 8 9H1z" fill="#3b6e98"/></g>
+    <g transform="translate(${px} ${py})"><path d="M0 0V-46" stroke="#2f5b80" stroke-width="3" stroke-linecap="round"/><path d="M1-46h30l-8 9 8 9H1z" fill="${top ? "#e6a93c" : "#3b6e98"}"/></g>
   </svg>`;
 }
-function learningMap(current) {
+// mode "learn" is the Learn tab; mode "rewards" is the same mountain on the Rewards tab, with medals instead of lesson hints.
+function learningMap(current, mode = "learn") {
   const cur = current ? current.split(":")[0] : null;
   const info = ROUTINES.map(r => {
     const all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length, started = all.some(s => card(s.id));
@@ -257,18 +261,19 @@ function learningMap(current) {
   });
   // The solid line goes up to the routine you're on (or to the top when everything is done).
   const walked = cur ? ROUTINES.findIndex(r => r.id === cur) : ROUTINES.length;
-  const sel = mapSel || cur || ROUTINES[0].id, total = SIGNS.length, known = SIGNS.filter(s => isKnown(s.id)).length;
+  const sel = mapSel || cur || ROUTINES[0].id, total = SIGNS.length, known = SIGNS.filter(s => isKnown(s.id)).length, atTop = known === total;
   const layer = key => { const m = MAP[key];
     const stops = info.map((x, i) => { const [sx, sy, side] = m.stops[i];
-      const dot = x.st === "done" ? ICON.check("#fff") : x.st === "now" ? UNIT_ICON[x.r.id]("#3b6e98") : `<span>${i + 1}</span>`;
+      const rw = mode === "rewards";
+      const dot = x.st === "done" ? (rw ? ICON.star("#fff") : ICON.check("#fff") + `<s class="medal">${ICON.star("#fff")}</s>`) : x.st === "now" ? UNIT_ICON[x.r.id]("#3b6e98") : rw && x.st === "new" ? ICON.lock() : `<span>${i + 1}</span>`;
       return `<button class="stop ${x.st} ${side} ${x.r.id === sel ? "sel" : ""}" style="left:${(sx / m.W * 100).toFixed(2)}%;top:${(sy / m.H * 100).toFixed(2)}%"
-        data-mapsel="${x.r.id}" aria-pressed="${x.r.id === sel}" aria-label="${esc(x.r.name)}: ${x.k} of ${x.n} signs${x.st === "now" ? ", you are here" : ""}">
+        data-mapsel="${x.r.id}" aria-pressed="${x.r.id === sel}" aria-label="${esc(x.r.name)}: ${x.k} of ${x.n} signs${x.st === "done" ? ", camp badge earned" : ""}${x.st === "now" ? ", you are here" : ""}">
         <i class="dot" style="--p:${Math.round(x.k / x.n * 100)}%">${dot}</i>
-        <span class="tag">${x.st === "now" ? "<em>You're here</em>" : ""}<b>${esc(x.r.name)}</b><small>${x.k}/${x.n} signs</small></span></button>`; }).join("");
+        <span class="tag">${x.st === "now" ? "<em>You're here</em>" : ""}<b>${esc(x.r.name)}</b><small>${x.st === "done" ? "Camp badge earned" : x.k + "/" + x.n + " signs"}</small></span></button>`; }).join("");
     const [fx, fy] = m.peak;
-    return `<div class="maplayer ${key}" style="aspect-ratio:${m.W}/${m.H}">${mapScene(m, walked, key)}${stops}
-      <div class="summit" style="left:${(fx / m.W * 100).toFixed(2)}%;top:${(fy / m.H * 100).toFixed(2)}%"><b>All ${total} signs</b><small>${known}/${total} · ${Math.round(known / total * 100)}%</small></div></div>`; };
-  return `<div class="mapwrap">${layer("wide")}${layer("tall")}</div>`;
+    return `<div class="maplayer ${key}" style="aspect-ratio:${m.W}/${m.H}">${mapScene(m, walked, key, atTop)}${stops}
+      <div class="summit ${atTop ? "got" : ""}" style="left:${(fx / m.W * 100).toFixed(2)}%;top:${(fy / m.H * 100).toFixed(2)}%"><b>${atTop ? "Summit reached" : "Summit"}</b><small>${known}/${total} signs · ${Math.round(known / total * 100)}%</small></div></div>`; };
+  return `<div class="mapwrap ${mode}">${layer("wide")}${layer("tall")}</div>`;
 }
 
 function viewLearn() {
@@ -308,7 +313,7 @@ function viewLearn() {
     ${got.length ? `<ul class="mlist">${got.slice(0, 3).map(b => `<li>${ICON.check("#3b6e98")}<div><b>${esc(b.name)}</b><span>Achieved</span></div></li>`).join("")}</ul>`
       : `<p class="note">No badges yet. Your first one comes after your first real moment.</p>`}
     ${nextB ? `<div class="mnext"><small>Next milestone</small><b>${esc(nextB.name)}</b><div class="pbar thin teal"><i style="width:${Math.round(nextB.have / nextB.need * 100)}%"></i></div><span class="note">${nextB.have}/${nextB.need} · ${esc(nextB.how)}</span></div>` : ""}
-    <button class="link" data-go="rewards">View all badges</button></section>`;
+    <button class="link" data-go="rewards">See them on the mountain</button></section>`;
   // Quick access: the signs in the next lesson
   const quick = nextWords.length ? `<section class="quick"><h3>Quick access <span class="muted">signs in your next lesson</span></h3><div class="qtiles">
     ${nextWords.map(s => `<button class="qtile" data-open="${s.r}" aria-label="How to sign ${esc(s.w)}"><span>${esc(s.w)}</span><small>${isKnown(s.id) ? "Learned" : card(s.id) ? "Practicing" : "New"}</small></button>`).join("")}</div></section>` : "";
@@ -574,12 +579,33 @@ async function recordSign() {
 }
 
 /* ---------- Rewards and profile ---------- */
+// The Rewards tab is the same mountain as Learn. Camps you have finished carry a medal, and the badge for the
+// camp you tap sits in a card under the map, so the two tabs read as one place.
+function campCard(sel) {
+  const i = ROUTINES.findIndex(r => r.id === sel), r = ROUTINES[i], all = SIGNS.filter(s => s.r === r.id);
+  const k = all.filter(s => isKnown(s.id)).length, got = k === all.length;
+  return `<section class="camp ${got ? "got" : ""}" aria-label="${esc(r.name)} camp">
+    <i class="campmedal">${got ? ICON.star("#fff") : ICON.lock()}</i>
+    <div class="camptext"><small>Camp ${i + 1} of ${ROUTINES.length}</small><h3>${esc(r.name)} camp</h3>
+      <p>${got ? "Badge earned. You know every sign at this camp." : `Know all ${all.length} signs to earn this camp's badge. You're at ${k}.`}</p>
+      <div class="chips">${all.map(s => `<span class="chip ${isKnown(s.id) ? "known" : ""}">${isKnown(s.id) ? ICON.check("#8a5d0c") : ""}${esc(s.w)}</span>`).join("")}</div></div>
+    <div class="campacts"><button class="btn teal" data-go="learn">${got ? "Back to the map" : "Climb to it"}</button></div></section>`;
+}
 function viewRewards() {
-  const all = badges(), got = all.filter(b => b.have >= b.need).length;
-  return `${statBar()}
-  <section class="pagehead c-sun"><div class="pagehead-text"><small>Rewards</small><h1>${got} of ${all.length} badges earned</h1>
-    <p>Badges come from knowing whole routines and, most of all, from using signs with your child.</p></div><div class="pagehead-mitt">${mitt(92)}</div></section>
-  <div class="badges">${all.map(badgeTile).join("")}</div>`;
+  const all = badges(), got = all.filter(b => b.have >= b.need).length, bs = all.filter(b => b.have < b.need);
+  const nextB = bs.sort((a, b) => b.have / b.need - a.have / a.need)[0];
+  const cur = currentLesson(), curR = cur ? cur.split(":")[0] : null, sel = mapSel || curR || ROUTINES[0].id;
+  const camps = all.filter(b => b.camp || b.id === "summit"), finds = all.filter(b => !b.camp && b.id !== "summit");
+  const head = `<header class="lhead"><div><h1>Summit rewards</h1><p>Every badge is a landmark on your climb.</p></div>
+    <div class="lpills"><span class="lpill">${ICON.star("#e6a93c")}${got} of ${all.length} badges</span><span class="lpill">${ICON.flame()}${streak()} day streak</span></div></header>`;
+  const map = `<section class="mapcard" aria-labelledby="map-t">
+    <div class="maphead"><div class="maptitle"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 27L12 9l5 8 3-4 10 14z" fill="#3b6e98"/><path d="M22 4v8M22 4h6l-2 2 2 2h-6" stroke="#e6a93c" stroke-width="2" fill="#e6a93c" stroke-linecap="round"/></svg>
+      <div><h2 id="map-t">Your mountain</h2><p>Finish a camp to pin its medal here. Tap a camp to see its badge.</p></div></div>
+      ${nextB ? `<div class="mapnext"><div><small>Next badge</small><b>${esc(nextB.name)}</b></div><button class="btn teal" data-go="learn">Keep climbing</button></div>` : `<div class="mapnext"><div><small>You did it</small><b>Every badge earned</b></div></div>`}</div>
+    ${learningMap(cur, "rewards")}</section>`;
+  return `${sampleBanner()}${head}${map}${campCard(sel)}
+  <section class="stack"><h2>Camp badges</h2><div class="badges">${camps.map(badgeTile).join("")}</div></section>
+  <section class="stack"><h2>Trail finds</h2><p class="muted">Found along the way by practicing every day and using signs with your child.</p><div class="badges">${finds.map(badgeTile).join("")}</div></section>`;
 }
 function weekDots() {
   const now = new Date(), monday = new Date(now); monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
@@ -631,6 +657,7 @@ function viewProfile() {
 /* ---------- Router & events ---------- */
 const app = $("#app");
 const ALIAS = { today: "learn", progress: "profile" };
+let lastTab = null;
 function route() {
   const h = (location.hash || "#learn").slice(1);
   let [tab, sub] = h.split(".");
@@ -646,7 +673,12 @@ function route() {
   else { tab = "learn"; html = viewLearn(); }
   const inLesson = tab === "lesson";
   document.body.classList.toggle("lesson-mode", inLesson);
-  app.innerHTML = html;
+  // Learn and Rewards share one mountain (.mapcard has a view-transition-name), so moving between them keeps the mountain
+  // in place and only the content around it changes.
+  const together = t => t === "learn" || t === "rewards";
+  if (document.startViewTransition && lastTab && lastTab !== tab && together(lastTab) && together(tab)) document.startViewTransition(() => { app.innerHTML = html; });
+  else app.innerHTML = html;
+  lastTab = tab;
   const camOn = inLesson && P && P.cam && P.i < P.steps.length && P.steps[P.i].t === "recall" && Coach.supported();
   if (camOn) mountCamera(); else if (tab === "abc" && sub === "try" && LC) mountLetterCamera(); else Coach.stop();
   const active = tab === "routines" ? "learn" : tab;
@@ -662,7 +694,7 @@ function onClick(e) {
   const b = e.target.closest("button"); if (!b) return;
   const d = b.dataset;
   if (d.hint) { const el = document.getElementById(d.hint); if (el) { el.hidden = !el.hidden; b.setAttribute("aria-expanded", String(!el.hidden)); } return; }
-  if (abcClick(b)) return;   // ABC tab buttons (js/abc.js)
+  if (abcClick(b)) return;   // Basics tab buttons (js/abc.js)
   if (b.id === "reset") { S = { sample: false, cards: {}, days: [], used: [], mission: null }; P = null; save(); toast("Fresh start. Welcome!"); go("learn"); return; }
   if (d.signout) { try { localStorage.removeItem("firstsigns.user"); } catch (e) {} location.replace("login.html"); return; }
   if (d.askreset) { const n = $("#resetconfirm"); if (n) n.hidden = false; }
