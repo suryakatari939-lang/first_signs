@@ -20,6 +20,7 @@ tags: [app, screens, layout]
 - Header: "Welcome back!" (or "Welcome!" with no progress), a day-streak pill and a daily-goal pill.
 - **Map card** (`learningMap()`, `mapScene()`): an SVG mountain in blues and white with a winding trail. The 6 routines are stops in `ROUTINES` order, with a flag at the summit ("All 43 signs", known count and %). Stop states: done (filled check), now (routine of the current lesson: big ring, "You're here", pulsing halo), started (progress ring), new (number). The trail is solid up to the current routine. Two layouts in `MAP`: `wide` (1000×440) and `tall` (400×620, under 700px); SVG ids get a `-wide`/`-tall` suffix because both are in the page. The map header has the **Up next** box with Start lesson / Keep going.
 - Tapping a stop (`data-mapsel`, sets `mapSel`) shows that routine's lesson card (`routineCard()`: numbered checklist, Review all, Sign guide) under the map. Default: the routine with the current lesson (`currentLesson()`).
+- Pictures are handshape line drawings, never photos of people ([[Photos]]).
 - Cards under the map: the routine card and **Quick access** (tiles for the 3 signs in the next lesson → their Sign guide) on the left; **Daily goal** (donut, "Start practice session"), **Today's real moment** (We did it / How to sign) and **Milestones** (earned badges, next milestone, View all badges) on the right.
 
 ## Lessons (`#lesson`)
@@ -28,7 +29,7 @@ tags: [app, screens, layout]
 **Minimal lesson screen (2026-11-16).** Lessons use the soft blue page with white panels (restyled 2026-11-17) (see [[Design System]]): an exit X, a thin progress bar and "N of M" on top (`lessonTop()`), then two columns on screens ≥900px (`.lgrid`, one column on phones): **Watch** on the left (photo or word in `watchFrame()`, sign name, handshape, Hint) and **Your turn** on the right. Buttons sit in a sticky footer (`.lfoot`, helpers `lbtn()`). Feedback uses one row, `resultRow(ok, title, text)`, with a check or cross.
 
 Steps:
-- `teach`: meet a new sign (Watch: photo + hint; Your turn: steps, hook). "Continue" calls `learn()` and counts toward the daily goal.
+- `teach`: meet a new sign (Watch: handshape drawing + hint; Your turn: steps, hook). "Continue" calls `learn()` and counts toward the daily goal.
 - `pick`: read the description, tap one of 4 signs. Result row ("Correct" / "Not quite. It's X.") with the hook, then Continue.
 - `recall`: see the word, make the sign; "Show me the steps" then Got it / Not yet, or **Check with camera** (camera coach inside the lesson).
 - Lesson from the path (`lessonFromSigns`): teach steps for signs not started yet, then a pick for every sign, then one recall.

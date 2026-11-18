@@ -212,8 +212,8 @@ nav.tabs .logo { display: none; }
 .donut { position: relative; width: 140px; height: 140px; margin: 2px auto; }
 .donut svg { width: 100%; height: 100%; }
 .donut b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 2rem; font-weight: 800; }
-.sotd-word { background: var(--teal-l); border: 1px solid #c3d9ef; border-radius: 12px; min-height: 140px; display: grid; place-items: center; gap: 4px; padding: 14px; }
-.sotd-word img { max-height: 92px; max-width: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.sotd-word { background: #fff; border: 1px solid var(--line); border-radius: 12px; min-height: 140px; display: grid; place-items: center; gap: 6px; padding: 14px; }
+.sotd-word img { height: 100px; max-width: 100%; object-fit: contain; }
 .sotd-word span { font-size: 2.4rem; font-weight: 900; letter-spacing: .03em; color: var(--ink); line-height: 1; }
 .sotd .row { display: grid; gap: 8px; }
 .sotd .row .btn { width: 100%; }
@@ -332,8 +332,8 @@ html:has(body.lesson-mode) { background: #eaf1f8; }
 .pane { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .plabel { display: flex; align-items: center; gap: 8px; font-size: 1.05rem; font-weight: 800; color: var(--link); }
 .plabel i { width: 7px; height: 7px; border-radius: 50%; background: var(--lrose); }
-.lframe { position: relative; aspect-ratio: 4 / 3; border-radius: var(--r); overflow: hidden; background: var(--peach); border: 1px solid var(--peach-line); display: grid; place-items: center; }
-.lframe img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 16px; background: #fff; }
+.lframe { position: relative; aspect-ratio: 4 / 3; border-radius: var(--r); overflow: hidden; background: #fff; border: 1px solid var(--line); display: grid; place-items: center; }
+.lframe img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 22px; background: #fff; }
 .lgloss { font-weight: 900; font-size: 2.8rem; letter-spacing: .03em; color: #1f2c3a; }
 .lbig { font-weight: 900; color: #1f2c3a !important; font-size: clamp(2.8rem, 6vw, 4.4rem); letter-spacing: .04em; color: var(--link); }
 .lname { font-weight: 900; font-size: 1.9rem; letter-spacing: -.01em; margin-top: 8px; color: var(--link); }
@@ -395,9 +395,9 @@ html:has(body.lesson-mode) { background: #eaf1f8; }
 .phrase:first-of-type { border-top: 0; }
 .phrase .g { font-weight: 800; letter-spacing: .03em; }
 .photo { margin: 0; display: grid; gap: 6px; justify-items: start; }
-.photo img { width: 180px; max-width: 100%; height: auto; border-radius: var(--r-sm); background: var(--soft); border: 1px solid var(--line); }
+.photo img { width: 180px; max-width: 100%; height: auto; border-radius: var(--r-sm); background: #fff; border: 1px solid var(--line); }
 .photo.small img { width: 100%; max-height: 130px; object-fit: contain; }
-.photo.drawing img { background: #fff; padding: 10px; }
+.photo.drawing img { background: #fff; padding: 12px; aspect-ratio: 1; object-fit: contain; }
 
 /* ---------- ABC tab pieces ---------- */
 .routines { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
