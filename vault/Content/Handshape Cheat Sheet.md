@@ -5,7 +5,7 @@ tags: [handshape, content]
 
 # Handshape Cheat Sheet (UI content)
 
-The 12 entries of `HANDSHAPES` in `js/signs.js`, shown at the bottom of the Routines tab ([[Routines Screen]]). These are *teaching* labels for the parent. They are **not** the same list as the shapes the camera detects ([[Handshape Detection]]).
+The 12 entries of `HANDSHAPES` in `js/signs.js`, shown at the bottom of the Routines tab ([[App Layout and Screens]]). These are *teaching* labels for the parent. They are **not** the same list as the shapes the camera detects ([[Handshape Detection]]).
 
 | Name | Description (shortened 2026-10-31 at Ramani's request; example signs dropped) | Photo |
 |---|---|---|

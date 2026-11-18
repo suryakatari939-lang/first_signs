@@ -9,7 +9,8 @@ Repo root (`~32 MB`, almost all of it `vendor/`):
 | Path | Lines/size | What it is |
 |---|---|---|
 | `README.md` | — | Intro, run instructions, how the coach works, file list |
-| `index.html` | 34 | Shell: nav (Learn / Practice / ABC / Rewards / Profile; sidebar on laptops, tab bar on phones), `<main id="app">`, `<aside id="rail">`, script tags ([[App Layout and Screens]]) |
+| `index.html` | 34 | Shell: nav (Learn / Practice / ABC / Rewards / Profile; sidebar on laptops, tab bar on phones), `<main id="app">`, script tags ([[App Layout and Screens]]) |
+| `login.html` + `js/login.js` | 47 + 41 | Mock sign-in page (sign in, create account, guest); saves `localStorage["firstsigns.user"]` ([[App Layout and Screens]]) |
 | `styles.css` | 376 | [[Design System]] — tokens, components, camera styles |
 | `js/alphabet.js` | 99 | Alphabet/number/fingerspelling content, `ABC_SOURCES` (11 reference links) a `src` list per item, and `WORD_LESSONS` ([[Alphabet and Numbers]], [[Alphabet Sources and Verification]], [[Easy Word Lessons]]) |
 | `js/abc.js` | 292 | ABC tab views, practice, spell-a-word, sources panel, easy-word lessons ([[ABC Screens]]) |
@@ -20,7 +21,7 @@ Repo root (`~32 MB`, almost all of it `vendor/`):
 | `update-and-start.command` | 20 | `git pull --ff-only` on `main` (if the folder is a git clone), pick a free port from 8000, open browser, `python3 -m http.server`. Run with `bash update-and-start.command`; setup steps in README "Run the latest version" |
 | `start-windows.bat` | 7 | Opens browser, uses `py`, else `python`, else `npx --yes serve -l 8000 .` |
 | `vendor/holistic/` | ~32 MB | [[MediaPipe Holistic Vendor Bundle]] |
-| `vendor/fonts/` | ~110 KB | [[Design System]] — Fredoka, Nunito (SIL OFL) |
+| `vendor/fonts/` | ~110 KB | [[Design System]] — Nunito (SIL OFL) |
 | `.gitignore` | — | Generic Node template (no relevant rules) |
 
 ## `js/app.js` function index
@@ -32,13 +33,10 @@ _Line numbers are from the original analysis; the 3 ABC hooks added later shift 
 | 27–45 | `$`, `esc`, `byId`, `card`, `isKnown`, `isDue`, `shuffle`, `streak`, `markDay`, `toast` | helpers |
 | 48–61 | `todaysSet`, `rate`, `learn` | [[Spaced Repetition]] |
 | 64–73 | `brand`, `sampleBanner` | shared header + example-progress banner |
-| 75 | `viewToday` | [[Today Screen]] |
 | 112 | `routineGrid` | shared by Today and Routines |
-| 122 / 128 | `viewRoutines` / `viewRoutine` | [[Routines Screen]] / [[Routine Detail Screen]] |
 | 139 | `signCard` | one sign article |
-| 155–203 | `P`, `startPractice`, `viewPractice` | [[Practice Screen]] |
-| 206–278 | `CAM_HELP`, `viewCamera`, `mountCamera`, `recordSign` | [[Camera Coach Screen]] |
-| 280 | `viewProgress` | [[Progress Screen]] |
+| 155–203 | `P`, `startPractice`, `viewPractice` | [[App Layout and Screens]] |
+| 206–278 | `CAM_HELP`, `viewCamera`, `mountCamera`, `recordSign` | [[App Layout and Screens]] |
 | 311–354 | `app`, `route`, `go`, click handler, `hashchange` | [[Router and Events]] |
 
 ## `js/camera.js` function index

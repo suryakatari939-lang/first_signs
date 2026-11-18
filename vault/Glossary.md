@@ -18,13 +18,13 @@ tags: [glossary]
 
 **Routine** — a group of signs tied to a daily moment ([[Routines and Signs Overview]]).
 
-**Mission** — the single "use it for real today" sign on [[Today Screen]]. **Real moment** — one tap on "We used it" (`S.used`).
+**Mission** — the single "use it for real today" sign on [[App Layout and Screens]]. **Real moment** — one tap on "We used it" (`S.used`).
 
 **Box / Leitner** — spaced-repetition level 0–6 for a sign; **due** = review time has arrived ([[Spaced Repetition]]).
 
 **Known / Learning / New** — sign status: box ≥ 2 / has card but box < 2 / no card.
 
-**Recall vs Pick** — the two practice modes ([[Practice Screen]]).
+**Recall vs Pick** — the two practice modes ([[App Layout and Screens]]).
 
 **Coach** — the global `Coach` object in `js/camera.js`. **Check / CHECKS** — per-sign camera target ([[CHECKS Format]]). **Zone** — region of the face/body ([[Zones and Body Landmarks]]). **F** — face width, the distance unit for all geometry. **Ref point** — the hand point tested against the zone (tips/index/thumb/center).
 

@@ -35,4 +35,4 @@ webcam (getUserMedia 960x720 ideal, facingMode user, no audio)
 ## Parts
 - [[Zones and Body Landmarks]] · [[Handshape Detection]] · [[Movement Detection]] · [[Evaluation and Scoring]]
 - Per-sign targets: [[CHECKS Format]], [[Camera CHECKS Table]]
-- UI integration: [[Camera Coach Screen]]
+- UI integration: [[App Layout and Screens]]
