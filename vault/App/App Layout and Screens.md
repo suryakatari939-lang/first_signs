@@ -8,6 +8,7 @@ tags: [app, screens, layout]
 
 ## Shell (`index.html`)
 - `nav.tabs`: **Learn, Practice, ABC, Rewards, Profile**. A bottom tab bar on phones; a white sidebar on screens ≥900px with the logo at the top and Profile at the bottom.
+- **Sign-in page** (`login.html`, `js/login.js`, added by Anish 2026-11-18): a mock sign-in / create account / continue as guest. Nothing is sent anywhere; the user is saved in `localStorage["firstsigns.user"]`, and `index.html` sends you to `login.html` until one exists. Profile shows the name and email and has **Sign out**; Learn says "Welcome back, <first name>!".
 - `main#app`: the current page. Pages other than Learn start with the stats pills (`statBar()`) and a peach banner (`hero()` / `.pagehead`).
 - During a lesson `body.lesson-mode` hides the nav so the lesson fills the screen.
 

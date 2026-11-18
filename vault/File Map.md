@@ -10,6 +10,7 @@ Repo root (`~32 MB`, almost all of it `vendor/`):
 |---|---|---|
 | `README.md` | — | Intro, run instructions, how the coach works, file list |
 | `index.html` | 34 | Shell: nav (Learn / Practice / ABC / Rewards / Profile; sidebar on laptops, tab bar on phones), `<main id="app">`, script tags ([[App Layout and Screens]]) |
+| `login.html` + `js/login.js` | 47 + 41 | Mock sign-in page (sign in, create account, guest); saves `localStorage["firstsigns.user"]` ([[App Layout and Screens]]) |
 | `styles.css` | 376 | [[Design System]] — tokens, components, camera styles |
 | `js/alphabet.js` | 99 | Alphabet/number/fingerspelling content, `ABC_SOURCES` (11 reference links) a `src` list per item, and `WORD_LESSONS` ([[Alphabet and Numbers]], [[Alphabet Sources and Verification]], [[Easy Word Lessons]]) |
 | `js/abc.js` | 292 | ABC tab views, practice, spell-a-word, sources panel, easy-word lessons ([[ABC Screens]]) |
