@@ -1,12 +1,10 @@
-# Photos
+# Pictures (handshape drawings)
 
-Real sign and handshape photos come from Wikimedia Commons (category "American Sign Language"), defined in `js/signs.js`:
+Since 2026-11-18 the app shows **line drawings of handshapes only, no photos of people** (Ramani's request). Defined in `js/signs.js`:
 
-- `SIGN_PHOTOS`: photos on sign cards for EAT, DRINK, WANT, I LOVE YOU, THANK YOU (start position).
-- `HANDSHAPE_PHOTOS`: photos in the Routines tab's handshape cheat sheet (W and T have no photo in that category, so they use the drawn "Sign language W.svg" / "T.svg" manual alphabet files).
+- `HANDSHAPE_DRAWINGS`: drawings from the public-domain "Sign language X.svg" manual alphabet on Wikimedia Commons, loaded through `Special:FilePath` (need internet; offline the figure removes itself). Used: A, C, K, S, T, W, Y, and B for `Flat`. Ramani asked for pictures from that site only (no drawings made for the app), and the series has nothing for `5 (open)`, `Claw`, `Flat-O`, `ILY` or `Index`, so signs with those handshapes show the written steps without a picture.
+- `drawingFor(s)` in `js/app.js` picks the drawing of a sign's first handshape (`signShapes(s)[0]`). It is used in the lesson **Watch** frame, on sign-guide cards, in the Learn "Today's real moment" card, in hints and in the Practice cheat sheet.
+- `photoSrc(file)` turns a Commons file name into a `Special:FilePath` URL.
+- All drawings sit in white boxes with a thin border (`.photo.drawing img`, `.lframe`, `.sotd-word`).
 
-`photo()` in `js/app.js` loads each image through `Special:FilePath`. No caption or source link shows on the page (Ramani found it cluttered); credits with links to each Commons file page are in `README.md` under "Photo credits". Images load from the internet, so offline the figure removes itself.
-
-Not yet checked: each file's license and author, and whether every photo matches the sign exactly (files were chosen by their handshape@location names). Verify before the competition and add credits to the documentation.
-
-W and T are drawings (`.svg`): `photoSrc` loads the original vector (no `?width=`) so they stay sharp, and `photo()` adds the `drawing` class, which gives them a white card (`.photo.drawing img`) so the black lines show in dark mode.
+The drawings show the handshape, not the whole sign (location and movement are in the written steps). The old `SIGN_PHOTOS` (EAT, DRINK, WANT, I LOVE YOU, THANK YOU) and the photo versions of the handshapes were removed. Credits are in `README.md` under "Picture credits".

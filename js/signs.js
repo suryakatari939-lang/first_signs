@@ -137,31 +137,19 @@ const CHECKS = {
   shoes:   { hands:2, shape:["fist"], at:"body", ref:"center", move:["repeat"] },
 };
 
-/* Real photos of signs and handshapes from Wikimedia Commons (freely licensed).
-   The app loads them from Commons, so they only show when the computer is online.
-   Each file's page on Commons lists its author and license (see Photo credits in README.md). */
+/* Line drawings of handshapes (no photos of people), from the public-domain drawn manual alphabet
+   on Wikimedia Commons ("Sign language A.svg" and so on). They load from Commons, so they only show
+   when the computer is online (credits in README.md). Only handshapes that match a letter have a drawing:
+   that series has no drawing of 5, claw, flat-O, I-love-you or the index finger, so those show the written steps only. */
 const COMMONS = "https://commons.wikimedia.org/wiki/";
-// Photos load as 360px thumbnails. Drawings (.svg) load as the original vector so they stay sharp.
-const photoSrc = file => COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_")) + (file.endsWith(".svg") ? "" : "?width=360");
-const SIGN_PHOTOS = {
-  eat:    { file: "ASL FlatO@Mouth-PalmBack.jpg", caption: "Flat-O hand at the mouth" },
-  drink:  { file: "ASL C@NearMouth-TipUp.jpg", caption: "C-hand near the mouth" },
-  want:   { file: "ASL Claw5@InsideChesthigh-PalmUp-Claw5@InsideChesthigh-PalmUp WANT 1.jpg", caption: "Both hands, palms up, fingers curling in" },
-  ily:    { file: "ASL ILY@Side-PalmForward.jpg", caption: "I LOVE YOU, palm out" },
-  thanks: { file: "ASL OpenB@Chin-PalmBack.jpg", caption: "Starting position at the chin" },
-};
-const HANDSHAPE_PHOTOS = {
-  "Flat-O": "ASL FlatO@Side-PalmForward.jpg",
-  "C": "ASL C@NearChin.jpg",
-  "5 (open)": "ASL 5@Chest-PalmBack.jpg",
-  "A": "ASL A@Forehead.jpg",
-  "S": "ASL S@Side-PalmForward.jpg",
-  "Claw": "ASL Claw5@NearNose-PalmBack.jpg",
-  "Y": "ASL Y@Side.jpg",
-  "K": "ASL K@Side-PalmForward.jpg",
-  "ILY": "ASL ILY@Side-PalmForward.jpg",
-  "Index": "ASL 1@Side-PalmForward.jpg",
-  // No photo of W or T in the Commons ASL category, so these use the drawn manual alphabet series.
-  "W": "Sign language W.svg",
+const photoSrc = file => COMMONS + "Special:FilePath/" + encodeURIComponent(file.replace(/ /g, "_"));
+const HANDSHAPE_DRAWINGS = {
+  "A": "Sign language A.svg",
+  "C": "Sign language C.svg",
+  "K": "Sign language K.svg",
+  "S": "Sign language S.svg",
   "T": "Sign language T.svg",
+  "W": "Sign language W.svg",
+  "Y": "Sign language Y.svg",
+  "Flat": "Sign language B.svg",   // the B hand; a flat hand is the same with the thumb alongside
 };
