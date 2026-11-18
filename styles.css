@@ -393,3 +393,21 @@ button.chip:hover { border-color: #9fe0dc; background: #f3fbfb; }
 .hint-tip { color: #5a4a2a; }
 .photo.tiny img { width: 72px; height: 72px; object-fit: contain; background: #fff; }
 .sign .hintpop { margin-top: 2px; }
+
+/* ---------- mock login page ---------- */
+body.loginpage { background: linear-gradient(180deg, var(--teal-l) 0, var(--bg) 340px); }
+.login { min-height: 100vh; display: grid; place-items: center; padding: 24px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); }
+.login-card { width: 100%; max-width: 420px; background: var(--bg); border: 2px solid var(--line); border-radius: 24px; box-shadow: 0 6px 0 var(--line); padding: 28px 24px 22px; display: flex; flex-direction: column; gap: 14px; text-align: center; }
+.login-mitt { display: grid; place-items: center; }
+.login-card h1 { font-size: 1.8rem; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: var(--soft); border-radius: var(--r-sm); border: 2px solid var(--line); }
+.seg button { min-height: 42px; border: 0; border-radius: 10px; background: transparent; font-family: var(--display); font-weight: 600; color: var(--muted); }
+.seg button[aria-selected="true"] { background: var(--bg); color: var(--teal-d); box-shadow: 0 2px 0 var(--line); }
+#form { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+.lfield { display: flex; flex-direction: column; gap: 4px; font-size: .9rem; color: var(--muted); }
+.lfield input { min-height: 50px; padding: 0 14px; border: 2px solid var(--line); border-radius: var(--r-sm); font: inherit; font-size: 1rem; color: var(--ink); background: var(--bg); }
+.lfield input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-l); }
+.form-error { color: var(--coral-d); font-size: .9rem; margin: 0; }
+.or { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: .85rem; }
+.or::before, .or::after { content: ""; flex: 1; height: 2px; background: var(--line); }
+.login-note { text-wrap: balance; }

@@ -480,7 +480,9 @@ function weekDots() {
     return `<div class="day ${set.has(k) ? "on" : ""} ${today ? "today" : ""}"><i></i>${d}</div>`;
   }).join("");
 }
+function currentUser() { try { return JSON.parse(localStorage.getItem("firstsigns.user")) || null; } catch (e) { return null; } }
 function viewProfile() {
+  const user = currentUser();
   const started = Object.keys(S.cards).length;
   const known = SIGNS.filter(s => isKnown(s.id)).length;
   const recent = S.used.slice().sort((a, b) => b.t - a.t).slice(0, 6);
@@ -489,7 +491,7 @@ function viewProfile() {
   const since = first ? new Date(first.replace(/-/g, "/")).toLocaleDateString(undefined, { month: "long", year: "numeric" }) : "today";
   const tile = (icon, n, label) => `<div class="stattile"><span class="tile-ic">${icon}</span><div><b>${n}</b><span>${label}</span></div></div>`;
   return `${statBar()}${sampleBanner()}
-  <div class="profilehead"><div class="avatar">${mitt(70)}</div><div><h1>Your family</h1><p class="muted">Learning since ${since} · ${started} signs started</p></div></div>
+  <div class="profilehead"><div class="avatar">${mitt(70)}</div><div><h1>${user && !user.guest ? esc(user.name) + "'s family" : "Your family"}</h1><p class="muted">${user && user.email ? esc(user.email) + " · " : ""}Learning since ${since} · ${started} signs started</p></div></div>
   <div class="tiles4">${tile(ICON.flame(), streak(), "day streak")}${tile(ICON.star(), xp(), "total XP")}${tile(ICON.check("#11a3a0"), known, "signs known")}${tile(ICON.heart(), S.used.length, "real moments")}</div>
   <section class="panelcard"><h4>This week</h4><div class="week">${weekDots()}</div></section>
   <section class="panel"><h2>By routine</h2>
@@ -510,6 +512,8 @@ function viewProfile() {
     <p>The first years are when the brain is built for language. Every sign you use at the table or at bedtime gives your child words they can see. You don't have to be fluent to start. You only have to start.</p>
     <p class="note">Sign descriptions are written guides. Tap "Hint" for the handshape and a memory tip, and learn alongside Deaf adults and your local early intervention program whenever you can.</p>
   </section>
+  <section class="panel"><h2>Account</h2><p class="muted">${user ? (user.guest ? "You're using First Signs as a guest." : "Signed in as " + esc(user.email) + ".") : "Not signed in."}</p>
+    <div class="row"><button class="btn ghost" data-signout="1">Sign out</button></div></section>
   <section class="panel"><h2>Start over</h2><p class="muted">Clears all progress saved in this browser.</p>
     <div class="row"><button class="btn ghost" data-askreset="1">Reset my progress</button></div><div id="resetconfirm" hidden class="row"><span>Are you sure?</span><button class="btn coral sm" id="reset">Yes, reset</button></div></section>`;
 }
@@ -551,6 +555,7 @@ function onClick(e) {
   if (d.hint) { const el = document.getElementById(d.hint); if (el) { el.hidden = !el.hidden; b.setAttribute("aria-expanded", String(!el.hidden)); } return; }
   if (abcClick(b)) return;   // ABC tab buttons (js/abc.js)
   if (b.id === "reset") { S = { sample: false, cards: {}, days: [], used: [], mission: null }; P = null; save(); toast("Fresh start. Welcome!"); go("learn"); return; }
+  if (d.signout) { try { localStorage.removeItem("firstsigns.user"); } catch (e) {} location.replace("login.html"); return; }
   if (d.askreset) { const n = $("#resetconfirm"); if (n) n.hidden = false; }
   else if (d.go) go(d.go);
   else if (d.open) go("routines." + d.open);
