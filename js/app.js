@@ -303,7 +303,7 @@ function viewLearn() {
   // Today's real moment (sign of the day)
   const m = todayMission(), mdone = S.used.some(u => u.id === m.id && dayKey(u.t) === dayKey());
   const day = `<section class="dcard sotd"><h3>Today's real moment</h3>
-    <div class="sotd-word">${SIGN_PHOTOS[m.id] ? `<img src="${photoSrc(SIGN_PHOTOS[m.id].file)}" alt="" onerror="this.remove()">` : ""}<span>${esc(m.w)}</span></div>
+    <div class="sotd-word">${drawingFor(m) ? `<img src="${photoSrc(drawingFor(m))}" alt="" onerror="this.remove()">` : ""}<span>${esc(m.w)}</span></div>
     <p class="note center">${esc(m.say)}</p>
     <div class="row center-row">${mdone ? `<span class="pill good">${ICON.check("#3b6e98")} Done today</span>` : `<button class="btn teal" data-used="${m.id}">We did it</button>`}
       <button class="btn ghost" data-open="${m.r}">How to sign</button></div></section>`;
@@ -335,7 +335,7 @@ function viewPractice() {
     ${mode("cam", "coral", ICON.cam("#fff"), "Camera coach", Coach.supported() ? "Your camera checks your sign" : "Works when the app runs from its folder")}
   </div>
   <section class="panel"><h2>Handshape cheat sheet</h2><p class="muted">Most signs use one of a dozen handshapes. Learn these and the instructions get much easier.</p>
-  <div class="hs">${HANDSHAPES.map(([n, d]) => `<div>${HANDSHAPE_PHOTOS[n] ? photo(HANDSHAPE_PHOTOS[n], n + " handshape", "photo small") : ""}<b>${esc(n)}</b><span class="muted">${esc(d)}</span></div>`).join("")}</div></section>`;
+  <div class="hs">${HANDSHAPES.map(([n, d]) => `<div>${HANDSHAPE_DRAWINGS[n] ? photo(HANDSHAPE_DRAWINGS[n], n + " handshape", "photo small") : ""}<b>${esc(n)}</b><span class="muted">${esc(d)}</span></div>`).join("")}</div></section>`;
 }
 
 /* ---------- Sign guide for one routine ---------- */
@@ -351,9 +351,10 @@ function viewRoutine(id) {
   ${(PHRASES[id] || []).map(([g, e]) => `<div class="phrase"><span class="g">${esc(g)}</span><span class="muted">${esc(e)}</span></div>`).join("")}</section>`;
 }
 
-// A Commons photo. If it can't load (offline), it removes itself. Credits are in README.md.
+// A handshape drawing. If it can't load (a Commons drawing while offline), it removes itself. Credits are in README.md.
+const drawingFor = s => HANDSHAPE_DRAWINGS[signShapes(s)[0]];
 function photo(file, caption, cls = "photo") {
-  if (file.endsWith(".svg")) cls += " drawing";
+  cls += " drawing";
   return `<figure class="${cls}"><img src="${photoSrc(file)}" alt="${esc(caption)}" loading="lazy" onerror="this.closest('figure').remove()"></figure>`;
 }
 /* ---------- Hints: a panel that opens right under the question, instead of a link to another site ---------- */
@@ -376,7 +377,7 @@ const hintButton = id => `<button class="hintbtn" data-hint="${id}" aria-expande
 function hintShape(n) {
   const d = (HANDSHAPES.find(h => h[0] === n) || [, EXTRA_SHAPES[n]])[1];
   if (!d) return "";
-  return `<div class="hint-hs">${HANDSHAPE_PHOTOS[n] ? photo(HANDSHAPE_PHOTOS[n], n + " handshape", "photo tiny") : ""}
+  return `<div class="hint-hs">${HANDSHAPE_DRAWINGS[n] ? photo(HANDSHAPE_DRAWINGS[n], n + " handshape", "photo tiny") : ""}
     <div><small>Handshape</small><b>${esc(n === "Flat" ? "Flat hand" : n)}</b><span>${esc(d)}</span></div></div>`;
 }
 // withHook: also show the memory hook (left out where the hook is already on screen).
@@ -395,7 +396,7 @@ function signCard(s) {
   const st = !c ? `<span class="status">New</span>` : isKnown(s.id) ? `<span class="status k">Known</span>` : `<span class="status l">Learning</span>`;
   return `<article class="sign" id="sign-${s.id}">
     <div class="sign-head"><span class="gloss">${esc(s.w)}</span>${st}</div>
-    ${SIGN_PHOTOS[s.id] ? photo(SIGN_PHOTOS[s.id].file, SIGN_PHOTOS[s.id].caption) : ""}
+    ${drawingFor(s) ? photo(drawingFor(s), signShapes(s)[0] + " handshape") : ""}
     ${stepsDl(s)}
     <p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p>
     <p class="say">${esc(s.say)}</p>
@@ -437,9 +438,9 @@ function lessonTop() {
     <div class="lprog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${P.i}"><i style="width:${P.i / n * 100}%"></i></div>
     <span class="lcount">${P.i >= n ? n : at} of ${n}</span></div>`;
 }
-// The "Watch" picture: the sign's photo, else its handshape's photo, else the word itself.
+// The "Watch" picture: a drawing of the sign's handshape, else the word itself.
 function watchFrame(s) {
-  const file = SIGN_PHOTOS[s.id] ? SIGN_PHOTOS[s.id].file : HANDSHAPE_PHOTOS[signShapes(s)[0]];
+  const file = drawingFor(s);
   return `<div class="lframe"><span class="lgloss">${esc(s.w)}</span>
     ${file ? `<img src="${photoSrc(file)}" alt="${esc(s.w)}" loading="lazy" onerror="this.remove()">` : ""}</div>`;
 }
