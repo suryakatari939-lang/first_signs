@@ -89,19 +89,19 @@ function viewAbc(sub) {
 }
 
 function abcHub() {
-  const tile = (go, name, line, list) => `<button class="routine" data-go="${go}">
-    <span class="time">${esc(line)}</span><span class="name">${esc(name)}</span>
+  const tile = (go, name, line, list, blk) => `<button class="routine" data-go="${go}">
+    <i class="bico">${blk}</i><span class="time">${esc(line)}</span><span class="name">${esc(name)}</span>
     ${list ? `<div class="bar" aria-hidden="true"><i style="width:${Math.round(abcStarted(list) / list.length * 100)}%"></i></div>
     <span class="count">${abcStarted(list)} of ${list.length} started</span>` : ""}</button>`;
   return `${hero("abc", "Basics", "Letters &amp; numbers.", "Spell names and words that don't have their own sign, like your child's name, a street or a pet. Numbers 1 to 10 cover ages, counting and time.")}
   <div class="routines">
-    ${tile("abc.letters", "The alphabet", "A to Z", LETTERS)}
-    ${tile("abc.numbers", "Numbers", "1 to 10", NUMBERS)}
-    <button class="routine" data-go="abc.lessons"><span class="time">9 lessons</span><span class="name">Easy words</span>
+    ${tile("abc.letters", "The alphabet", "A to Z", LETTERS, blockSvg("A", "#609bd7", "#3b6e98"))}
+    ${tile("abc.numbers", "Numbers", "1 to 10", NUMBERS, blockSvg("123", "#48c774", "#2fa85a"))}
+    <button class="routine" data-go="abc.lessons"><i class="bico">${blockSvg("Hi", "#e6a93c", "#b9801a")}</i><span class="time">9 lessons</span><span class="name">Easy words</span>
       <div class="bar" aria-hidden="true"><i style="width:${Math.round(ALL_WORDS.filter(wordKnown).length / ALL_WORDS.length * 100)}%"></i></div>
       <span class="count">${ALL_WORDS.filter(wordKnown).length} of ${ALL_WORDS.length} words known</span></button>
-    ${tile("abc.spell", "Spell a word", "Try your child's name", null)}
-    <button class="routine" data-abc="start"><span class="time">5 minutes</span><span class="name">Practice</span><span class="count">Letters and numbers</span></button>
+    ${tile("abc.spell", "Spell a word", "Try your child's name", null, blockSvg("Ab", "#ff7a6b", "#e2584a"))}
+    <button class="routine" data-abc="start"><i class="bico">${blockSvg("★", "#7c5cff", "#5d3fe0")}</i><span class="time">5 minutes</span><span class="name">Practice</span><span class="count">Letters and numbers</span></button>
   </div>`;
 }
 
