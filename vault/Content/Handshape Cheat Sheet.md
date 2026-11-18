@@ -9,15 +9,15 @@ The 12 entries of `HANDSHAPES` in `js/signs.js`, shown at the bottom of the Rout
 
 | Name | Description (shortened 2026-10-31 at Ramani's request; example signs dropped) | Photo |
 |---|---|---|
-| Flat-O | Fingertips touch the thumb | Commons photo |
-| C | Curved like a C | Commons photo |
-| 5 (open) | All fingers spread | Commons photo |
-| A | Fist, thumb on the side | Commons photo |
-| S | Fist, thumb in front | Commons photo |
-| Claw | Fingers spread and bent | Commons photo |
-| Y | Thumb and pinky out | Commons photo |
+| Flat-O | Fingertips touch the thumb | App drawing (`img/hands/flat-o.svg`) |
+| C | Curved like a C | Commons drawing (public domain) |
+| 5 (open) | All fingers spread | App drawing (`img/hands/five.svg`) |
+| A | Fist, thumb on the side | Commons drawing (public domain) |
+| S | Fist, thumb in front | Commons drawing (public domain) |
+| Claw | Fingers spread and bent | App drawing (`img/hands/claw.svg`) |
+| Y | Thumb and pinky out | Commons drawing (public domain) |
 | W | Three fingers up | Commons drawing (Sign language W.svg) |
-| K | Two up, thumb between | Commons photo |
+| K | Two up, thumb between | Commons drawing (public domain) |
 | T | Thumb under the index | Commons drawing (Sign language T.svg) |
-| ILY | Thumb, index, pinky up | Commons photo |
-| Index | Pointer finger up | Commons photo |
+| ILY | Thumb, index, pinky up | App drawing (`img/hands/ily.svg`) |
+| Index | Pointer finger up | App drawing (`img/hands/index.svg`) |
