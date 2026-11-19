@@ -68,7 +68,7 @@ function rate(id, got) {
 }
 function learn(id) { if (!S.cards[id]) { S.cards[id] = { box: 1, due: Date.now() + DAY, seen: 1 }; markDay(); save(); } }
 
-/* ---------- Icons and Mitt, the mascot (an open hand) ---------- */
+/* ---------- Icons and Mitt, the mascot (Peak, a friendly mountain) ---------- */
 const ICON = {
   heart: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 27C7 21 3 16 3 11a6.5 6.5 0 0 1 13-2 6.5 6.5 0 0 1 13 2c0 5-4 10-13 16z" fill="${c || "#89b5e1"}"/></svg>`,
   flame: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c2 6 9 8 9 16a9 9 0 0 1-18 0c0-4 2-6 4-8 0 3 1 5 3 5-1-5 0-9 2-13z" fill="#609bd7"/><path d="M16 17c2 2 4 3 4 6a4 4 0 0 1-8 0c0-2 2-4 4-6z" fill="#dcebf9"/></svg>`,
@@ -80,6 +80,7 @@ const ICON = {
   quiz: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="${c}"/><path d="M12 12a4 4 0 1 1 6 3c-1.5 1-2 2-2 3.5M16 23v.5" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
   hand: c => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 26V12c0-2 3-2 3 0v6V8c0-2 3-2 3 0v10V7c0-2 3-2 3 0v11V9c0-2 3-2 3 0v12c0 4-3 6-6 6h-1c-3 0-5-2-6-5l-3-6c-1-2 2-3 3-1z" fill="${c}"/></svg>`,
   bulb: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4a9 9 0 0 0-5 16.5V24h10v-3.5A9 9 0 0 0 16 4z" fill="#3480cc"/><path d="M13 14l3 3 3-3" fill="none" stroke="#dcebf9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="11.5" y="25.5" width="9" height="3" rx="1.5" fill="#28639e"/></svg>`,
+  coin: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#e6a93c" stroke="#b9801a" stroke-width="2.5"/><path d="M8 21l5-8 3 4 2-3 6 7z" fill="#fff"/></svg>`,
   lock: () => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="13" width="16" height="13" rx="3" fill="#b4c1c7"/><path d="M11 13V10a5 5 0 0 1 10 0v3" fill="none" stroke="#b4c1c7" stroke-width="3"/></svg>`,
 };
 // One picture per routine, used on the lesson bubbles and badges.
@@ -93,16 +94,9 @@ const UNIT_ICON = {
 };
 const UNIT_COLOR = { meal: "teal", bed: "plum", feel: "coral", family: "sun", play: "leaf", safe: "plum" };
 
-function mitt(size = 112, mood = "happy") {
-  const mouth = mood === "sad" ? `<path d="M48 100c5-5 11-5 16 0" fill="none" stroke="#20313a" stroke-width="3.2" stroke-linecap="round"/>`
-    : `<path d="M48 96c5 5 11 5 16 0" fill="none" stroke="#20313a" stroke-width="3.2" stroke-linecap="round"/>`;
-  return `<svg class="mitt" width="${size}" height="${Math.round(size * 130 / 112)}" viewBox="0 0 112 130" aria-hidden="true">
-    <ellipse cx="56" cy="122" rx="34" ry="6" fill="#000" opacity=".08"/>
-    <path d="M30 70V34c0-7 10-7 10 0v26V22c0-7 10-7 10 0v36V18c0-7 10-7 10 0v40V24c0-7 10-7 10 0v46l8-12c4-6 13-1 9 6L82 96c-5 13-14 22-30 22h-2c-12 0-20-8-20-22z" fill="#609bd7" stroke="#3480cc" stroke-width="3" stroke-linejoin="round"/>
-    <circle cx="47" cy="84" r="5" fill="#20313a"/><circle cx="65" cy="84" r="5" fill="#20313a"/>
-    <circle cx="48.5" cy="82.5" r="1.6" fill="#fff"/><circle cx="66.5" cy="82.5" r="1.6" fill="#fff"/>${mouth}
-    <circle cx="40" cy="95" r="4" fill="#89b5e1" opacity=".5"/><circle cx="72" cy="95" r="4" fill="#89b5e1" opacity=".5"/></svg>`;
-}
+// Peak (js/mascot.js) wearing whatever gear has been bought and put on in Rewards.
+const equipped = () => (S.rw && S.rw.on) || {};
+function mitt(size = 112, mood = "happy") { return peakSvg(size, mood, equipped()); }
 
 /* ---------- Shared pieces ---------- */
 // `brand` and `hero()` are used by the Basics screens (js/abc.js).
@@ -110,7 +104,7 @@ const brand = "";
 function hero(key, eyebrow, title, sub) {
   return `<section class="pagehead c-${key === "abc" ? "teal" : "plum"}">
     <div class="pagehead-text">${eyebrow ? `<small>${eyebrow}</small>` : ""}<h1>${title}</h1>${sub ? `<p>${sub}</p>` : ""}</div>
-    <div class="pagehead-mitt">${mitt(92)}</div></section>`;
+    <div class="pagehead-mitt">${key === "abc" ? blocksArt(104) : mitt(92)}</div></section>`;
 }
 function statBar() {
   const g = goalToday();
@@ -118,6 +112,7 @@ function statBar() {
     <span class="stat s-sun" title="Day streak">${ICON.flame()}${streak()}</span>
     <span class="stat s-teal" title="Daily goal">${ICON.ring(g / GOAL)}${Math.min(g, GOAL)}/${GOAL}</span>
     <span class="stat s-plum" title="Total XP">${ICON.star()}${xp()}</span>
+    <span class="stat s-sun" title="Coins">${ICON.coin()}${coins()}</span>
     <span class="stat s-coral" title="Real moments with your child">${ICON.heart()}${S.used.length}</span></div>`;
 }
 function sampleBanner() {
@@ -252,8 +247,7 @@ function mapScene(m, walked, k, top) {
     <g transform="translate(${px} ${py})"><path d="M0 0V-46" stroke="#2f5b80" stroke-width="3" stroke-linecap="round"/><path d="M1-46h30l-8 9 8 9H1z" fill="${top ? "#e6a93c" : "#3b6e98"}"/></g>
   </svg>`;
 }
-// mode "learn" is the Learn tab; mode "rewards" is the same mountain on the Rewards tab, with medals instead of lesson hints.
-function learningMap(current, mode = "learn") {
+function learningMap(current) {
   const cur = current ? current.split(":")[0] : null;
   const info = ROUTINES.map(r => {
     const all = SIGNS.filter(s => s.r === r.id), k = all.filter(s => isKnown(s.id)).length, started = all.some(s => card(s.id));
@@ -264,8 +258,7 @@ function learningMap(current, mode = "learn") {
   const sel = mapSel || cur || ROUTINES[0].id, total = SIGNS.length, known = SIGNS.filter(s => isKnown(s.id)).length, atTop = known === total;
   const layer = key => { const m = MAP[key];
     const stops = info.map((x, i) => { const [sx, sy, side] = m.stops[i];
-      const rw = mode === "rewards";
-      const dot = x.st === "done" ? (rw ? ICON.star("#fff") : ICON.check("#fff") + `<s class="medal">${ICON.star("#fff")}</s>`) : x.st === "now" ? UNIT_ICON[x.r.id]("#3b6e98") : rw && x.st === "new" ? ICON.lock() : `<span>${i + 1}</span>`;
+      const dot = x.st === "done" ? ICON.check("#fff") + `<s class="medal">${ICON.star("#fff")}</s>` : x.st === "now" ? mitt(34) : `<span>${i + 1}</span>`;
       return `<button class="stop ${x.st} ${side} ${x.r.id === sel ? "sel" : ""}" style="left:${(sx / m.W * 100).toFixed(2)}%;top:${(sy / m.H * 100).toFixed(2)}%"
         data-mapsel="${x.r.id}" aria-pressed="${x.r.id === sel}" aria-label="${esc(x.r.name)}: ${x.k} of ${x.n} signs${x.st === "done" ? ", camp badge earned" : ""}${x.st === "now" ? ", you are here" : ""}">
         <i class="dot" style="--p:${Math.round(x.k / x.n * 100)}%">${dot}</i>
@@ -273,7 +266,7 @@ function learningMap(current, mode = "learn") {
     const [fx, fy] = m.peak;
     return `<div class="maplayer ${key}" style="aspect-ratio:${m.W}/${m.H}">${mapScene(m, walked, key, atTop)}${stops}
       <div class="summit ${atTop ? "got" : ""}" style="left:${(fx / m.W * 100).toFixed(2)}%;top:${(fy / m.H * 100).toFixed(2)}%"><b>${atTop ? "Summit reached" : "Summit"}</b><small>${known}/${total} signs · ${Math.round(known / total * 100)}%</small></div></div>`; };
-  return `<div class="mapwrap ${mode}">${layer("wide")}${layer("tall")}</div>`;
+  return `<div class="mapwrap">${layer("wide")}${layer("tall")}</div>`;
 }
 
 function viewLearn() {
@@ -289,9 +282,11 @@ function viewLearn() {
     next = `<div class="mapnext"><div><small>You reached the top</small><b>Every sign learned</b></div><button class="btn teal" data-go="practice">Practice</button></div>`;
   }
   const user = currentUser(), who = user && !user.guest && user.name ? ", " + esc(user.name.split(" ")[0]) : "";
-  const head = `<header class="lhead"><div><h1>${fresh ? "Welcome" : "Welcome back"}${who}!</h1>
-      <p>${fresh ? "Start your climb with signs for everyday moments." : "Continue your climb, one sign at a time."}</p></div>
-    <div class="lpills"><span class="lpill">${ICON.flame()}${streak()} day streak</span><span class="lpill">${ICON.ring(g / GOAL)}${Math.min(g, GOAL)}/${GOAL} today</span></div></header>`;
+  const lv = levelInfo();
+  const head = `<header class="lhead"><div class="lwho"><div class="lmitt">${mitt(64)}</div><div><h1>${fresh ? "Welcome" : "Welcome back"}${who}!</h1>
+      <p>${fresh ? "Start your climb with signs for everyday moments." : "Continue your climb, one sign at a time."}</p></div></div>
+    <div class="lpills"><span class="lpill">${ICON.flame()}${streak()} day streak</span><span class="lpill">${ICON.ring(g / GOAL)}${Math.min(g, GOAL)}/${GOAL} today</span>
+      <button class="lpill" data-go="rewards" aria-label="${coins()} coins, ${esc(lv.name)}. Open rewards">${ICON.coin()}${coins()} coins</button></div></header>`;
   const map = `<section class="mapcard" aria-labelledby="map-t">
     <div class="maphead"><div class="maptitle"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3a9 9 0 0 0-9 9c0 7 9 17 9 17s9-10 9-17a9 9 0 0 0-9-9z" fill="#3b6e98"/><circle cx="16" cy="12" r="3.5" fill="#fff"/></svg>
       <div><h2 id="map-t">Your learning map</h2><p>Each routine is a stop on the way up. Tap one to see its lessons.</p></div></div>${next}</div>
@@ -313,7 +308,7 @@ function viewLearn() {
     ${got.length ? `<ul class="mlist">${got.slice(0, 3).map(b => `<li>${ICON.check("#3b6e98")}<div><b>${esc(b.name)}</b><span>Achieved</span></div></li>`).join("")}</ul>`
       : `<p class="note">No badges yet. Your first one comes after your first real moment.</p>`}
     ${nextB ? `<div class="mnext"><small>Next milestone</small><b>${esc(nextB.name)}</b><div class="pbar thin teal"><i style="width:${Math.round(nextB.have / nextB.need * 100)}%"></i></div><span class="note">${nextB.have}/${nextB.need} · ${esc(nextB.how)}</span></div>` : ""}
-    <button class="link" data-go="rewards">See them on the mountain</button></section>`;
+    <button class="link" data-go="rewards">Open rewards</button></section>`;
   // Quick access: the signs in the next lesson
   const quick = nextWords.length ? `<section class="quick"><h3>Quick access <span class="muted">signs in your next lesson</span></h3><div class="qtiles">
     ${nextWords.map(s => `<button class="qtile" data-open="${s.r}" aria-label="How to sign ${esc(s.w)}"><span>${esc(s.w)}</span><small>${isKnown(s.id) ? "Learned" : card(s.id) ? "Practicing" : "New"}</small></button>`).join("")}</div></section>` : "";
@@ -592,33 +587,104 @@ async function recordSign() {
 }
 
 /* ---------- Rewards and profile ---------- */
-// The Rewards tab is the same mountain as Learn. Camps you have finished carry a medal, and the badge for the
-// camp you tap sits in a card under the map, so the two tabs read as one place.
-function campCard(sel) {
-  const i = ROUTINES.findIndex(r => r.id === sel), r = ROUTINES[i], all = SIGNS.filter(s => s.r === r.id);
-  const k = all.filter(s => isKnown(s.id)).length, got = k === all.length;
-  return `<section class="camp ${got ? "got" : ""}" aria-label="${esc(r.name)} camp">
-    <i class="campmedal">${got ? ICON.star("#fff") : ICON.lock()}</i>
-    <div class="camptext"><small>Camp ${i + 1} of ${ROUTINES.length}</small><h3>${esc(r.name)} camp</h3>
-      <p>${got ? "Badge earned. You know every sign at this camp." : `Know all ${all.length} signs to earn this camp's badge. You're at ${k}.`}</p>
-      <div class="chips">${all.map(s => `<span class="chip ${isKnown(s.id) ? "known" : ""}">${isKnown(s.id) ? ICON.check("#8a5d0c") : ""}${esc(s.w)}</span>`).join("")}</div></div>
-    <div class="campacts"><button class="btn teal" data-go="learn">${got ? "Back to the map" : "Climb to it"}</button></div></section>`;
+/* ---------- Rewards: altitude, coins, daily quests and gear ----------
+   Everything you do raises your altitude (1 XP = 1 metre up the mountain). Levels are named stops on the way up.
+   Coins are earned from the same progress, plus quest rewards, and are spent on gear that Peak wears everywhere.
+   Saved in S.rw = { owned: [gearId], on: { slot: gearId }, claimed: { "day:quest": 1 }, bonus: coins from quests, spent: coins spent }. */
+const LEVELS = [[0, "Base Camp"], [150, "Foothills"], [400, "Treeline"], [800, "Alpine Meadow"], [1300, "Ridge Line"], [2000, "Snowline"], [3000, "Summit"]];
+const rw = () => S.rw || (S.rw = { owned: [], on: {}, claimed: {}, bonus: 0, spent: 0 });
+const altitude = () => xp();
+function levelInfo() {
+  const a = altitude(); let i = 0;
+  LEVELS.forEach((l, k) => { if (a >= l[0]) i = k; });
+  const next = LEVELS[i + 1] || null;
+  return { i, name: LEVELS[i][1], a, next, pct: next ? (a - LEVELS[i][0]) / (next[0] - LEVELS[i][0]) : 1 };
+}
+// Earned = 1 coin per 10 XP, 20 per badge, plus claimed quest coins. Balance = earned minus spent.
+const coinsEarned = () => Math.floor(xp() / 10) + badges().filter(b => b.have >= b.need).length * 20 + rw().bonus;
+const coins = () => Math.max(0, coinsEarned() - rw().spent);
+const QUESTS = [
+  { id: "practice", name: "Practice 5 signs", note: "Learn or review signs today", reward: 10, need: GOAL, have: () => Math.min(GOAL, goalToday()) },
+  { id: "moment", name: "Sign with your child", note: "Tap \"We did it\" on Today's real moment", reward: 15, need: 1, have: () => S.used.some(u => dayKey(u.t) === dayKey()) ? 1 : 0 },
+  { id: "show", name: "Show up today", note: "Do any practice at all", reward: 5, need: 1, have: () => S.days.includes(dayKey()) ? 1 : 0 },
+];
+const CHEST_REWARD = 20;
+const claimKey = id => dayKey() + ":" + id;
+const claimed = id => !!rw().claimed[claimKey(id)];
+const chestReady = () => QUESTS.every(q => claimed(q.id)) && !claimed("chest");
+function rwAction(act, val) {
+  const R = rw(), g = GEAR.find(x => x.id === val);
+  if (act === "buy" && g && !R.owned.includes(g.id)) {
+    if (coins() < g.price) { toast("You need " + (g.price - coins()) + " more coins"); return; }
+    R.spent += g.price; R.owned.push(g.id); R.on[g.slot] = g.id; toast(g.name + " bought. Peak is wearing it!");
+  } else if (act === "equip" && g && R.owned.includes(g.id)) { R.on[g.slot] = g.id; toast("Peak put on the " + g.name.toLowerCase()); }
+  else if (act === "unequip" && g) { if (R.on[g.slot] === g.id) delete R.on[g.slot]; toast("Peak took it off"); }
+  else if (act === "claim") {
+    const q = QUESTS.find(x => x.id === val);
+    if (!q || claimed(q.id) || q.have() < q.need) return;
+    R.claimed = Object.fromEntries(Object.entries(R.claimed).filter(([k]) => k.startsWith(dayKey() + ":")));   // old days drop away
+    R.claimed[claimKey(q.id)] = 1; R.bonus += q.reward; toast("+" + q.reward + " coins");
+  } else if (act === "chest") {
+    if (!chestReady()) return;
+    R.claimed[claimKey("chest")] = 1; R.bonus += CHEST_REWARD; toast("Daily chest opened: +" + CHEST_REWARD + " coins!");
+  } else return;
+  save(); route();
+}
+// A cross-section of the mountain: one stop per level. You are the gold dot.
+function ridge(L) {
+  const W = 640, H = 150, n = LEVELS.length, x = i => 40 + i * (W - 80) / (n - 1), y = i => 112 - Math.pow(i / (n - 1), 1.15) * 78;
+  const pts = LEVELS.map((_, i) => [x(i), y(i)]);
+  // where you stand: between the level you are in and the next one
+  const f = L.next ? (L.a - LEVELS[L.i][0]) / (L.next[0] - LEVELS[L.i][0]) : 0;
+  const px = x(L.i) + (L.next ? f * (x(L.i + 1) - x(L.i)) : 0), py = y(L.i) + (L.next ? f * (y(L.i + 1) - y(L.i)) : 0);
+  const line = pts.map(p => p.join(",")).join(" ");
+  return `<div class="ridgewrap"><svg class="ridge" viewBox="0 0 ${W} ${H + 14}" role="img" aria-label="You are at ${L.a} metres, ${esc(L.name)}">
+    <polygon points="${line} ${x(n - 1)},${H - 8} ${x(0)},${H - 8}" fill="#d9e8f8"/>
+    <polyline points="${pts.slice(0, L.i + 1).map(p => p.join(",")).join(" ")} ${px},${py}" fill="none" stroke="#3b6e98" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="${px},${py} ${pts.slice(L.i + 1).map(p => p.join(",")).join(" ")}" fill="none" stroke="#b5cfeb" stroke-width="4" stroke-dasharray="2 9" stroke-linecap="round"/>
+    ${LEVELS.map((l, i) => `<g><circle cx="${x(i)}" cy="${y(i)}" r="9" fill="${i <= L.i ? "#e6a93c" : "#fff"}" stroke="${i <= L.i ? "#b9801a" : "#b5cfeb"}" stroke-width="3"/>
+      <text x="${x(i)}" y="${H - 12}" text-anchor="middle" font-size="12.5" font-weight="800" fill="${i <= L.i ? "#20313a" : "#6c7e87"}">${esc(l[1])}</text>
+      <text x="${x(i)}" y="${H + 3}" text-anchor="middle" font-size="11" fill="#6c7e87">${l[0].toLocaleString()} m</text></g>`).join("")}
+    <circle cx="${px}" cy="${py}" r="13" fill="#fff" stroke="#e6a93c" stroke-width="4"/><circle cx="${px}" cy="${py}" r="5" fill="#e6a93c"/></svg></div>`;
+}
+function questRow(q) {
+  const h = q.have(), done = h >= q.need, got = claimed(q.id);
+  return `<li class="quest ${got ? "got" : done ? "ready" : ""}"><div class="qtext"><b>${esc(q.name)}</b><span>${esc(q.note)}</span>
+      <div class="pbar thin teal"><i style="width:${Math.round(h / q.need * 100)}%"></i></div></div>
+    <div class="qact"><span class="qrew">${ICON.coin()}+${q.reward}</span>
+      ${got ? `<span class="pill good">${ICON.check("#3b6e98")} Claimed</span>` : `<button class="btn ${done ? "teal" : "ghost"} sm" data-rw="claim" data-val="${q.id}" ${done ? "" : "disabled"}>${done ? "Claim" : h + "/" + q.need}</button>`}</div></li>`;
+}
+function gearCard(g) {
+  const R = rw(), own = R.owned.includes(g.id), on = R.on[g.slot] === g.id, afford = coins() >= g.price;
+  const act = !own ? `<button class="btn ${afford ? "teal" : "ghost"} sm" data-rw="buy" data-val="${g.id}" ${afford ? "" : "disabled"}>${ICON.coin()}${g.price}${afford ? "" : " · need " + (g.price - coins())}</button>`
+    : on ? `<button class="btn ghost sm" data-rw="unequip" data-val="${g.id}">Take off</button>` : `<button class="btn teal sm" data-rw="equip" data-val="${g.id}">Wear it</button>`;
+  return `<div class="gear ${on ? "on" : ""}"><div class="gearpic">${peakSvg(76, "happy", { [g.slot]: g.id })}</div>
+    <b>${esc(g.name)}</b><small>${GEAR_SLOT_NAME[g.slot]}${on ? " · worn" : own ? " · owned" : ""}</small>${act}</div>`;
 }
 function viewRewards() {
-  const all = badges(), got = all.filter(b => b.have >= b.need).length, bs = all.filter(b => b.have < b.need);
-  const nextB = bs.sort((a, b) => b.have / b.need - a.have / a.need)[0];
-  const cur = currentLesson(), curR = cur ? cur.split(":")[0] : null, sel = mapSel || curR || ROUTINES[0].id;
+  const L = levelInfo(), all = badges(), got = all.filter(b => b.have >= b.need).length;
   const camps = all.filter(b => b.camp || b.id === "summit"), finds = all.filter(b => !b.camp && b.id !== "summit");
-  const head = `<header class="lhead"><div><h1>Summit rewards</h1><p>Every badge is a landmark on your climb.</p></div>
-    <div class="lpills"><span class="lpill">${ICON.star("#e6a93c")}${got} of ${all.length} badges</span><span class="lpill">${ICON.flame()}${streak()} day streak</span></div></header>`;
-  const map = `<section class="mapcard" aria-labelledby="map-t">
-    <div class="maphead"><div class="maptitle"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 27L12 9l5 8 3-4 10 14z" fill="#3b6e98"/><path d="M22 4v8M22 4h6l-2 2 2 2h-6" stroke="#e6a93c" stroke-width="2" fill="#e6a93c" stroke-linecap="round"/></svg>
-      <div><h2 id="map-t">Your mountain</h2><p>Finish a camp to pin its medal here. Tap a camp to see its badge.</p></div></div>
-      ${nextB ? `<div class="mapnext"><div><small>Next badge</small><b>${esc(nextB.name)}</b></div><button class="btn teal" data-go="learn">Keep climbing</button></div>` : `<div class="mapnext"><div><small>You did it</small><b>Every badge earned</b></div></div>`}</div>
-    ${learningMap(cur, "rewards")}</section>`;
-  return `${sampleBanner()}${head}${map}${campCard(sel)}
-  <section class="stack"><h2>Camp badges</h2><div class="badges">${camps.map(badgeTile).join("")}</div></section>
-  <section class="stack"><h2>Trail finds</h2><p class="muted">Found along the way by practicing every day and using signs with your child.</p><div class="badges">${finds.map(badgeTile).join("")}</div></section>`;
+  const head = `<header class="lhead"><div><h1>Rewards</h1><p>Climb to earn coins, then dress Peak for the trail.</p></div>
+    <div class="lpills"><span class="lpill">${ICON.coin()}${coins()} coins</span><span class="lpill">${ICON.flame()}${streak()} day streak</span></div></header>`;
+  const climber = `<section class="climber"><div class="climber-art">${mitt(124)}</div>
+    <div class="climber-info"><small>Level ${L.i + 1} of ${LEVELS.length}</small><h2>${esc(L.name)}</h2><p>${L.a.toLocaleString()} m up the mountain</p>
+      <div class="pbar thin teal"><i style="width:${Math.round(L.pct * 100)}%"></i></div>
+      <span class="note">${L.next ? `${(L.next[0] - L.a).toLocaleString()} m to ${esc(L.next[1])}. Every sign you practice adds metres.` : "You've reached the top level."}</span>
+      <div class="row"><button class="btn teal" data-go="learn">Back to my trail</button></div></div>
+    <div class="coinbox"><span class="cb-ic">${ICON.coin()}</span><b>${coins()}</b><span>coins</span></div></section>`;
+  const quests = `<section class="panelcard"><div class="qhead"><h2>Today's quests</h2><span class="note">Resets each day</span></div>
+    <ul class="quests">${QUESTS.map(questRow).join("")}</ul>
+    <div class="chest ${claimed("chest") ? "got" : chestReady() ? "ready" : ""}"><span class="chesticon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="4" y="13" width="24" height="14" rx="3" fill="#b9801a"/><path d="M4 16a12 8 0 0 1 24 0z" fill="#e6a93c"/><rect x="14" y="15" width="4" height="7" rx="1.5" fill="#fff"/></svg></span>
+      <div><b>Daily chest</b><span>Claim all ${QUESTS.length} quests to open it.</span></div>
+      ${claimed("chest") ? `<span class="pill good">${ICON.check("#3b6e98")} Opened</span>` : `<button class="btn ${chestReady() ? "teal" : "ghost"} sm" data-rw="chest" ${chestReady() ? "" : "disabled"}>${ICON.coin()}+${CHEST_REWARD}</button>`}</div></section>`;
+  const shop = `<section class="stack"><div class="qhead"><h2>Gear shop</h2><span class="note">Spend coins. Peak wears it on every screen.</span></div>
+    <div class="geargrid">${GEAR.map(gearCard).join("")}</div></section>`;
+  return `${sampleBanner()}${head}${climber}
+  <section class="panelcard"><h2>Your climb</h2>${ridge(L)}<p class="note">Altitude comes from your XP. See where each routine sits on the trail in <button class="link" data-go="learn">Learn</button>.</p></section>
+  ${quests}${shop}
+  <section class="stack"><div class="qhead"><h2>Badges</h2><span class="note">${got} of ${all.length} earned · 20 coins each</span></div>
+    <h3>Camp badges</h3><div class="badges">${camps.map(badgeTile).join("")}</div>
+    <h3>Trail finds</h3><div class="badges">${finds.map(badgeTile).join("")}</div></section>`;
 }
 function weekDots() {
   const now = new Date(), monday = new Date(now); monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
@@ -670,7 +736,6 @@ function viewProfile() {
 /* ---------- Router & events ---------- */
 const app = $("#app");
 const ALIAS = { today: "learn", progress: "profile" };
-let lastTab = null;
 function route() {
   const h = (location.hash || "#learn").slice(1);
   let [tab, sub] = h.split(".");
@@ -686,12 +751,7 @@ function route() {
   else { tab = "learn"; html = viewLearn(); }
   const inLesson = tab === "lesson";
   document.body.classList.toggle("lesson-mode", inLesson);
-  // Learn and Rewards share one mountain (.mapcard has a view-transition-name), so moving between them keeps the mountain
-  // in place and only the content around it changes.
-  const together = t => t === "learn" || t === "rewards";
-  if (document.startViewTransition && lastTab && lastTab !== tab && together(lastTab) && together(tab)) document.startViewTransition(() => { app.innerHTML = html; });
-  else app.innerHTML = html;
-  lastTab = tab;
+  app.innerHTML = html;
   const camOn = inLesson && P && P.cam && P.i < P.steps.length && P.steps[P.i].t === "recall" && Coach.supported();
   if (camOn) mountCamera(); else if (tab === "abc" && sub === "try" && LC) mountLetterCamera(); else Coach.stop();
   const active = tab === "routines" ? "learn" : tab;
@@ -707,6 +767,7 @@ function onClick(e) {
   const b = e.target.closest("button"); if (!b) return;
   const d = b.dataset;
   if (d.hint) { const el = document.getElementById(d.hint); if (el) { el.hidden = !el.hidden; b.setAttribute("aria-expanded", String(!el.hidden)); } return; }
+  if (d.rw) { rwAction(d.rw, d.val); return; }
   if (abcClick(b)) return;   // Basics tab buttons (js/abc.js)
   if (b.id === "reset") { S = { sample: false, cards: {}, days: [], used: [], mission: null }; P = null; save(); toast("Fresh start. Welcome!"); go("learn"); return; }
   if (d.signout) { try { localStorage.removeItem("firstsigns.user"); } catch (e) {} location.replace("login.html"); return; }

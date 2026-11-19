@@ -497,30 +497,66 @@ body.loginpage { background: linear-gradient(180deg, var(--teal-l) 0, var(--page
 .or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .login-note { text-wrap: balance; }
 
-/* ---------- Basics rename and the mountain rewards ---------- */
+/* ---------- Peak, Basics blocks and the rewards system ---------- */
 :root { --gold: #e6a93c; --gold-d: #8a5d0c; --gold-l: #fff3d4; }
-/* Learn and Rewards share one mountain: the browser keeps it still while the page around it changes. */
-.mapcard { view-transition-name: mountain; }
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: .24s; }
-@media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
+.logomark { display: inline-flex; }
+.logomark svg { width: 36px; height: 42px; fill: none; }
 .stop .medal { position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 2px #fff; display: grid; place-items: center; text-decoration: none; }
 .stop .medal svg { width: 11px; height: 11px; }
-.mapwrap.rewards .stop.done .dot { background: var(--gold); width: 44px; height: 44px; box-shadow: 0 0 0 3px #fff, 0 6px 14px -6px rgba(138,93,12,.6); }
-.mapwrap.rewards .stop.done .dot svg { width: 24px; height: 24px; }
-.mapwrap.rewards .stop.done .tag small { color: var(--gold-d); font-weight: 800; }
+.stop.now .dot svg.mitt { width: 34px; height: auto; margin-top: 3px; }
 .summit.got { background: var(--gold-l); }
 .summit.got b { color: var(--gold-d); }
-.camp { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--r); background: #fff; box-shadow: var(--shadow); }
-.campmedal { width: 64px; height: 64px; border-radius: 50%; background: var(--track); display: grid; place-items: center; flex: none; }
-.campmedal svg { width: 32px; height: 32px; }
-.camp.got { border-color: #ecd08e; background: linear-gradient(180deg, var(--gold-l), #fff 70%); }
-.camp.got .campmedal { background: var(--gold); box-shadow: 0 6px 14px -8px rgba(138,93,12,.7); }
-.camptext { flex: 1 1 260px; min-width: 0; display: grid; gap: 6px; }
-.camptext small { color: var(--muted); font-weight: 800; }
-.camptext .chips { margin-top: 2px; }
-.chip.known { background: var(--gold-l); border-color: #ecd08e; color: var(--gold-d); display: inline-flex; align-items: center; gap: 4px; }
-.chip.known svg { width: 14px; height: 14px; }
 .badge.got > i { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--gold); }
+/* Learn header */
+.lwho { display: flex; gap: 14px; align-items: center; min-width: 0; }
+.lmitt { flex: none; }
+button.lpill { font: inherit; font-weight: 800; color: var(--ink); cursor: pointer; }
+button.lpill:hover { border-color: #9fc1df; background: var(--soft); }
+.lpill svg { flex: none; }
+/* Basics blocks */
+.bico { display: block; width: 52px; height: 52px; margin-bottom: 2px; }
+.bico svg { width: 52px; height: 52px; }
+.blocksart { display: block; }
+/* Rewards */
+.climber { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; padding: 22px 24px; border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow);
+  background: linear-gradient(180deg, #eaf3fc, #fff 75%); }
+.climber-art { flex: none; display: grid; place-items: center; width: 150px; }
+.climber-info { flex: 1 1 280px; min-width: 0; display: grid; gap: 6px; }
+.climber-info small { color: var(--muted); font-weight: 800; }
+.climber-info h2 { font-size: 1.8rem; }
+.climber-info p { color: var(--muted); font-weight: 700; }
+.climber-info .row { margin-top: 6px; }
+.coinbox { flex: none; display: grid; justify-items: center; gap: 0; padding: 14px 22px; border-radius: 16px; background: var(--gold-l); border: 1px solid #ecd08e; }
+.coinbox b { font-family: var(--display); font-size: 2.1rem; line-height: 1.1; color: var(--gold-d); }
+.coinbox span:last-child { font-weight: 800; color: var(--gold-d); font-size: .85rem; }
+.cb-ic svg { width: 30px; height: 30px; }
+.qhead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.ridgewrap { overflow-x: auto; padding-bottom: 4px; }
+.ridge { display: block; width: 100%; min-width: 560px; height: auto; font-family: var(--font); }
+.quests { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.quest { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-sm); background: #fff; }
+.quest.ready { border-color: #8fb4d6; background: var(--teal-l); }
+.quest.got { background: var(--soft); }
+.qtext { flex: 1; min-width: 0; display: grid; gap: 3px; }
+.qtext span { color: var(--muted); font-size: .88rem; }
+.qtext .pbar { margin-top: 4px; }
+.qact { display: flex; align-items: center; gap: 12px; flex: none; }
+.qrew { display: inline-flex; align-items: center; gap: 4px; font-weight: 800; color: var(--gold-d); }
+.qrew svg, .btn svg { width: 18px; height: 18px; }
+.chest { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border: 2px dashed #ecd08e; border-radius: var(--r-sm); background: var(--gold-l); }
+.chest > div { flex: 1; display: grid; }
+.chest > div span { color: var(--muted); font-size: .88rem; }
+.chest.ready { border-style: solid; box-shadow: 0 0 0 3px #f6e2b0; }
+.chest.got { opacity: .7; }
+.chesticon svg { width: 38px; height: 38px; }
+.geargrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.gear { display: grid; justify-items: center; gap: 4px; text-align: center; padding: 14px 10px 12px; border: 1px solid var(--line); border-radius: var(--r); background: #fff; box-shadow: var(--shadow); }
+.gear.on { border-color: var(--gold); box-shadow: 0 0 0 2px #f6e2b0; }
+.gear small { color: var(--muted); }
+.gear .btn { margin-top: 6px; }
+.gearpic { display: grid; place-items: center; height: 96px; }
+.gear .btn svg { margin-right: 2px; }
+@media (max-width: 560px) { .climber { padding: 18px 16px; } .climber-art { width: 110px; } .coinbox { width: 100%; grid-auto-flow: column; justify-content: center; gap: 10px; } }
 
 /* sign, letter and number drawings */
 .pstrip { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }

@@ -13,7 +13,7 @@ practice, a daily "use it with your child" goal, and a camera coach that checks 
 - **Lessons:** one question per screen, with hearts, instant feedback and a "Continue" bar.
 - **Practice:** quick sessions (read and pick, sign it yourself, camera coach) and a handshape cheat sheet.
 - **Basics:** the alphabet, numbers 1 to 10, fingerspelling and easy-word lessons.
-- **Rewards:** the same mountain as the Learn map. Each routine is a camp, and finishing it pins a gold medal on the trail (on both tabs). Summit badge for all signs, plus "trail finds" for streaks and real moments.
+- **Rewards:** altitude levels (every XP is a metre up the mountain), coins, daily quests with a chest, and a gear shop where coins buy things Peak the mascot wears on every screen. Camp and trail badges too; finished camps also pin a gold medal on the Learn map.
 - **Profile:** streak, XP, daily goal, and the real moments you've signed with your child.
 
 ## Camera letter check (experimental)
@@ -76,6 +76,7 @@ miss correct signs. The "It was right, count it" button lets the parent overrule
 - `styles.css`: look and feel, light and dark mode
 - `js/signs.js`: the signs, phrases, handshapes and camera targets
 - `js/alphabet.js`: the ASL alphabet, numbers 1 to 10, fingerspelling tips and the easy-word lessons
+- `js/mascot.js`: draws Peak (the mascot), the gear, and the block pictures on the Basics tab
 - `js/abc.js`: the Basics tab (alphabet, numbers, easy-word lessons, spell a word, practice)
 - `js/app.js`: screens, practice and progress (saved in the browser with localStorage)
 - `js/camera.js`: camera coach
