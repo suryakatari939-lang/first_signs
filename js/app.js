@@ -426,7 +426,7 @@ function lessonFromSigns(title, list, back) {
   const steps = [];
   list.forEach(s => { if (!card(s.id)) steps.push({ t: "teach", id: s.id }); });
   shuffle(list).forEach(s => steps.push({ t: "pick", id: s.id }));
-  list.filter(s => card(s.id)).slice(0, 1).forEach(s => steps.push({ t: "recall", id: s.id }));
+  shuffle(list).forEach(s => steps.push({ t: "recall", id: s.id }));   // every sign ends with "Sign this" and its camera check
   startLesson(title, steps, back);
 }
 function startMode(key) {
