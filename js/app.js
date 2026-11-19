@@ -103,8 +103,7 @@ function mitt(size = 112, mood = "happy") { return peakSvg(size, mood, equipped(
 const brand = "";
 function hero(key, eyebrow, title, sub) {
   return `<section class="pagehead c-${key === "abc" ? "teal" : "plum"}">
-    <div class="pagehead-text">${eyebrow ? `<small>${eyebrow}</small>` : ""}<h1>${title}</h1>${sub ? `<p>${sub}</p>` : ""}</div>
-    <div class="pagehead-mitt">${key === "abc" ? blocksArt(104) : mitt(92)}</div></section>`;
+    <div class="pagehead-text">${eyebrow ? `<small>${eyebrow}</small>` : ""}<h1>${title}</h1>${sub ? `<p>${sub}</p>` : ""}</div></section>`;
 }
 function statBar() {
   const g = goalToday();
@@ -322,7 +321,7 @@ function viewPractice() {
   const mode = (key, color, icon, title, text) => `<button class="mode" data-start="${key}"><i class="c-${color}">${icon}</i><span><b>${title}</b><span>${text}</span></span></button>`;
   return `${statBar()}
   <section class="pagehead c-teal"><div class="pagehead-text"><small>Practice</small><h1>Five signs, five minutes.</h1>
-    <p>Today: ${set.map(s => esc(s.w)).join(", ")}. Signs you know come back less often.</p></div><div class="pagehead-mitt">${mitt(92)}</div></section>
+    <p>Today: ${set.map(s => esc(s.w)).join(", ")}. Signs you know come back less often.</p></div></section>
   <div class="modes">
     ${mode("mix", "plum", ICON.star("#fff"), "Today's 5 minutes", "A mix of reading and signing")}
     ${mode("pick", "sun", ICON.quiz("none"), "Read &amp; pick", "Read a description, pick the sign")}
@@ -339,8 +338,7 @@ function viewRoutine(id) {
   const list = SIGNS.filter(s => s.r === id);
   return `<button class="back" data-go="learn">← Back to Learn</button>
   <section class="pagehead c-${UNIT_COLOR[id]}"><div class="pagehead-text"><small>Sign guide · ${esc(r.time)}</small><h1>${esc(r.name)}</h1>
-    <p>"One hand" means your dominant hand. Keep signs in front of your chest and face, where your child is already looking.</p></div>
-    <div class="pagehead-mitt">${mitt(92)}</div></section>
+    <p>"One hand" means your dominant hand. Keep signs in front of your chest and face, where your child is already looking.</p></div></section>
   <div class="signlist">${list.map(signCard).join("")}</div>
   <section class="phrases"><h2>Put them together</h2><p class="muted">ASL glosses are written in capitals. Yes/no questions use raised eyebrows.</p>
   ${(PHRASES[id] || []).map(([g, e]) => `<div class="phrase">${phraseStrip(g)}<span class="g">${esc(g)}</span><span class="muted">${esc(e)}</span></div>`).join("")}</section>`;

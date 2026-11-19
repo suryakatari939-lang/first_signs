@@ -141,10 +141,8 @@ nav.tabs .logo { display: none; }
   background: var(--peach); border: 1px solid var(--peach-line); color: var(--ink); box-shadow: none; }
 .pagehead small { font-weight: 700; font-size: .92rem; color: #355f8a; }
 .pagehead h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-top: 2px; }
-.pagehead p { margin-top: 6px; max-width: 60ch; color: #4a4038; }
+.pagehead p { margin-top: 6px; max-width: 80ch; color: #4a4038; }
 .pagehead-text { min-width: 0; }
-.pagehead-mitt { flex: none; margin: -10px 0 -20px; }
-@media (max-width: 560px) { .pagehead-mitt { display: none; } }
 
 /* ---------- Learn: welcome header, the learning map, then dashboard cards ---------- */
 .lhead { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
@@ -516,7 +514,6 @@ button.lpill:hover { border-color: #9fc1df; background: var(--soft); }
 /* Basics blocks */
 .bico { display: block; width: 52px; height: 52px; margin-bottom: 2px; }
 .bico svg { width: 52px; height: 52px; }
-.blocksart { display: block; }
 /* Rewards */
 .climber { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; padding: 22px 24px; border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow);
   background: linear-gradient(180deg, #eaf3fc, #fff 75%); }
