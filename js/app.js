@@ -460,14 +460,16 @@ function viewLesson() {
   if (!P) { setTimeout(() => go("learn")); return ""; }
   if (P.i >= P.steps.length) return lessonEnd();
   const st = P.steps[P.i], s = byId(st.id);
+  if (st.t === "teach" && P.cam && Coach.supported()) return `${lessonTop()}${viewCamera(s)}`;
   if (st.t === "teach") return `${lessonTop()}<div class="lgrid">
       <section class="pane">${paneLabel("Watch")}${watchFrame(s)}
         <h1 class="lname">${esc(s.w)}</h1><p class="ldesc">${esc(s.hand)}</p>
         <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s, false)}</div></section>
       <section class="pane">${paneLabel("Your turn")}
         <div class="lcard"><p class="lnew">New sign</p>${stepsDl(s)}<p class="hook"><b>Remember it:</b> ${esc(s.hook)}</p><p class="say">${esc(s.say)}</p></div>
-        <p class="lnote">Try it with your hands now. Mirror it if you're left-handed.</p></section></div>
-    <footer class="lfoot">${lbtn("main", 'data-taught="1"', "Continue")}</footer>`;
+        <p class="lnote">Try it with your hands now. Mirror it if you're left-handed.</p>
+        <p class="lnote" id="camhelp" hidden>${esc(CAM_HELP[Coach.whyNot()] || "")}</p></section></div>
+    <footer class="lfoot">${Coach.supported() ? lbtn("plain", 'data-camon="1"', "Check with camera") : lbtn("plain", 'data-camhelp="1"', "Check with camera")}${lbtn("main", 'data-taught="1"', "Continue")}</footer>`;
   if (st.t === "pick") {
     if (!P.opts) P.opts = shuffle([s, ...shuffle(SIGNS.filter(x => x.id !== s.id)).slice(0, 3)]).map(x => x.id);
     const ok = P.answered === s.id;
@@ -512,10 +514,13 @@ const CAM_HELP = {
   preview: "This online preview can't use your camera. Download the First Signs folder, then double-click start-mac.command (Mac) or start-windows.bat (Windows). The app opens at localhost:8000 with the camera working.",
   browser: "This browser doesn't allow camera access here. Open the app in Chrome or Edge at localhost:8000.",
 };
+// On a new-sign (teach) step the camera is practice: moving on means "Continue", not a scored skip.
+const camTeach = () => P && P.steps[P.i] && P.steps[P.i].t === "teach";
+const camPass = () => camTeach() ? lbtn("plain", 'data-taught="1"', "Continue") : lbtn("plain", 'data-camskip="1"', "Skip");
 function viewCamera(s) {
   return `<div class="lgrid">
     <section class="pane">${paneLabel("Watch")}${watchFrame(s)}
-      <h1 class="lname">${esc(s.w)}</h1><p class="ldesc">${esc(s.hand)}</p>
+      <h1 class="lname">${esc(s.w)}</h1>${camTeach() ? `<div class="lcard">${stepsDl(s)}</div>` : `<p class="ldesc">${esc(s.hand)}</p>`}
       <div class="hintwrap">${hintButton("hint-lesson")}${hintPanel("hint-lesson", s)}</div></section>
     <section class="pane">${paneLabel("Your turn", true)}
       <div class="cam-stage" id="cam-stage">
@@ -527,7 +532,7 @@ function viewCamera(s) {
       <div id="cam-result" class="cam-result" role="status"></div>
       <button class="lbtn plain small" data-camoff="1">Turn camera off</button>
     </section></div>
-  <footer class="lfoot"><div class="row" id="cam-actions">${lbtn("plain", 'data-camskip="1"', "Skip")}${lbtn("main", 'data-record="1"', "Grade my sign")}</div></footer>`;
+  <footer class="lfoot"><div class="row" id="cam-actions">${camPass()}${lbtn("main", 'data-record="1"', "Grade my sign")}</div></footer>`;
 }
 function mountCamera() {
   const s = byId(P.steps[P.i].id);
@@ -562,7 +567,7 @@ async function recordSign() {
   acts.hidden = false;
   if (res.error) {
     out.innerHTML = resultRow(false, "Let's try that again", res.error);
-    acts.innerHTML = `${lbtn("plain", 'data-camskip="1"', "Skip")}${lbtn("main", 'data-record="1"', "Try again")}`;
+    acts.innerHTML = `${camPass()}${lbtn("main", 'data-record="1"', "Try again")}`;
     return;
   }
   const want = check.shape.map(x => Coach.SHAPE_NAMES[x]).slice(0, 2).join(" or ");
@@ -581,7 +586,10 @@ async function recordSign() {
     <ul class="checks">${rows.map(([ok, k, t], n) => `<li class="${ok ? "ok" : "no"}"><span class="mark" aria-hidden="true">${ok ? "✓" : "✕"}</span>
       <div><b>${k}</b><span>${esc(t)}</span></div>
       <em>${pct[n] == null ? (ok ? "Detected" : "Not seen") : `Matched ${pct[n]}% of the time`}</em></li>`).join("")}</ul>`;
-  acts.innerHTML = all
+  acts.innerHTML = camTeach()
+    ? (all ? `${lbtn("plain", 'data-record="1"', "Grade again")}${lbtn("main", 'data-taught="1"', "Continue")}`
+           : `${lbtn("plain", 'data-taught="1"', "Continue")}${lbtn("main", 'data-record="1"', "Try again")}`)
+    : all
     ? `${lbtn("plain", 'data-record="1"', "Grade again")}${lbtn("main", 'data-rate="1"', "Next sign")}`
     : `${lbtn("plain", 'data-rate="1"', "It was right, count it")}${lbtn("main", 'data-record="1"', "Try again")}`;
 }
@@ -752,7 +760,7 @@ function route() {
   const inLesson = tab === "lesson";
   document.body.classList.toggle("lesson-mode", inLesson);
   app.innerHTML = html;
-  const camOn = inLesson && P && P.cam && P.i < P.steps.length && P.steps[P.i].t === "recall" && Coach.supported();
+  const camOn = inLesson && P && P.cam && P.i < P.steps.length && ["recall", "teach"].includes(P.steps[P.i].t) && Coach.supported();
   if (camOn) mountCamera(); else if (tab === "abc" && sub === "try" && LC) mountLetterCamera(); else Coach.stop();
   const active = tab === "routines" ? "learn" : tab;
   document.querySelectorAll("nav.tabs a").forEach(a => {
