@@ -27,7 +27,7 @@ The app is light only. Nunito (600/700/800, latin subset, SIL Open Font License)
 ## Components
 - **Buttons** `.btn`: flat, 46px tall, 10px corners, sentence case. Filled: `.teal` (also `.sun`, `.calm`), `.good`, `.coral`; `.ghost` is white with a border; `.sm`, `.wide`, `.block`. `.link` / `.back` are plain blue text buttons; `.textbtn` is gray text.
 - **Cards** `.dcard`, `.panelcard`, `.panel`, `.card`, `.sign`, `.routine`, `.badge`, `.stattile`, `.mode`, `.rcard`: white, 1px border, 14px corners, soft shadow.
-- **Banners** `.pagehead` (every page but Learn): light blue with a blue border, Mitt (now blue) on the right.
+- **Banners** `.pagehead` (Practice, sign guides, Basics pages): light blue with a blue border, text only (the mascot and ABC-blocks pictures were removed 2026-11-18).
 - **Stats** `.statbar` / `.stat`: white pills (streak, goal, XP, moments) at the top of pages other than Learn.
 - **Progress bars** `.pbar` (`.thin`, `.big`, color classes) and `.bar` (ABC tiles).
 - **Learn** `.lhead`, `.lpill`, `.mapcard`, `.maphead`, `.maptitle`, `.mapnext`, `.maplayer` (`.wide`/`.tall`), `.stop` (`.done`, `.now`, `.started`, `.new`, `.sel`, side `.r`/`.l`, with `.dot` and `.tag`), `.summit`; cards `.dash` → `.dash-l` / `.dash-r`, `.dcard`, `.donut`, `.sotd-word`, `.mlist`, `.mnext`, `.quick` / `.qtiles` / `.qtile`; routine card `.rcard` with `.t-<color>` setting `--tc` / `--tl`, `.rhead`, `.ric`, `.rcount`, `.rbar`, `.lrows` / `.lrow` (`.now`, `.done`), `.lnum`, `.lwords`, `.lstate`, `.rfoot`.

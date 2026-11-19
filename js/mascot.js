@@ -47,13 +47,3 @@ function blockSvg(glyph, color = "#609bd7", dark = "#3b6e98", size = 56) {
     <rect x="9" y="8" width="38" height="8" rx="4" fill="#fff" opacity=".28"/>
     <text x="28" y="35" text-anchor="middle" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="${String(glyph).length > 2 ? 17 : 24}" fill="#fff">${glyph}</text></svg>`;
 }
-
-// A little stack of letter blocks, for the top of the Basics tab.
-function blocksArt(size = 104) {
-  const b = (x, y, s, c, d, g, rot) => `<g transform="rotate(${rot} ${x + s / 2} ${y + s / 2})"><rect x="${x}" y="${y + 5}" width="${s}" height="${s}" rx="9" fill="${d}"/><rect x="${x}" y="${y}" width="${s}" height="${s}" rx="9" fill="${c}"/>
-    <rect x="${x + 4}" y="${y + 3}" width="${s - 8}" height="7" rx="3.5" fill="#fff" opacity=".28"/>
-    <text x="${x + s / 2}" y="${y + s * 0.7}" text-anchor="middle" font-family="Fredoka, Nunito, sans-serif" font-weight="700" font-size="${s * 0.58}" fill="#fff">${g}</text></g>`;
-  return `<svg class="blocksart" width="${size}" height="${Math.round(size * 0.95)}" viewBox="0 0 120 114" aria-hidden="true">
-    <ellipse cx="60" cy="108" rx="50" ry="5" fill="#000" opacity=".08"/>
-    ${b(10, 62, 42, "#609bd7", "#3b6e98", "A", -3)}${b(62, 62, 42, "#e6a93c", "#b9801a", "B", 3)}${b(31, 16, 42, "#ff7a6b", "#e2584a", "C", -7)}${b(82, 30, 30, "#48c774", "#2fa85a", "1", 9)}</svg>`;
-}
