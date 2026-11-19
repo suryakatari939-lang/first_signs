@@ -1,10 +1,11 @@
-# Pictures (handshape drawings)
+# Pictures (sign, letter and number drawings)
 
-Since 2026-11-18 the app shows **line drawings of handshapes only, no photos of people** (Ramani's request). Defined in `js/signs.js`:
+Since 2026-11-18 every sign, letter and number has a black line drawing in one style, stored in the app (no internet needed):
 
-- `HANDSHAPE_DRAWINGS`: drawings from the public-domain "Sign language X.svg" manual alphabet on Wikimedia Commons, loaded through `Special:FilePath` (need internet; offline the figure removes itself). Used: A, C, K, S, T, W, Y, and B for `Flat`. Ramani asked for pictures from that site only (no drawings made for the app), and the series has nothing for `5 (open)`, `Claw`, `Flat-O`, `ILY` or `Index`, so signs with those handshapes show the written steps without a picture.
-- `drawingFor(s)` in `js/app.js` picks the drawing of a sign's first handshape (`signShapes(s)[0]`). It is used in the lesson **Watch** frame, on sign-guide cards, in the Learn "Today's real moment" card, in hints and in the Practice cheat sheet.
-- `photoSrc(file)` turns a Commons file name into a `Special:FilePath` URL.
-- All drawings sit in white boxes with a thin border (`.photo.drawing img`, `.lframe`, `.sotd-word`).
+- `img/signs/<sign id>.svg`: the 43 signs, plus `you`, `home`, `soon` (only in phrases). FINISH in the phrases uses `finish.svg` (the ALL DONE picture).
+- `img/abc/<letter id>.svg` (a to z) and `img/abc/n1.svg` ... `n10.svg`.
+- Source: the team's "ASL Sign Illustration Collection" PDF (generated images). The two overview sheets were cut into tiles, the labels removed, and each tile traced to SVG (potrace), so they stay sharp at any size. Signs come from overview sheet 2; letters and numbers from overview sheet 1 (larger tiles, same style).
+- `js/signs.js`: `signPic(id)`, `abcPic(x)`, `HANDSHAPE_DRAWINGS` (handshape -> letter/number/sign picture: A C K S T W Y letters, Flat = B, 5 (open) = 5, Index = 1, ILY = I LOVE YOU; Claw and Flat-O have none), `PHRASE_PICS`.
+- Shown in: lesson Watch frame, sign-guide cards, Today's real moment, the phrase rows (`phraseStrip()`: one small picture per word), hints and the cheat sheet, Basics letter/number cards, Spell a word, letter practice (after "Show me the steps"), word practice (after "Show the handshapes") and the letter camera check. Not in read-and-pick questions (it would give the answer away).
 
-The drawings show the handshape, not the whole sign (location and movement are in the written steps). The old `SIGN_PHOTOS` (EAT, DRINK, WANT, I LOVE YOU, THANK YOU) and the photo versions of the handshapes were removed. Credits are in `README.md` under "Picture credits".
+**Known mismatches with the written steps** (the steps are right; the pictures need replacing): HUNGRY, SLEEP, HAPPY, SAD, HOT, CAREFUL, TIRED, BATH, BED, MOM, GRANDMA, GRANDPA, FRIEND, STOP, POTTY, SHOES, WANT, HURT. Letters and numbers look right but have not been checked by a Deaf signer.

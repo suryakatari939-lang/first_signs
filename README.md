@@ -82,6 +82,9 @@ miss correct signs. The "It was right, count it" button lets the parent overrule
 - `js/camera.js`: camera coach
 - `vendor/holistic/`: MediaPipe Holistic 0.5 (Apache 2.0 license, from Google)
 
-## Picture credits
+## Pictures
 
-The app shows line drawings of handshapes, not photos of people. They come from the public-domain drawn manual alphabet on [Wikimedia Commons](https://commons.wikimedia.org/) ("Sign language A.svg", "Sign language B.svg" and so on, originally from wpclipart.com) and load from Commons, so they need an internet connection. Used: A, B (for the flat hand), C, K, S, T, W, Y.
+Every sign, letter and number has a black line drawing, all in one style, stored in `img/` so they work offline:
+`img/signs/` (the 43 signs plus YOU, HOME and SOON for the phrases) and `img/abc/` (A to Z and 1 to 10).
+They come from the team's "ASL Sign Illustration Collection" (generated images), cut apart and traced to SVG.
+That collection says the drawings should be checked against a qualified ASL reference, and some do not match the written steps yet.
