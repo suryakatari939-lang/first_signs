@@ -29,7 +29,7 @@ tags: [app, screens, layout]
 **Minimal lesson screen (2026-11-16).** Lessons use the soft blue page with white panels (restyled 2026-11-17) (see [[Design System]]): an exit X, a thin progress bar and "N of M" on top (`lessonTop()`), then two columns on screens ≥900px (`.lgrid`, one column on phones): **Watch** on the left (photo or word in `watchFrame()`, sign name, handshape, Hint) and **Your turn** on the right. Buttons sit in a sticky footer (`.lfoot`, helpers `lbtn()`). Feedback uses one row, `resultRow(ok, title, text)`, with a check or cross.
 
 Steps:
-- `teach`: meet a new sign (Watch: handshape drawing + hint; Your turn: steps, hook). "Continue" calls `learn()` and counts toward the daily goal.
+- `teach`: meet a new sign (Watch: handshape drawing + hint; Your turn: steps, hook). "Continue" calls `learn()` and counts toward the daily goal. A **Check with camera** button in the footer opens the camera on this step too (`viewCamera`, steps shown under the picture); here grading is practice only: the buttons are Continue / Grade my sign, and Continue still calls `learn()` (no score). The camera stays on for the rest of the lesson until turned off.
 - `pick`: read the description, tap one of 4 signs. Result row ("Correct" / "Not quite. It's X.") with the hook, then Continue.
 - `recall`: see the word, make the sign; "Show me the steps" then Got it / Not yet, or **Check with camera** (camera coach inside the lesson).
 - Lesson from the path (`lessonFromSigns`): teach steps for signs not started yet, then a pick for every sign, then a recall ("Sign this", with **Check with camera**) for every sign, so each sign you learn gets a camera check.
