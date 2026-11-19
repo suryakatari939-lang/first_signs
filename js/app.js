@@ -527,7 +527,7 @@ function viewCamera(s) {
       <div id="cam-result" class="cam-result" role="status"></div>
       <button class="lbtn plain small" data-camoff="1">Turn camera off</button>
     </section></div>
-  <footer class="lfoot"><div class="row" id="cam-actions">${lbtn("plain", 'data-camskip="1"', "Skip")}${lbtn("main", 'data-record="1"', "Record my sign")}</div></footer>`;
+  <footer class="lfoot"><div class="row" id="cam-actions">${lbtn("plain", 'data-camskip="1"', "Skip")}${lbtn("main", 'data-record="1"', "Grade my sign")}</div></footer>`;
 }
 function mountCamera() {
   const s = byId(P.steps[P.i].id);
@@ -582,7 +582,7 @@ async function recordSign() {
       <div><b>${k}</b><span>${esc(t)}</span></div>
       <em>${pct[n] == null ? (ok ? "Detected" : "Not seen") : `Matched ${pct[n]}% of the time`}</em></li>`).join("")}</ul>`;
   acts.innerHTML = all
-    ? `${lbtn("plain", 'data-record="1"', "Record again")}${lbtn("main", 'data-rate="1"', "Next sign")}`
+    ? `${lbtn("plain", 'data-record="1"', "Grade again")}${lbtn("main", 'data-rate="1"', "Next sign")}`
     : `${lbtn("plain", 'data-rate="1"', "It was right, count it")}${lbtn("main", 'data-record="1"', "Try again")}`;
 }
 
