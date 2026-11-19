@@ -32,9 +32,9 @@ Steps:
 - `teach`: meet a new sign (Watch: handshape drawing + hint; Your turn: steps, hook). "Continue" calls `learn()` and counts toward the daily goal.
 - `pick`: read the description, tap one of 4 signs. Result row ("Correct" / "Not quite. It's X.") with the hook, then Continue.
 - `recall`: see the word, make the sign; "Show me the steps" then Got it / Not yet, or **Check with camera** (camera coach inside the lesson).
-- Lesson from the path (`lessonFromSigns`): teach steps for signs not started yet, then a pick for every sign, then one recall.
+- Lesson from the path (`lessonFromSigns`): teach steps for signs not started yet, then a pick for every sign, then a recall ("Sign this", with **Check with camera**) for every sign, so each sign you learn gets a camera check.
 - **No hearts.** A wrong answer just shows the result row and the lesson continues.
-- Camera step: live camera in the Your turn column. After recording, a result row ("Great match" / "Almost there", "N of 3 checks passed") and the three check marks (Handshape, Location, Movement), each with "Matched N% of the time" or Detected / Not seen. See [[Evaluation and Scoring]].
+- Camera step: live camera in the Your turn column. Buttons **Skip** and **Grade my sign** (3-2-1 countdown, then 3 seconds of signing). After grading, a result row ("Great match" / "Almost there", "N of 3 checks passed") and the three check marks (Handshape, Location, Movement), each with "Matched N% of the time" or Detected / Not seen. See [[Evaluation and Scoring]].
 - End screen: "Lesson complete" row with signs practiced, % correct and XP (+10 per right answer), and the reminder to use a sign with your child.
 
 ## Practice (`#practice`)
